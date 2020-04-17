@@ -8,7 +8,8 @@ import 'package:shimmer/settings.dart';
 
 void main() async {
   await Hive.initFlutter();
-  await Hive.openBox(HiveKeys.box);
+  await Hive.openBox(HiveKeys.configurationBox);
+  await Hive.openBox(HiveKeys.dataBox);
   runApp(MyApp());
 }
 
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: Hive.box(HiveKeys.box).listenable(),
+      valueListenable: Hive.box(HiveKeys.configurationBox).listenable(),
       builder: (context, box, widget) {
         final darkMode = box.get(HiveKeys.darkMode, defaultValue: false);
         final colorValue =
@@ -50,9 +51,24 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
 
   void _onFloatingActionButtonTapped() {
-    final box = Hive.box(HiveKeys.box);
-    final darkMode = box.get(HiveKeys.darkMode, defaultValue: false);
-    box.put('darkMode', !darkMode);
+    showDialog(
+      context: context,
+      builder: (context) => SimpleDialog(
+        title: Text('Text'),
+        children: <Widget>[
+          FlatButton(
+            child: Text('Button'),
+            onPressed: () {
+              final box = Hive.box(HiveKeys.dataBox);
+              List<String> card =
+                  box.get(HiveKeys.card, defaultValue: List<String>());
+              card.insert(0, DateTime.now().toString());
+              box.put(HiveKeys.card, card);
+            },
+          ),
+        ],
+      ),
+    );
   }
 
   void _onBarItemTapped(int index) {
