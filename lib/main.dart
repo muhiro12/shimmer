@@ -1,18 +1,34 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:shimmer/hive/keys.dart';
 import 'package:shimmer/home.dart';
 import 'package:shimmer/settings.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  await Hive.initFlutter();
+  await Hive.openBox(HiveKeys.box);
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+    return ValueListenableBuilder(
+      valueListenable: Hive.box(HiveKeys.box).listenable(),
+      builder: (context, box, widget) {
+        var darkMode = box.get(HiveKeys.darkMode, defaultValue: false);
+        return MaterialApp(
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          darkTheme: ThemeData.dark(),
+          themeMode: darkMode ? ThemeMode.dark : ThemeMode.light,
+          home: MyHomePage(title: 'Flutter Demo Home Page'),
+        );
+      },
     );
   }
 }
@@ -30,7 +46,9 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
 
   void _onFloatingActionButtonTapped() {
-    showAboutDialog(context: context);
+    final box = Hive.box(HiveKeys.box);
+    final darkMode = box.get(HiveKeys.darkMode, defaultValue: false);
+    box.put('darkMode', !darkMode);
   }
 
   void _onBarItemTapped(int index) {
