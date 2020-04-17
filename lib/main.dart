@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shimmer/home.dart';
+import 'package:shimmer/settings.dart';
 
 void main() => runApp(MyApp());
 
@@ -25,11 +27,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  int _selectedIndex = 0;
 
-  void _incrementCounter() {
+  void _onFloatingActionButtonTapped() {
+    showAboutDialog(context: context);
+  }
+
+  void _onBarItemTapped(int index) {
     setState(() {
-      _counter++;
+      _selectedIndex = index;
     });
   }
 
@@ -40,11 +46,11 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: [
-        _body('Home\nYou have pushed the button this many times:'),
-        _body('Settings\nYou have clicked the button this many times:'),
+        Home(),
+        Settings(),
       ].elementAt(_selectedIndex),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: _onFloatingActionButtonTapped,
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),
@@ -60,32 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
         currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-      ),
-    );
-  }
-
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  Widget _body(String text) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            text,
-          ),
-          Text(
-            '$_counter',
-            style: Theme.of(context).textTheme.headline4,
-          ),
-        ],
+        onTap: _onBarItemTapped,
       ),
     );
   }
