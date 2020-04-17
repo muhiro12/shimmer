@@ -18,11 +18,15 @@ class MyApp extends StatelessWidget {
     return ValueListenableBuilder(
       valueListenable: Hive.box(HiveKeys.box).listenable(),
       builder: (context, box, widget) {
-        var darkMode = box.get(HiveKeys.darkMode, defaultValue: false);
+        final darkMode = box.get(HiveKeys.darkMode, defaultValue: false);
+        final colorValue =
+            box.get(HiveKeys.primaryColor, defaultValue: Colors.blue.value);
+        final primaryColor =
+            Colors.primaries.firstWhere((color) => color.value == colorValue);
         return MaterialApp(
           title: 'Flutter Demo',
           theme: ThemeData(
-            primarySwatch: Colors.blue,
+            primarySwatch: primaryColor,
           ),
           darkTheme: ThemeData.dark(),
           themeMode: darkMode ? ThemeMode.dark : ThemeMode.light,
