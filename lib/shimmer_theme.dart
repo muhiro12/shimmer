@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ShimmerTheme {
   final MaterialColor primaryColor;
@@ -10,6 +11,7 @@ class ShimmerTheme {
     return ThemeData(
       primarySwatch: primaryColor,
       appBarTheme: _appBarTheme(themeData),
+      fontFamily: _fontFamily,
     );
   }
 
@@ -20,6 +22,7 @@ class ShimmerTheme {
       accentColor: primaryColor,
       toggleableActiveColor: primaryColor,
       appBarTheme: _appBarTheme(themeData),
+      fontFamily: _fontFamily,
       brightness: Brightness.dark,
     );
   }
@@ -29,4 +32,6 @@ class ShimmerTheme {
       color: themeData.canvasColor,
     );
   }
+
+  String _fontFamily = GoogleFonts.merienda().fontFamily;
 }
