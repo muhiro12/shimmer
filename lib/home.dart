@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shimmer/hive/keys.dart';
+import 'package:shimmer/shimmer_card.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -14,12 +15,7 @@ class Home extends StatelessWidget {
         return ListView(
           children: card
               .map(
-                (card) => SizedBox(
-                  height: 100,
-                  child: Card(
-                    child: Text(card),
-                  ),
-                ),
+                (card) => ShimmerCard(card),
               )
               .toList(),
         );

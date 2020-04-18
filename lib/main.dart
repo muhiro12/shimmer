@@ -5,6 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shimmer/hive/keys.dart';
 import 'package:shimmer/home.dart';
 import 'package:shimmer/settings.dart';
+import 'package:shimmer/shimmer_theme.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -26,12 +27,10 @@ class MyApp extends StatelessWidget {
             Colors.primaries.firstWhere((color) => color.value == colorValue);
         return MaterialApp(
           title: 'Flutter Demo',
-          theme: ThemeData(
-            primarySwatch: primaryColor,
-          ),
-          darkTheme: ThemeData.dark(),
+          theme: ShimmerTheme(primaryColor).light(),
+          darkTheme: ShimmerTheme(primaryColor).dark(),
           themeMode: darkMode ? ThemeMode.dark : ThemeMode.light,
-          home: MyHomePage(title: 'Flutter Demo Home Page'),
+          home: MyHomePage(title: 'Shimmer'),
         );
       },
     );
@@ -82,11 +81,14 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        centerTitle: false,
       ),
-      body: [
-        Home(),
-        Settings(),
-      ].elementAt(_selectedIndex),
+      body: SafeArea(
+        child: [
+          Home(),
+          Settings(),
+        ].elementAt(_selectedIndex),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: _onFloatingActionButtonTapped,
         tooltip: 'Increment',
