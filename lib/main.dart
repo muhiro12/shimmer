@@ -2,14 +2,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:shimmer/configuration/route.dart';
 import 'package:shimmer/configuration/theme.dart';
 import 'package:shimmer/hive/genre.dart';
 import 'package:shimmer/hive/keys.dart';
 import 'package:shimmer/hive/shimmer_data.dart';
 import 'package:shimmer/home/main.dart';
 import 'package:shimmer/settings/main.dart';
-import 'package:shimmer/shimmer/card_creator.dart';
 import 'package:shimmer/shimmer/genre_selector.dart';
 
 void main() async {
@@ -39,9 +37,6 @@ class MyApp extends StatelessWidget {
           darkTheme: AppTheme(primaryColor, handwriting).dark(),
           themeMode: darkMode ? ThemeMode.dark : ThemeMode.light,
           home: MyHomePage(title: 'Shimmer'),
-          routes: <String, WidgetBuilder>{
-            AppRoute.cardCreator: (BuildContext context) => ShimmerCardCreate(),
-          },
         );
       },
     );

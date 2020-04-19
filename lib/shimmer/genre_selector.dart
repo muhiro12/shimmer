@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/configuration/route.dart';
 import 'package:shimmer/hive/genre.dart';
+import 'package:shimmer/shimmer/card_creator.dart';
 
 class ShimmerCardGenreSelector extends StatelessWidget {
   @override
@@ -12,8 +12,8 @@ class ShimmerCardGenreSelector extends StatelessWidget {
         children: Genre.values
             .map(
               (genre) => ListTile(
-                title: Text(genre.toString().substring(6)),
-                onTap: () => _onTap(context),
+                title: Text(genre.toString().replaceAll('Genre.', '')),
+                onTap: () => _onTap(context, genre),
               ),
             )
             .toList(),
@@ -21,7 +21,15 @@ class ShimmerCardGenreSelector extends StatelessWidget {
     );
   }
 
-  void _onTap(BuildContext context) {
-    Navigator.popAndPushNamed(context, AppRoute.cardCreator);
+  void _onTap(BuildContext context, Genre genre) {
+    Navigator.of(context).maybePop().then(
+      (_) {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => ShimmerCardCreate(genre),
+          ),
+        );
+      },
+    );
   }
 }

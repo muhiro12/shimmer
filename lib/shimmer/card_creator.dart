@@ -5,6 +5,10 @@ import 'package:shimmer/hive/keys.dart';
 import 'package:shimmer/hive/shimmer_data.dart';
 
 class ShimmerCardCreate extends StatelessWidget {
+  ShimmerCardCreate(this._genre);
+
+  final Genre _genre;
+
   final TextEditingController _controller1 = TextEditingController();
   final TextEditingController _controller2 = TextEditingController();
   final TextEditingController _controller3 = TextEditingController();
@@ -37,6 +41,10 @@ class ShimmerCardCreate extends StatelessWidget {
                 decoration: InputDecoration(
                   hintText: 'Location',
                 ),
+              ),
+              FormField(
+                builder: (context) =>
+                    Text(_genre.toString().replaceAll('Genre.', '')),
               ),
               TextFormField(
                 controller: _controller4,
