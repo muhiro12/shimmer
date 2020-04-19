@@ -2,13 +2,19 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:shimmer/hive/genre.dart';
 import 'package:shimmer/hive/keys.dart';
+import 'package:shimmer/hive/shimmer_data.dart';
 import 'package:shimmer/home.dart';
 import 'package:shimmer/settings.dart';
+import 'package:shimmer/shimmer_card/create.dart';
+import 'package:shimmer/shimmer_card/genre_selector.dart';
 import 'package:shimmer/shimmer_theme.dart';
 
 void main() async {
   await Hive.initFlutter();
+  Hive.registerAdapter(ShimmerDataAdapter());
+  Hive.registerAdapter(GenreAdapter());
   await Hive.openBox(HiveKeys.configurationBox);
   await Hive.openBox(HiveKeys.dataBox);
   runApp(MyApp());
@@ -31,6 +37,9 @@ class MyApp extends StatelessWidget {
           darkTheme: ShimmerTheme(primaryColor).dark(),
           themeMode: darkMode ? ThemeMode.dark : ThemeMode.light,
           home: MyHomePage(title: 'Shimmer'),
+          routes: <String, WidgetBuilder>{
+            '/test': (BuildContext context) => ShimmerCardCreate(),
+          },
         );
       },
     );
@@ -50,23 +59,9 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
 
   void _onFloatingActionButtonTapped() {
-    showDialog(
+    showModalBottomSheet(
       context: context,
-      builder: (context) => SimpleDialog(
-        title: Text('Text'),
-        children: <Widget>[
-          FlatButton(
-            child: Text('Button'),
-            onPressed: () {
-              final box = Hive.box(HiveKeys.dataBox);
-              List<String> card =
-                  box.get(HiveKeys.card, defaultValue: List<String>());
-              card.insert(0, DateTime.now().toString());
-              box.put(HiveKeys.card, card);
-            },
-          ),
-        ],
-      ),
+      builder: (context) => ShimmerCardGenreSelector(),
     );
   }
 
@@ -83,6 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
         centerTitle: false,
       ),
+      drawer: Drawer(),
       body: SafeArea(
         child: [
           Home(),

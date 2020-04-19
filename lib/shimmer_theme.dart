@@ -7,31 +7,44 @@ class ShimmerTheme {
   ShimmerTheme(this.primaryColor);
 
   ThemeData light() {
-    final themeData = ThemeData.light();
-    return ThemeData(
-      primarySwatch: primaryColor,
+    final themeData = _themeData(Brightness.light);
+    return themeData.copyWith(
       appBarTheme: _appBarTheme(themeData),
-      fontFamily: _fontFamily,
     );
   }
 
   ThemeData dark() {
-    final themeData = ThemeData.dark();
-    return ThemeData(
-      primarySwatch: primaryColor,
+    final themeData = _themeData(Brightness.dark);
+    return themeData.copyWith(
       accentColor: primaryColor,
       toggleableActiveColor: primaryColor,
+      floatingActionButtonTheme: themeData.floatingActionButtonTheme.copyWith(
+        foregroundColor: Colors.white,
+        backgroundColor: primaryColor,
+      ),
       appBarTheme: _appBarTheme(themeData),
-      fontFamily: _fontFamily,
-      brightness: Brightness.dark,
     );
   }
+
+  ThemeData _themeData(Brightness brightness) {
+    return ThemeData(
+      primarySwatch: primaryColor,
+      fontFamily: _fontFamily,
+      brightness: brightness,
+    );
+  }
+
+  String _fontFamily = GoogleFonts.sedgwickAve().fontFamily;
 
   AppBarTheme _appBarTheme(ThemeData themeData) {
     return themeData.appBarTheme.copyWith(
       color: themeData.canvasColor,
+      textTheme: themeData.primaryTextTheme.copyWith(
+        title: themeData.textTheme.title.copyWith(
+          fontSize: 20,
+        ),
+      ),
+      iconTheme: themeData.iconTheme,
     );
   }
-
-  String _fontFamily = GoogleFonts.merienda().fontFamily;
 }

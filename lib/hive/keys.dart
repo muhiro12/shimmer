@@ -5,4 +5,5 @@ class HiveKeys {
   static const darkMode = 'darkMode';
   static const primaryColor = 'primaryColor';
   static const card = 'card';
+  static const shimmerData = 'shimmerData';
 }

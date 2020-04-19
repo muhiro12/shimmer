@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/hive/shimmer_data.dart';
 import 'package:shimmer/shimmer_size.dart';
 
-class ShimmerCard extends StatelessWidget {
-  final String _text;
+class ShimmerCardSummary extends StatelessWidget {
+  final ShimmerData _data;
 
-  ShimmerCard(this._text);
+  ShimmerCardSummary(this._data);
 
   @override
   Widget build(BuildContext context) {
@@ -16,16 +17,18 @@ class ShimmerCard extends StatelessWidget {
           Row(
             children: <Widget>[
               Text(
-                '#theHIATUS',
+                _data.tags.first,
                 style: Theme.of(context)
                     .textTheme
-                    .headline5
+                    .headline
                     .copyWith(color: Colors.grey),
               ),
               Spacer(),
               Text(
-                'Live',
-                style: TextStyle(color: Colors.grey),
+                _data.genre.toString().substring(6),
+                style: TextStyle(
+                  color: Theme.of(context).accentColor,
+                ),
               ),
             ],
           ),
@@ -51,13 +54,13 @@ class ShimmerCard extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text(_text.substring(0, 10)),
+                              Text(_data.date.toString().substring(0, 10)),
                               Text(
-                                'Jive Turkey',
-                                style: Theme.of(context).textTheme.headline6,
+                                _data.title,
+                                style: Theme.of(context).textTheme.headline,
                               ),
-                              Text('the HIATUS'),
-                              Text('Tokyo'),
+                              Text(_data.artist),
+                              Text(_data.location),
                             ],
                           ),
                         ),
