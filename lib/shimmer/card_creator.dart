@@ -19,6 +19,10 @@ class ShimmerCardCreate extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Create'),
+        automaticallyImplyLeading: false,
+        actions: <Widget>[
+          CloseButton(),
+        ],
       ),
       body: SafeArea(
         child: Form(

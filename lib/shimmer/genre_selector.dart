@@ -22,14 +22,11 @@ class ShimmerCardGenreSelector extends StatelessWidget {
   }
 
   void _onTap(BuildContext context, Genre genre) {
-    Navigator.of(context).maybePop().then(
-      (_) {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => ShimmerCardCreate(genre),
-          ),
-        );
-      },
+    showCupertinoModalPopup(
+      context: context,
+      builder: (context) => ShimmerCardCreate(genre),
+    ).whenComplete(
+      () => Navigator.pop(context),
     );
   }
 }
