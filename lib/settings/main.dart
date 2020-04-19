@@ -12,9 +12,19 @@ class Settings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final handwriting = _box.get(HiveKeys.handwriting, defaultValue: false);
     final darkMode = _box.get(HiveKeys.darkMode, defaultValue: false);
     return Column(
       children: <Widget>[
+        Row(
+          children: <Widget>[
+            Text('Handwriting'),
+            Switch(
+              value: handwriting,
+              onChanged: (value) => _box.put(HiveKeys.handwriting, value),
+            ),
+          ],
+        ),
         Row(
           children: <Widget>[
             Text('DardMode'),

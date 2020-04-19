@@ -4,7 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shimmer/hive/keys.dart';
 import 'package:shimmer/hive/shimmer_data.dart';
-import 'package:shimmer/shimmer_card/summary.dart';
+import 'package:shimmer/shimmer/card_summary.dart';
 
 class Home extends StatelessWidget {
   @override

@@ -3,6 +3,7 @@ class HiveKeys {
   static const dataBox = 'data';
 
   static const darkMode = 'darkMode';
+  static const handwriting = 'handwriting';
   static const primaryColor = 'primaryColor';
   static const card = 'card';
   static const shimmerData = 'shimmerData';

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ShimmerTheme {
+class AppTheme {
   final MaterialColor primaryColor;
+  final bool handwriting;
 
-  ShimmerTheme(this.primaryColor);
+  AppTheme(this.primaryColor, this.handwriting);
 
   ThemeData light() {
     final themeData = _themeData(Brightness.light);
@@ -29,12 +30,14 @@ class ShimmerTheme {
   ThemeData _themeData(Brightness brightness) {
     return ThemeData(
       primarySwatch: primaryColor,
-      fontFamily: _fontFamily,
+      fontFamily: _fontFamily(),
       brightness: brightness,
     );
   }
 
-  String _fontFamily = GoogleFonts.sedgwickAve().fontFamily;
+  String _fontFamily() {
+    return handwriting ? GoogleFonts.sedgwickAve().fontFamily : '';
+  }
 
   AppBarTheme _appBarTheme(ThemeData themeData) {
     return themeData.appBarTheme.copyWith(

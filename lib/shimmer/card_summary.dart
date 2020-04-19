@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/configuration//size.dart';
 import 'package:shimmer/hive/shimmer_data.dart';
-import 'package:shimmer/shimmer_size.dart';
 
 class ShimmerCardSummary extends StatelessWidget {
   final ShimmerData _data;
@@ -11,7 +11,7 @@ class ShimmerCardSummary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(ShimmerSize.spaceS),
+      margin: EdgeInsets.all(AppSize.spaceS),
       child: Column(
         children: <Widget>[
           Row(
@@ -37,7 +37,7 @@ class ShimmerCardSummary extends StatelessWidget {
             child: Card(
               elevation: 12,
               child: Container(
-                padding: EdgeInsets.all(ShimmerSize.spaceM),
+                padding: EdgeInsets.all(AppSize.spaceM),
                 child: LayoutBuilder(
                   builder: (context, constraints) {
                     return Row(
@@ -47,7 +47,7 @@ class ShimmerCardSummary extends StatelessWidget {
                           width: constraints.maxWidth / 2,
                         ),
                         SizedBox(
-                          width: ShimmerSize.spaceM,
+                          width: AppSize.spaceM,
                         ),
                         Expanded(
                           child: Column(

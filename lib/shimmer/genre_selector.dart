@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/configuration/route.dart';
 import 'package:shimmer/hive/genre.dart';
 
 class ShimmerCardGenreSelector extends StatelessWidget {
@@ -21,6 +22,6 @@ class ShimmerCardGenreSelector extends StatelessWidget {
   }
 
   void _onTap(BuildContext context) {
-    Navigator.popAndPushNamed(context, '/test');
+    Navigator.popAndPushNamed(context, AppRoute.cardCreator);
   }
 }

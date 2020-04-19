@@ -2,14 +2,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:shimmer/configuration/route.dart';
+import 'package:shimmer/configuration/theme.dart';
 import 'package:shimmer/hive/genre.dart';
 import 'package:shimmer/hive/keys.dart';
 import 'package:shimmer/hive/shimmer_data.dart';
-import 'package:shimmer/home.dart';
-import 'package:shimmer/settings.dart';
-import 'package:shimmer/shimmer_card/create.dart';
-import 'package:shimmer/shimmer_card/genre_selector.dart';
-import 'package:shimmer/shimmer_theme.dart';
+import 'package:shimmer/home/main.dart';
+import 'package:shimmer/settings/main.dart';
+import 'package:shimmer/shimmer/card_creator.dart';
+import 'package:shimmer/shimmer/genre_selector.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
     return ValueListenableBuilder(
       valueListenable: Hive.box(HiveKeys.configurationBox).listenable(),
       builder: (context, box, widget) {
+        final handwriting = box.get(HiveKeys.handwriting, defaultValue: false);
         final darkMode = box.get(HiveKeys.darkMode, defaultValue: false);
         final colorValue =
             box.get(HiveKeys.primaryColor, defaultValue: Colors.blue.value);
@@ -33,12 +35,12 @@ class MyApp extends StatelessWidget {
             Colors.primaries.firstWhere((color) => color.value == colorValue);
         return MaterialApp(
           title: 'Flutter Demo',
-          theme: ShimmerTheme(primaryColor).light(),
-          darkTheme: ShimmerTheme(primaryColor).dark(),
+          theme: AppTheme(primaryColor, handwriting).light(),
+          darkTheme: AppTheme(primaryColor, handwriting).dark(),
           themeMode: darkMode ? ThemeMode.dark : ThemeMode.light,
           home: MyHomePage(title: 'Shimmer'),
           routes: <String, WidgetBuilder>{
-            '/test': (BuildContext context) => ShimmerCardCreate(),
+            AppRoute.cardCreator: (BuildContext context) => ShimmerCardCreate(),
           },
         );
       },
