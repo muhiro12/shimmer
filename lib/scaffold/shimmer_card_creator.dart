@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:shimmer/configuration/size.dart';
+import 'package:shimmer/configuration/app_size.dart';
 import 'package:shimmer/hive/data_box.dart';
 import 'package:shimmer/hive/shimmer_category.dart';
 import 'package:shimmer/hive/shimmer_data.dart';

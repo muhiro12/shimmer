@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/configuration//size.dart';
+import 'package:shimmer/configuration//app_size.dart';
 import 'package:shimmer/hive/shimmer_data.dart';
 import 'package:shimmer/model/enum_parser.dart';
-import 'package:shimmer/widget/shimmer_card/detail.dart';
+import 'package:shimmer/scaffold/shimmer_card_detail.dart';
 
 class ShimmerCardSummary extends StatelessWidget {
   final ShimmerData _data;

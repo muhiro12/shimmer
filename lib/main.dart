@@ -2,17 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:shimmer/configuration/size.dart';
-import 'package:shimmer/configuration/theme.dart';
+import 'package:shimmer/configuration/app_size.dart';
+import 'package:shimmer/configuration/app_theme.dart';
 import 'package:shimmer/hive/configuration_box.dart';
 import 'package:shimmer/hive/data_box.dart';
 import 'package:shimmer/hive/shimmer_category.dart';
 import 'package:shimmer/hive/shimmer_data.dart';
 import 'package:shimmer/hive/shimmer_data_list.dart';
-import 'package:shimmer/widget/category/root.dart';
-import 'package:shimmer/widget/common/bottom_navigator.dart';
-import 'package:shimmer/widget/home/root.dart';
-import 'package:shimmer/widget/shimmer_card/creator_launcher.dart';
+import 'package:shimmer/scaffold/category_root.dart';
+import 'package:shimmer/scaffold/home_root.dart';
+import 'package:shimmer/widget/bottom_navigator.dart';
+import 'package:shimmer/widget/shimmer_card_creator_launcher.dart';
 
 void main() async {
   await Hive.initFlutter();
