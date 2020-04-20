@@ -77,10 +77,13 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       drawer: Drawer(),
       body: SafeArea(
-        child: [
-          Home(),
-          Settings(),
-        ].elementAt(_selectedIndex),
+        child: IndexedStack(
+          index: _selectedIndex,
+          children: <Widget>[
+            Home(),
+            Settings(),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _onFloatingActionButtonTapped,
