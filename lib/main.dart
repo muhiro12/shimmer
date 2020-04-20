@@ -1,7 +1,8 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:shimmer/category/main.dart';
 import 'package:shimmer/configuration/theme.dart';
 import 'package:shimmer/hive/genre.dart';
 import 'package:shimmer/hive/keys.dart';
@@ -74,14 +75,25 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
         centerTitle: false,
+        actions: <Widget>[
+          Visibility(
+            visible: _selectedIndex == 0,
+            child: IconButton(
+              icon: Icon(Icons.settings),
+              onPressed: () => showCupertinoModalPopup(
+                context: context,
+                builder: (context) => Settings(),
+              ),
+            ),
+          ),
+        ],
       ),
-      drawer: Drawer(),
       body: SafeArea(
         child: IndexedStack(
           index: _selectedIndex,
           children: <Widget>[
             Home(),
-            Settings(),
+            Category(),
           ],
         ),
       ),
@@ -97,8 +109,8 @@ class _MyHomePageState extends State<MyHomePage> {
             title: Text('Home'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            title: Text('Settings'),
+            icon: Icon(Icons.category),
+            title: Text('Category'),
           ),
         ],
         currentIndex: _selectedIndex,

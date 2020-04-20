@@ -14,9 +14,16 @@ class Settings extends StatelessWidget {
   Widget build(BuildContext context) {
     final handwriting = _box.get(HiveKeys.handwriting, defaultValue: false);
     final darkMode = _box.get(HiveKeys.darkMode, defaultValue: false);
-    return Navigator(
-      onGenerateRoute: (_) => MaterialPageRoute(
-        builder: (context) => Column(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Create'),
+        automaticallyImplyLeading: false,
+        actions: <Widget>[
+          CloseButton(),
+        ],
+      ),
+      body: SafeArea(
+        child: Column(
           children: <Widget>[
             Row(
               children: <Widget>[
