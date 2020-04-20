@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/hive/shimmer_category.dart';
-import 'package:shimmer/shimmer/card_creator.dart';
+import 'package:shimmer/model/enum_parser.dart';
+import 'package:shimmer/widget/shimmer_card/creator.dart';
 
-class ShimmerCardCategorySelector extends StatelessWidget {
+class ShimmerCardCreatorInterface extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -12,10 +13,7 @@ class ShimmerCardCategorySelector extends StatelessWidget {
         children: ShimmerCategory.values
             .map(
               (category) => ListTile(
-                title: Text(category
-                    .toString()
-                    .replaceAll('ShimmerCategory.', '')
-                    .toUpperCase()),
+                title: Text(EnumParser.upperCamelCaseStringOf(category)),
                 onTap: () => _onTap(context, category),
               ),
             )

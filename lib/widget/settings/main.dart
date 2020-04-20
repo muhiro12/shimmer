@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:shimmer/hive/configuration_box.dart';
 
-class Settings extends StatelessWidget {
+class SettingsRoot extends StatelessWidget {
   final _box = Hive.box(ConfigurationBox.key.toString());
 
   void _onTap(MaterialColor color) {

@@ -2,16 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:shimmer/category/main.dart';
 import 'package:shimmer/configuration/theme.dart';
 import 'package:shimmer/hive/configuration_box.dart';
 import 'package:shimmer/hive/data_box.dart';
 import 'package:shimmer/hive/shimmer_category.dart';
 import 'package:shimmer/hive/shimmer_data.dart';
 import 'package:shimmer/hive/shimmer_data_list.dart';
-import 'package:shimmer/home/main.dart';
-import 'package:shimmer/settings/main.dart';
-import 'package:shimmer/shimmer/category_selector.dart';
+import 'package:shimmer/widget/category/main.dart';
+import 'package:shimmer/widget/home/main.dart';
+import 'package:shimmer/widget/settings/main.dart';
+import 'package:shimmer/widget/shimmer_card/creator_interface.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -71,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _onFloatingActionButtonTapped() {
     showModalBottomSheet(
       context: context,
-      builder: (context) => ShimmerCardCategorySelector(),
+      builder: (context) => ShimmerCardCreatorInterface(),
     );
   }
 
@@ -94,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
               icon: Icon(Icons.settings),
               onPressed: () => showCupertinoModalPopup(
                 context: context,
-                builder: (context) => Settings(),
+                builder: (context) => SettingsRoot(),
               ),
             ),
           ),

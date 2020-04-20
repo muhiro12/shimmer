@@ -4,7 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shimmer/hive/data_box.dart';
 import 'package:shimmer/hive/shimmer_data_list.dart';
-import 'package:shimmer/shimmer/card_summary.dart';
+import 'package:shimmer/widget/shimmer_card/summary.dart';
 
 class HomeNavigator extends StatelessWidget {
   @override

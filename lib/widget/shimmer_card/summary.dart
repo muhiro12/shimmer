@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/configuration//size.dart';
 import 'package:shimmer/hive/shimmer_data.dart';
-import 'package:shimmer/shimmer/card_detail.dart';
+import 'package:shimmer/model/enum_parser.dart';
+import 'package:shimmer/widget/shimmer_card/detail.dart';
 
 class ShimmerCardSummary extends StatelessWidget {
   final ShimmerData _data;
@@ -26,10 +27,7 @@ class ShimmerCardSummary extends StatelessWidget {
               ),
               Spacer(),
               Text(
-                _data.category
-                    .toString()
-                    .replaceAll('ShimmerCategory.', '')
-                    .toUpperCase(),
+                EnumParser.upperCamelCaseStringOf(_data.category),
                 style: TextStyle(
                   color: Theme.of(context).accentColor,
                 ),

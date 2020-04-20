@@ -4,6 +4,7 @@ import 'package:shimmer/hive/data_box.dart';
 import 'package:shimmer/hive/shimmer_category.dart';
 import 'package:shimmer/hive/shimmer_data.dart';
 import 'package:shimmer/hive/shimmer_data_list.dart';
+import 'package:shimmer/model/enum_parser.dart';
 
 class ShimmerCardCreator extends StatelessWidget {
   ShimmerCardCreator(this._category);
@@ -48,12 +49,8 @@ class ShimmerCardCreator extends StatelessWidget {
                 ),
               ),
               FormField(
-                builder: (context) => Text(
-                  _category
-                      .toString()
-                      .replaceAll('ShimmerCategory.', '')
-                      .toUpperCase(),
-                ),
+                builder: (context) =>
+                    Text(EnumParser.upperCamelCaseStringOf(_category)),
               ),
               TextFormField(
                 controller: _controller4,
