@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:shimmer/hive/genre.dart';
-import 'package:shimmer/hive/keys.dart';
+import 'package:shimmer/hive/data_box.dart';
+import 'package:shimmer/hive/shimmer_category.dart';
 import 'package:shimmer/hive/shimmer_data.dart';
+import 'package:shimmer/hive/shimmer_data_list.dart';
 
-class ShimmerCardCreate extends StatelessWidget {
-  ShimmerCardCreate(this._genre);
+class ShimmerCardCreator extends StatelessWidget {
+  ShimmerCardCreator(this._category);
 
-  final Genre _genre;
+  final ShimmerCategory _category;
 
   final TextEditingController _controller1 = TextEditingController();
   final TextEditingController _controller2 = TextEditingController();
@@ -47,8 +48,12 @@ class ShimmerCardCreate extends StatelessWidget {
                 ),
               ),
               FormField(
-                builder: (context) =>
-                    Text(_genre.toString().replaceAll('Genre.', '')),
+                builder: (context) => Text(
+                  _category
+                      .toString()
+                      .replaceAll('ShimmerCategory.', '')
+                      .toUpperCase(),
+                ),
               ),
               TextFormField(
                 controller: _controller4,
@@ -68,23 +73,13 @@ class ShimmerCardCreate extends StatelessWidget {
   }
 
   void _onPressed(BuildContext context) {
-    final box = Hive.box(HiveKeys.dataBox);
-    List card = box.get(
-      HiveKeys.shimmerData,
-      defaultValue: List<ShimmerData>(),
+    final box = Hive.box(DataBox.key.toString());
+    ShimmerDataList dataList = box.get(
+      DataBox.dataList.toString(),
+      defaultValue: ShimmerDataList(),
     );
-    card.insert(
-      0,
-      ShimmerData(
-        DateTime.now(),
-        _controller1.text,
-        _controller2.text,
-        _controller3.text,
-        Genre.concert,
-        _controller4.text.split(' '),
-      ),
-    );
-    box.put(HiveKeys.shimmerData, card);
+    dataList.create(ShimmerData());
+    box.put(DataBox.dataList.toString(), dataList);
     Navigator.pop(context);
   }
 }

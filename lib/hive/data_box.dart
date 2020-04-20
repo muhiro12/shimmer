@@ -1,0 +1,4 @@
+enum DataBox {
+  key,
+  dataList,
+}

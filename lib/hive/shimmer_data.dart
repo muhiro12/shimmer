@@ -1,34 +1,31 @@
 import 'package:hive/hive.dart';
-import 'package:shimmer/hive/genre.dart';
+import 'package:shimmer/hive/shimmer_category.dart';
 
 part 'shimmer_data.g.dart';
 
-@HiveType(typeId: 0)
+@HiveType(typeId: 1)
 class ShimmerData {
   @HiveField(0)
-  final DateTime date;
+  DateTime date = DateTime.now();
 
   @HiveField(1)
-  final String title;
+  String title = 'Jive Turkey';
 
   @HiveField(2)
-  final String artist;
+  String summary = 'Live at Tokyo';
 
   @HiveField(3)
-  final String location;
+  String detail = 'So greate, I\'m happy.';
 
   @HiveField(4)
-  final Genre genre;
+  List<String> tags = ['#Tag'];
 
   @HiveField(5)
-  final List<String> tags;
+  ShimmerCategory category = ShimmerCategory.concert;
 
-  ShimmerData(
-    this.date,
-    this.title,
-    this.artist,
-    this.location,
-    this.genre,
-    this.tags,
-  );
+  @HiveField(6)
+  String artist = 'the HIATUS';
+
+  @HiveField(7)
+  String location = 'Tokyo';
 }

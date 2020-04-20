@@ -18,7 +18,7 @@ class ShimmerCardSummary extends StatelessWidget {
           Row(
             children: <Widget>[
               Text(
-                _data.tags.first,
+                _data.tags?.first ?? '#None',
                 style: Theme.of(context)
                     .textTheme
                     .headline
@@ -26,7 +26,10 @@ class ShimmerCardSummary extends StatelessWidget {
               ),
               Spacer(),
               Text(
-                _data.genre.toString().replaceAll('Genre.', ''),
+                _data.category
+                    .toString()
+                    .replaceAll('ShimmerCategory.', '')
+                    .toUpperCase(),
                 style: TextStyle(
                   color: Theme.of(context).accentColor,
                 ),

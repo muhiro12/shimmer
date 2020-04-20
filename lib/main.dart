@@ -4,19 +4,22 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shimmer/category/main.dart';
 import 'package:shimmer/configuration/theme.dart';
-import 'package:shimmer/hive/genre.dart';
-import 'package:shimmer/hive/keys.dart';
+import 'package:shimmer/hive/configuration_box.dart';
+import 'package:shimmer/hive/data_box.dart';
+import 'package:shimmer/hive/shimmer_category.dart';
 import 'package:shimmer/hive/shimmer_data.dart';
+import 'package:shimmer/hive/shimmer_data_list.dart';
 import 'package:shimmer/home/main.dart';
 import 'package:shimmer/settings/main.dart';
-import 'package:shimmer/shimmer/genre_selector.dart';
+import 'package:shimmer/shimmer/category_selector.dart';
 
 void main() async {
   await Hive.initFlutter();
+  Hive.registerAdapter(ShimmerCategoryAdapter());
   Hive.registerAdapter(ShimmerDataAdapter());
-  Hive.registerAdapter(GenreAdapter());
-  await Hive.openBox(HiveKeys.configurationBox);
-  await Hive.openBox(HiveKeys.dataBox);
+  Hive.registerAdapter(ShimmerDataListAdapter());
+  await Hive.openBox(ConfigurationBox.key.toString());
+  await Hive.openBox(DataBox.key.toString());
   runApp(MyApp());
 }
 
@@ -24,14 +27,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: Hive.box(HiveKeys.configurationBox).listenable(),
+      valueListenable: Hive.box(ConfigurationBox.key.toString()).listenable(),
       builder: (context, box, widget) {
-        final handwriting = box.get(HiveKeys.handwriting, defaultValue: false);
-        final darkMode = box.get(HiveKeys.darkMode, defaultValue: false);
-        final colorValue =
-            box.get(HiveKeys.primaryColor, defaultValue: Colors.blue.value);
-        final primaryColor =
-            Colors.primaries.firstWhere((color) => color.value == colorValue);
+        final handwriting = box.get(
+          ConfigurationBox.handWriting.toString(),
+          defaultValue: false,
+        );
+        final darkMode = box.get(
+          ConfigurationBox.darkMode.toString(),
+          defaultValue: false,
+        );
+        final colorValue = box.get(
+          ConfigurationBox.primaryColorValue.toString(),
+          defaultValue: Colors.blue.value,
+        );
+        final primaryColor = Colors.primaries.firstWhere(
+          (color) => color.value == colorValue,
+        );
         return MaterialApp(
           title: 'Flutter Demo',
           theme: AppTheme(primaryColor, handwriting).light(),
@@ -59,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _onFloatingActionButtonTapped() {
     showModalBottomSheet(
       context: context,
-      builder: (context) => ShimmerCardGenreSelector(),
+      builder: (context) => ShimmerCardCategorySelector(),
     );
   }
 
@@ -92,8 +104,8 @@ class _MyHomePageState extends State<MyHomePage> {
         child: IndexedStack(
           index: _selectedIndex,
           children: <Widget>[
-            Home(),
-            Category(),
+            HomeNavigator(),
+            CategoryNavigator(),
           ],
         ),
       ),

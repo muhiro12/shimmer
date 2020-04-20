@@ -1,19 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:shimmer/hive/keys.dart';
+import 'package:shimmer/hive/configuration_box.dart';
 
 class Settings extends StatelessWidget {
-  final _box = Hive.box(HiveKeys.configurationBox);
+  final _box = Hive.box(ConfigurationBox.key.toString());
 
   void _onTap(MaterialColor color) {
-    _box.put(HiveKeys.primaryColor, color.value);
+    _box.put(ConfigurationBox.primaryColorValue.toString(), color.value);
   }
 
   @override
   Widget build(BuildContext context) {
-    final handwriting = _box.get(HiveKeys.handwriting, defaultValue: false);
-    final darkMode = _box.get(HiveKeys.darkMode, defaultValue: false);
+    final handwriting =
+        _box.get(ConfigurationBox.handWriting.toString(), defaultValue: false);
+    final darkMode =
+        _box.get(ConfigurationBox.darkMode.toString(), defaultValue: false);
     return Scaffold(
       appBar: AppBar(
         title: Text('Create'),
@@ -30,7 +32,10 @@ class Settings extends StatelessWidget {
                 Text('Handwriting'),
                 Switch(
                   value: handwriting,
-                  onChanged: (value) => _box.put(HiveKeys.handwriting, value),
+                  onChanged: (value) => _box.put(
+                    ConfigurationBox.handWriting.toString(),
+                    value,
+                  ),
                 ),
               ],
             ),
@@ -39,7 +44,10 @@ class Settings extends StatelessWidget {
                 Text('DardMode'),
                 Switch(
                   value: darkMode,
-                  onChanged: (value) => _box.put(HiveKeys.darkMode, value),
+                  onChanged: (value) => _box.put(
+                    ConfigurationBox.darkMode.toString(),
+                    value,
+                  ),
                 ),
               ],
             ),
