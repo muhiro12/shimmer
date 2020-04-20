@@ -6,10 +6,6 @@ import 'package:shimmer/hive/configuration_box.dart';
 class SettingsRoot extends StatelessWidget {
   final _box = Hive.box(ConfigurationBox.key.toString());
 
-  void _onTap(MaterialColor color) {
-    _box.put(ConfigurationBox.primaryColorValue.toString(), color.value);
-  }
-
   @override
   Widget build(BuildContext context) {
     final handwriting =
@@ -72,5 +68,9 @@ class SettingsRoot extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _onTap(MaterialColor color) {
+    _box.put(ConfigurationBox.primaryColorValue.toString(), color.value);
   }
 }

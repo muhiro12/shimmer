@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:shimmer/configuration/size.dart';
 import 'package:shimmer/hive/data_box.dart';
 import 'package:shimmer/hive/shimmer_category.dart';
 import 'package:shimmer/hive/shimmer_data.dart';
@@ -11,10 +13,10 @@ class ShimmerCardCreator extends StatelessWidget {
 
   final ShimmerCategory _category;
 
-  final TextEditingController _controller1 = TextEditingController();
-  final TextEditingController _controller2 = TextEditingController();
-  final TextEditingController _controller3 = TextEditingController();
-  final TextEditingController _controller4 = TextEditingController();
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _artistController = TextEditingController();
+  final TextEditingController _locationController = TextEditingController();
+  final TextEditingController _tagController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -27,42 +29,48 @@ class ShimmerCardCreator extends StatelessWidget {
         ],
       ),
       body: SafeArea(
-        child: Form(
-          child: Column(
-            children: <Widget>[
-              TextFormField(
-                controller: _controller1,
-                decoration: InputDecoration(
-                  hintText: 'Title',
+        child: Container(
+          margin: EdgeInsets.all(AppSize.spaceL),
+          child: Form(
+            child: Column(
+              children: <Widget>[
+                FormField(
+                  builder: (context) =>
+                      Text(EnumParser.upperCamelCaseStringOf(_category)),
                 ),
-              ),
-              TextFormField(
-                controller: _controller2,
-                decoration: InputDecoration(
-                  hintText: 'Artist',
+                TextFormField(
+                  controller: _titleController,
+                  decoration: InputDecoration(
+                    hintText: 'Title',
+                  ),
                 ),
-              ),
-              TextFormField(
-                controller: _controller3,
-                decoration: InputDecoration(
-                  hintText: 'Location',
+                TextFormField(
+                  controller: _artistController,
+                  decoration: InputDecoration(
+                    hintText: 'Artist',
+                  ),
                 ),
-              ),
-              FormField(
-                builder: (context) =>
-                    Text(EnumParser.upperCamelCaseStringOf(_category)),
-              ),
-              TextFormField(
-                controller: _controller4,
-                decoration: InputDecoration(
-                  hintText: '#tag',
+                TextFormField(
+                  controller: _locationController,
+                  decoration: InputDecoration(
+                    hintText: 'Location',
+                  ),
                 ),
-              ),
-              FlatButton(
-                child: Text('Button'),
-                onPressed: () => _onPressed(context),
-              ),
-            ],
+                TextFormField(
+                  controller: _tagController,
+                  decoration: InputDecoration(
+                    hintText: '#tag',
+                  ),
+                ),
+                SizedBox(
+                  height: AppSize.spaceL,
+                ),
+                FlatButton(
+                  child: Text('Button'),
+                  onPressed: () => _onPressed(context),
+                ),
+              ],
+            ),
           ),
         ),
       ),

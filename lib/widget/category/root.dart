@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/hive/shimmer_category.dart';
 import 'package:shimmer/model/enum_parser.dart';
 
-class CategoryNavigator extends StatelessWidget {
+class CategoryRoot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Navigator(
-      onGenerateRoute: (_) => MaterialPageRoute(
-        builder: (context) => ListView(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Category'),
+      ),
+      body: SafeArea(
+        child: ListView(
           children: ShimmerCategory.values.map(
             (category) {
               final text = EnumParser.upperCamelCaseStringOf(category);

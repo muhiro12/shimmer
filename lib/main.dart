@@ -2,16 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:shimmer/configuration/size.dart';
 import 'package:shimmer/configuration/theme.dart';
 import 'package:shimmer/hive/configuration_box.dart';
 import 'package:shimmer/hive/data_box.dart';
 import 'package:shimmer/hive/shimmer_category.dart';
 import 'package:shimmer/hive/shimmer_data.dart';
 import 'package:shimmer/hive/shimmer_data_list.dart';
-import 'package:shimmer/widget/category/main.dart';
-import 'package:shimmer/widget/home/main.dart';
-import 'package:shimmer/widget/settings/main.dart';
-import 'package:shimmer/widget/shimmer_card/creator_interface.dart';
+import 'package:shimmer/widget/category/root.dart';
+import 'package:shimmer/widget/common/bottom_navigator.dart';
+import 'package:shimmer/widget/home/root.dart';
+import 'package:shimmer/widget/shimmer_card/creator_launcher.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -68,10 +69,54 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
 
+  final List<BottomNavigator> _bottomNavigators = [
+    BottomNavigator(
+      HomeRoot(),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.home),
+        title: Text('Home'),
+      ),
+    ),
+    BottomNavigator(
+      CategoryRoot(),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.category),
+        title: Text('Category'),
+      ),
+    ),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: _bottomNavigators,
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _onFloatingActionButtonTapped,
+        tooltip: 'Create',
+        child: Icon(Icons.add),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: _bottomNavigators
+            .map((bottomNavigator) => bottomNavigator.barItem)
+            .toList(),
+        currentIndex: _selectedIndex,
+        onTap: _onBarItemTapped,
+      ),
+    );
+  }
+
   void _onFloatingActionButtonTapped() {
     showModalBottomSheet(
       context: context,
-      builder: (context) => ShimmerCardCreatorInterface(),
+      builder: (context) => SafeArea(
+        child: ShimmerCardCreatorLauncher(),
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppSize.radius),
+      ),
     );
   }
 
@@ -79,55 +124,5 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _selectedIndex = index;
     });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-        centerTitle: false,
-        actions: <Widget>[
-          Visibility(
-            visible: _selectedIndex == 0,
-            child: IconButton(
-              icon: Icon(Icons.settings),
-              onPressed: () => showCupertinoModalPopup(
-                context: context,
-                builder: (context) => SettingsRoot(),
-              ),
-            ),
-          ),
-        ],
-      ),
-      body: SafeArea(
-        child: IndexedStack(
-          index: _selectedIndex,
-          children: <Widget>[
-            HomeNavigator(),
-            CategoryNavigator(),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _onFloatingActionButtonTapped,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Home'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.category),
-            title: Text('Category'),
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        onTap: _onBarItemTapped,
-      ),
-    );
   }
 }

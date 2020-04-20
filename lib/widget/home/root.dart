@@ -4,14 +4,27 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shimmer/hive/data_box.dart';
 import 'package:shimmer/hive/shimmer_data_list.dart';
+import 'package:shimmer/widget/settings/root.dart';
 import 'package:shimmer/widget/shimmer_card/summary.dart';
 
-class HomeNavigator extends StatelessWidget {
+class HomeRoot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Navigator(
-      onGenerateRoute: (_) => MaterialPageRoute(
-        builder: (context) => ValueListenableBuilder(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Home'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.settings),
+            onPressed: () => showCupertinoModalPopup(
+              context: context,
+              builder: (context) => SettingsRoot(),
+            ),
+          ),
+        ],
+      ),
+      body: SafeArea(
+        child: ValueListenableBuilder(
           valueListenable: Hive.box(DataBox.key.toString()).listenable(),
           builder: (context, box, widget) {
             final ShimmerDataList dataList = box.get(
