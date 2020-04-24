@@ -6,13 +6,15 @@ import 'package:shimmer/widget/shimmer_card.dart';
 
 class ShimmerCardSummary extends StatelessWidget {
   final ShimmerData _data;
+  final double elevation;
   final Function onTap;
 
-  ShimmerCardSummary(this._data, {this.onTap});
+  ShimmerCardSummary(this._data, {this.elevation, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return ShimmerCard(
+      elevation: elevation,
       onTap: onTap,
       child: LayoutBuilder(
         builder: (context, constraints) {
