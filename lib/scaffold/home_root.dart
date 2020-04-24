@@ -5,7 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shimmer/hive/data_box.dart';
 import 'package:shimmer/hive/shimmer_data_list.dart';
 import 'package:shimmer/scaffold/settings_root.dart';
-import 'package:shimmer/widget/shimmer_card_summary.dart';
+import 'package:shimmer/widget/home_list_item.dart';
 
 class HomeRoot extends StatelessWidget {
   @override
@@ -34,7 +34,7 @@ class HomeRoot extends StatelessWidget {
             return ListView(
               children: dataList.value
                   .map(
-                    (data) => ShimmerCardSummary(data),
+                    (data) => HomeListItem(data),
                   )
                   .toList(),
             );

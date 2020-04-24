@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/hive/shimmer_category.dart';
 import 'package:shimmer/model/enum_parser.dart';
+import 'package:shimmer/widget/shimmer_card.dart';
 
 class CategoryRoot extends StatelessWidget {
   @override
@@ -25,7 +26,9 @@ class CategoryRoot extends StatelessWidget {
                       ),
                       body: SafeArea(
                         child: Center(
-                          child: Text('Contents'),
+                          child: ShimmerCard(
+                            child: Text('Contents'),
+                          ),
                         ),
                       ),
                     ),

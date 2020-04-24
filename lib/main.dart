@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
           (color) => color.value == colorValue,
         );
         return MaterialApp(
-          title: 'Flutter Demo',
+          title: 'Shimmer',
           theme: AppTheme(primaryColor, handwriting).light(),
           darkTheme: AppTheme(primaryColor, handwriting).dark(),
           themeMode: darkMode ? ThemeMode.dark : ThemeMode.light,
