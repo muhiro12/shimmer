@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/configuration/app_size.dart';
 import 'package:shimmer/hive/shimmer_data.dart';
+import 'package:shimmer/model/date_parser.dart';
 import 'package:shimmer/widget/shimmer_card.dart';
 
 class ShimmerCardSummary extends StatelessWidget {
@@ -32,7 +33,7 @@ class ShimmerCardSummary extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(_data.date.toString().substring(0, 10)),
+                    Text(DateParser.yearMonthDayStringOf(_data.date)),
                     Text(
                       _data.title,
                       style: Theme.of(context).textTheme.headline,

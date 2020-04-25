@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/hive/shimmer_category.dart';
 import 'package:shimmer/model/enum_parser.dart';
+import 'package:shimmer/model/route_navigator.dart';
 import 'package:shimmer/widget/shimmer_card.dart';
 
 class CategoryRoot extends StatelessWidget {
@@ -15,28 +16,31 @@ class CategoryRoot extends StatelessWidget {
         child: ListView(
           children: ShimmerCategory.values.map(
             (category) {
-              final text = EnumParser.upperCamelCaseStringOf(category);
+              final title = EnumParser.upperCamelCaseStringOf(category);
               return ListTile(
-                title: Text(text),
-                onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => Scaffold(
-                      appBar: AppBar(
-                        title: Text(text),
-                      ),
-                      body: SafeArea(
-                        child: Center(
-                          child: ShimmerCard(
-                            child: Text('Contents'),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                title: Text(title),
+                onTap: () => _onListItemTap(context, title),
               );
             },
           ).toList(),
+        ),
+      ),
+    );
+  }
+
+  void _onListItemTap(BuildContext context, String title) {
+    RouteNavigator.push(
+      context: context,
+      widget: Scaffold(
+        appBar: AppBar(
+          title: Text(title),
+        ),
+        body: SafeArea(
+          child: Center(
+            child: ShimmerCard(
+              child: Text('Contents'),
+            ),
+          ),
         ),
       ),
     );

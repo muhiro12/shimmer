@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:shimmer/configuration/app_size.dart';
-import 'package:shimmer/hive/data_box.dart';
 import 'package:shimmer/hive/shimmer_category.dart';
 import 'package:shimmer/hive/shimmer_data.dart';
-import 'package:shimmer/hive/shimmer_data_list.dart';
+import 'package:shimmer/model/data_store.dart';
 import 'package:shimmer/model/enum_parser.dart';
 
 class ShimmerCardCreator extends StatelessWidget {
@@ -67,7 +65,7 @@ class ShimmerCardCreator extends StatelessWidget {
                 ),
                 FlatButton(
                   child: Text('Button'),
-                  onPressed: () => _onPressed(context),
+                  onPressed: () => _onButtonPressed(context),
                 ),
               ],
             ),
@@ -77,14 +75,8 @@ class ShimmerCardCreator extends StatelessWidget {
     );
   }
 
-  void _onPressed(BuildContext context) {
-    final box = Hive.box(DataBox.key.toString());
-    ShimmerDataList dataList = box.get(
-      DataBox.dataList.toString(),
-      defaultValue: ShimmerDataList(),
-    );
-    dataList.create(ShimmerData());
-    box.put(DataBox.dataList.toString(), dataList);
+  void _onButtonPressed(BuildContext context) {
+    DataStore.saveData(ShimmerData());
     Navigator.pop(context);
   }
 }

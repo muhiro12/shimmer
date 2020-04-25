@@ -1,26 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shimmer/configuration/app_size.dart';
 import 'package:shimmer/configuration/app_theme.dart';
-import 'package:shimmer/hive/configuration_box.dart';
-import 'package:shimmer/hive/data_box.dart';
-import 'package:shimmer/hive/shimmer_category.dart';
-import 'package:shimmer/hive/shimmer_data.dart';
-import 'package:shimmer/hive/shimmer_data_list.dart';
+import 'package:shimmer/model/data_store.dart';
 import 'package:shimmer/scaffold/category_root.dart';
 import 'package:shimmer/scaffold/home_root.dart';
 import 'package:shimmer/widget/bottom_navigator.dart';
 import 'package:shimmer/widget/shimmer_card_creator_launcher.dart';
 
 void main() async {
-  await Hive.initFlutter();
-  Hive.registerAdapter(ShimmerCategoryAdapter());
-  Hive.registerAdapter(ShimmerDataAdapter());
-  Hive.registerAdapter(ShimmerDataListAdapter());
-  await Hive.openBox(ConfigurationBox.key.toString());
-  await Hive.openBox(DataBox.key.toString());
+  await DataStore.init();
   runApp(MyApp());
 }
 
@@ -28,23 +17,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: Hive.box(ConfigurationBox.key.toString()).listenable(),
+      valueListenable: DataStore.listenableConfiguration,
       builder: (context, box, widget) {
-        final handwriting = box.get(
-          ConfigurationBox.handWriting.toString(),
-          defaultValue: false,
-        );
-        final darkMode = box.get(
-          ConfigurationBox.darkMode.toString(),
-          defaultValue: false,
-        );
-        final colorValue = box.get(
-          ConfigurationBox.primaryColorValue.toString(),
-          defaultValue: Colors.blue.value,
-        );
-        final primaryColor = Colors.primaries.firstWhere(
-          (color) => color.value == colorValue,
-        );
+        final handwriting = DataStore.fetchHandWriting();
+        final darkMode = DataStore.fetchDarkMode();
+        final primaryColor = DataStore.fetchPrimaryColor();
         return MaterialApp(
           title: 'Shimmer',
           theme: AppTheme(primaryColor, handwriting).light(),

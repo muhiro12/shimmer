@@ -31,7 +31,7 @@ class ShimmerCardCreatorLauncher extends StatelessWidget {
                 .map(
                   (category) => ListTile(
                     title: Text(EnumParser.upperCamelCaseStringOf(category)),
-                    onTap: () => _onTap(context, category),
+                    onTap: () => _onListItemTap(context, category),
                   ),
                 )
                 .toList(),
@@ -41,7 +41,7 @@ class ShimmerCardCreatorLauncher extends StatelessWidget {
     );
   }
 
-  void _onTap(BuildContext context, ShimmerCategory category) {
+  void _onListItemTap(BuildContext context, ShimmerCategory category) {
     showCupertinoModalPopup(
       context: context,
       builder: (context) => ShimmerCardCreator(category),

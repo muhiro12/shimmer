@@ -1,17 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:shimmer/hive/configuration_box.dart';
+import 'package:shimmer/model/data_store.dart';
 
 class SettingsRoot extends StatelessWidget {
-  final _box = Hive.box(ConfigurationBox.key.toString());
-
   @override
   Widget build(BuildContext context) {
-    final handwriting =
-        _box.get(ConfigurationBox.handWriting.toString(), defaultValue: false);
-    final darkMode =
-        _box.get(ConfigurationBox.darkMode.toString(), defaultValue: false);
+    final handWriting = DataStore.fetchHandWriting();
+    final darkMode = DataStore.fetchDarkMode();
     return Scaffold(
       appBar: AppBar(
         title: Text('Create'),
@@ -27,11 +22,8 @@ class SettingsRoot extends StatelessWidget {
               children: <Widget>[
                 Text('Handwriting'),
                 Switch(
-                  value: handwriting,
-                  onChanged: (value) => _box.put(
-                    ConfigurationBox.handWriting.toString(),
-                    value,
-                  ),
+                  value: handWriting,
+                  onChanged: _onHandWritingChanged,
                 ),
               ],
             ),
@@ -40,25 +32,29 @@ class SettingsRoot extends StatelessWidget {
                 Text('DardMode'),
                 Switch(
                   value: darkMode,
-                  onChanged: (value) => _box.put(
-                    ConfigurationBox.darkMode.toString(),
-                    value,
-                  ),
+                  onChanged: _onDarkModeChanged,
                 ),
               ],
             ),
             Expanded(
-              child: ListView(
+              child: GridView.count(
+                crossAxisCount: 3,
                 children: Colors.primaries
                     .map(
                       (color) => GestureDetector(
                         child: Card(
                           color: color,
-                          child: Container(
-                            height: 150,
+                          child: Visibility(
+                            visible: color == Theme.of(context).primaryColor,
+                            child: Center(
+                              child: Icon(
+                                Icons.check,
+                                color: Colors.white,
+                              ),
+                            ),
                           ),
                         ),
-                        onTap: () => _onTap(color),
+                        onTap: () => _onColorCardTap(color),
                       ),
                     )
                     .toList(),
@@ -70,7 +66,15 @@ class SettingsRoot extends StatelessWidget {
     );
   }
 
-  void _onTap(MaterialColor color) {
-    _box.put(ConfigurationBox.primaryColorValue.toString(), color.value);
+  void _onHandWritingChanged(bool value) {
+    DataStore.saveHandWriting(value);
+  }
+
+  void _onDarkModeChanged(bool value) {
+    DataStore.saveDarkMode(value);
+  }
+
+  void _onColorCardTap(MaterialColor color) {
+    DataStore.savePrimaryColor(color);
   }
 }

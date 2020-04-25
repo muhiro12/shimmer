@@ -17,6 +17,7 @@ class AppTheme {
   ThemeData dark() {
     final themeData = _themeData(Brightness.dark);
     return themeData.copyWith(
+      primaryColor: primaryColor,
       accentColor: primaryColor,
       toggleableActiveColor: primaryColor,
       floatingActionButtonTheme: themeData.floatingActionButtonTheme.copyWith(

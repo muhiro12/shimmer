@@ -8,7 +8,7 @@ class ShimmerDataList {
   @HiveField(0)
   List<ShimmerData> value = [];
 
-  void create(ShimmerData data) {
+  void insert(ShimmerData data) {
     value.insert(0, data);
   }
 }
