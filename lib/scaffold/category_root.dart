@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/configuration/app_size.dart';
 import 'package:shimmer/hive/shimmer_category.dart';
+import 'package:shimmer/hive/shimmer_data.dart';
+import 'package:shimmer/model/data_store.dart';
 import 'package:shimmer/model/enum_parser.dart';
 import 'package:shimmer/model/route_navigator.dart';
-import 'package:shimmer/widget/shimmer_card.dart';
+import 'package:shimmer/widget/shimmer_card_summary.dart';
 
 class CategoryRoot extends StatelessWidget {
   @override
@@ -19,7 +22,7 @@ class CategoryRoot extends StatelessWidget {
               final title = EnumParser.upperCamelCaseStringOf(category);
               return ListTile(
                 title: Text(title),
-                onTap: () => _onListItemTap(context, title),
+                onTap: () => _onListItemTap(context, category),
               );
             },
           ).toList(),
@@ -28,18 +31,35 @@ class CategoryRoot extends StatelessWidget {
     );
   }
 
-  void _onListItemTap(BuildContext context, String title) {
+  void _onListItemTap(BuildContext context, ShimmerCategory category) {
     RouteNavigator.push(
       context: context,
       widget: Scaffold(
         appBar: AppBar(
-          title: Text(title),
+          title: Text(EnumParser.upperCamelCaseStringOf(category)),
         ),
         body: SafeArea(
-          child: Center(
-            child: ShimmerCard(
-              child: Text('Contents'),
-            ),
+          child: ValueListenableBuilder(
+            valueListenable: DataStore.listenableShimmerData,
+            builder: (context, box, widget) {
+              final List<ShimmerData> shimmerDataList =
+                  DataStore.fetchShimmerDataList()
+                      .where(
+                        (shimmerData) => shimmerData.category == category,
+                      )
+                      .toList();
+              return ListView(
+                padding: EdgeInsets.all(AppSize.spaceM),
+                children: shimmerDataList
+                    .map(
+                      (shimmerData) => ShimmerCardSummary(
+                        shimmerData,
+                        toDetail: true,
+                      ),
+                    )
+                    .toList(),
+              );
+            },
           ),
         ),
       ),
