@@ -1,38 +1,28 @@
-import 'dart:typed_data';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:shimmer/configuration/app_size.dart';
 import 'package:shimmer/hive/shimmer_category.dart';
 import 'package:shimmer/hive/shimmer_data.dart';
 import 'package:shimmer/model/data_store.dart';
 import 'package:shimmer/model/enum_parser.dart';
+import 'package:shimmer/widget/horizontal_list_image_picker.dart';
 
-class ShimmerCardCreator extends StatefulWidget {
+class ShimmerCardCreator extends StatelessWidget {
   final ShimmerCategory _category;
 
   ShimmerCardCreator(this._category);
 
-  @override
-  State<StatefulWidget> createState() {
-    return _ShimmerCardCreatorState();
-  }
-}
-
-class _ShimmerCardCreatorState extends State<ShimmerCardCreator> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _artistController = TextEditingController();
   final TextEditingController _locationController = TextEditingController();
-  final ScrollController _scrollController = ScrollController();
-  final List<Uint8List> _imageList = [];
   final TextEditingController _tagController = TextEditingController();
+
+  final HorizontalListImagePicker _imagePicker = HorizontalListImagePicker(
+    height: AppSize.componentL,
+  );
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) => _scrollToLast(),
-    );
     return Scaffold(
       appBar: AppBar(
         title: Text('Create'),
@@ -49,7 +39,7 @@ class _ShimmerCardCreatorState extends State<ShimmerCardCreator> {
               children: <Widget>[
                 FormField(
                   builder: (context) =>
-                      Text(EnumParser.upperCamelCaseStringOf(widget._category)),
+                      Text(EnumParser.upperCamelCaseStringOf(_category)),
                 ),
                 TextFormField(
                   controller: _titleController,
@@ -76,39 +66,7 @@ class _ShimmerCardCreatorState extends State<ShimmerCardCreator> {
                   ),
                 ),
                 FormField(
-                  builder: (_) => SizedBox(
-                    height: AppSize.componentL,
-                    child: LayoutBuilder(
-                      builder: (context, constraints) {
-                        List<Widget> list = [];
-                        list.addAll(
-                          _imageList.map(
-                            (image) => SizedBox(
-                              width: AppSize.componentL,
-                              height: AppSize.componentL,
-                              child: Card(
-                                child: Image.memory(image),
-                              ),
-                            ),
-                          ),
-                        );
-                        list.add(
-                          IconButton(
-                            icon: Icon(
-                              Icons.add_photo_alternate,
-                            ),
-                            iconSize: AppSize.componentS,
-                            onPressed: _onImageIconPressed,
-                          ),
-                        );
-                        return ListView(
-                          controller: _scrollController,
-                          scrollDirection: Axis.horizontal,
-                          children: list,
-                        );
-                      },
-                    ),
-                  ),
+                  builder: (_) => _imagePicker,
                 ),
                 SizedBox(
                   height: AppSize.spaceL,
@@ -125,32 +83,15 @@ class _ShimmerCardCreatorState extends State<ShimmerCardCreator> {
     );
   }
 
-  void _onImageIconPressed() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      setState(() {
-        _imageList.add(image.readAsBytesSync());
-      });
-    }
-  }
-
   void _onButtonPressed(BuildContext context) {
     final shimmerData = ShimmerData();
-    shimmerData.category = widget._category;
+    shimmerData.category = _category;
     shimmerData.title = _titleController.text;
     shimmerData.creator = _artistController.text;
     shimmerData.location = _locationController.text;
     shimmerData.tags = [_tagController.text];
-    shimmerData.images = _imageList;
+    shimmerData.images = _imagePicker.images;
     DataStore.createShimmerData(shimmerData);
     Navigator.pop(context);
-  }
-
-  void _scrollToLast() {
-    _scrollController.animateTo(
-      _scrollController.position.maxScrollExtent,
-      duration: Duration(milliseconds: 500),
-      curve: Curves.easeInOut,
-    );
   }
 }
