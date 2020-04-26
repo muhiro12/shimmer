@@ -6,11 +6,11 @@ import 'package:shimmer/model/date_parser.dart';
 import 'package:shimmer/widget/shimmer_card.dart';
 
 class ShimmerCardSummary extends StatelessWidget {
-  final ShimmerData _data;
+  final ShimmerData _shimmerData;
   final double elevation;
   final Function onTap;
 
-  ShimmerCardSummary(this._data, {this.elevation, this.onTap});
+  ShimmerCardSummary(this._shimmerData, {this.elevation, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -33,13 +33,13 @@ class ShimmerCardSummary extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(DateParser.yearMonthDayStringOf(_data.date)),
+                    Text(DateParser.yearMonthDayStringOf(_shimmerData.date)),
                     Text(
-                      _data.title,
+                      _shimmerData.title,
                       style: Theme.of(context).textTheme.headline,
                     ),
-                    Text(_data.artist),
-                    Text(_data.location),
+                    Text(_shimmerData.creator),
+                    Text(_shimmerData.location),
                   ],
                 ),
               ),

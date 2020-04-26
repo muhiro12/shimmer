@@ -1,0 +1,3 @@
+enum ShimmerDataBox {
+  key,
+}

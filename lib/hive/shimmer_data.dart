@@ -1,31 +1,60 @@
+import 'dart:io';
+
 import 'package:hive/hive.dart';
 import 'package:shimmer/hive/shimmer_category.dart';
 
 part 'shimmer_data.g.dart';
 
-@HiveType(typeId: 1)
+@HiveType(typeId: 0)
 class ShimmerData {
   @HiveField(0)
-  DateTime date = DateTime.now();
+  DateTime createdDate = DateTime.now();
 
   @HiveField(1)
-  String title = 'Jive Turkey';
+  ShimmerCategory category = ShimmerCategory.plane;
 
   @HiveField(2)
-  String summary = 'Live at Tokyo';
+  DateTime date = DateTime.now();
 
   @HiveField(3)
-  String detail = 'So greate, I\'m happy.';
+  String title = '';
 
   @HiveField(4)
-  List<String> tags = ['#Tag'];
+  String summary = '';
 
   @HiveField(5)
-  ShimmerCategory category = ShimmerCategory.concert;
+  String detail = '';
 
   @HiveField(6)
-  String artist = 'the HIATUS';
+  String note = '';
 
   @HiveField(7)
-  String location = 'Tokyo';
+  String theme = '';
+
+  @HiveField(8)
+  List<File> images = [];
+
+  @HiveField(9)
+  List<String> tags = [];
+
+  @HiveField(10)
+  int star = 6;
+
+  @HiveField(11)
+  String creator = '';
+
+  @HiveField(12)
+  String location = '';
+
+  @HiveField(13)
+  String genre = '';
+
+  @HiveField(14)
+  String option1 = '';
+
+  @HiveField(15)
+  String option2 = '';
+
+  @HiveField(16)
+  String option3 = '';
 }

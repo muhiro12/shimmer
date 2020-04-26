@@ -64,6 +64,12 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
 
   @override
+  void dispose() async {
+    await DataStore.deInit();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: IndexedStack(

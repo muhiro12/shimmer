@@ -2,48 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shimmer/hive/configuration_box.dart';
-import 'package:shimmer/hive/data_box.dart';
 import 'package:shimmer/hive/shimmer_category.dart';
 import 'package:shimmer/hive/shimmer_data.dart';
-import 'package:shimmer/hive/shimmer_data_list.dart';
+import 'package:shimmer/hive/shimmer_data_box.dart';
 
 class DataStore {
-  static final _dataBox = Hive.box(DataBox.key.toString());
+  static final _shimmerDataBox =
+      Hive.box<ShimmerData>(ShimmerDataBox.key.toString());
   static final _configurationBox = Hive.box(ConfigurationBox.key.toString());
 
-  static final listenableData = _dataBox.listenable();
+  static final listenableShimmerData = _shimmerDataBox.listenable();
   static final listenableConfiguration = _configurationBox.listenable();
 
   static Future init() async {
     await Hive.initFlutter();
     Hive.registerAdapter(ShimmerCategoryAdapter());
     Hive.registerAdapter(ShimmerDataAdapter());
-    Hive.registerAdapter(ShimmerDataListAdapter());
     await Hive.openBox(ConfigurationBox.key.toString());
-    await Hive.openBox(DataBox.key.toString());
+    await Hive.openBox<ShimmerData>(ShimmerDataBox.key.toString());
   }
 
-  static void saveData(ShimmerData data) {
-    ShimmerDataList dataList = _dataBox.get(
-      DataBox.dataList.toString(),
-      defaultValue: ShimmerDataList(),
-    );
-    dataList.insert(data);
-    saveDataList(dataList);
+  static Future deInit() async {
+    await Hive.close();
   }
 
-  static ShimmerDataList fetchDataList() {
-    return _dataBox.get(
-      DataBox.dataList.toString(),
-      defaultValue: ShimmerDataList(),
-    );
+  static void createShimmerData(ShimmerData shimmerData) {
+    saveShimmerDataList(shimmerData);
   }
 
-  static void saveDataList(ShimmerDataList dataList) {
-    _dataBox.put(
-      DataBox.dataList.toString(),
-      dataList,
-    );
+  static List<ShimmerData> fetchShimmerDataList() {
+    return _shimmerDataBox.values.toList().reversed.toList();
+  }
+
+  static void saveShimmerDataList(ShimmerData shimmerData) {
+    _shimmerDataBox.add(shimmerData);
   }
 
   static bool fetchHandWriting() {

@@ -1,4 +1,0 @@
-enum DataBox {
-  key,
-  dataList,
-}

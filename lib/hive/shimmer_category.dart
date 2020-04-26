@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 
 part 'shimmer_category.g.dart';
 
-@HiveType(typeId: 0)
+@HiveType(typeId: 1)
 enum ShimmerCategory {
   @HiveField(0)
   plane,

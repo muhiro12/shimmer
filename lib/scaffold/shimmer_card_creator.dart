@@ -76,7 +76,13 @@ class ShimmerCardCreator extends StatelessWidget {
   }
 
   void _onButtonPressed(BuildContext context) {
-    DataStore.saveData(ShimmerData());
+    final shimmerData = ShimmerData();
+    shimmerData.category = _category;
+    shimmerData.title = _titleController.text;
+    shimmerData.creator = _artistController.text;
+    shimmerData.location = _locationController.text;
+    shimmerData.tags = [_tagController.text];
+    DataStore.createShimmerData(shimmerData);
     Navigator.pop(context);
   }
 }

@@ -10,9 +10,9 @@ import 'package:shimmer/widget/shimmer_card.dart';
 import 'package:shimmer/widget/shimmer_card_summary.dart';
 
 class ShimmerCardDetail extends StatelessWidget {
-  final ShimmerData _data;
+  final ShimmerData _shimmerData;
 
-  ShimmerCardDetail(this._data);
+  ShimmerCardDetail(this._shimmerData);
 
   final ScreenshotController _controller = ScreenshotController();
 
@@ -20,7 +20,7 @@ class ShimmerCardDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_data.title),
+        title: Text(_shimmerData.title),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.share),
@@ -31,26 +31,27 @@ class ShimmerCardDetail extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.all(AppSize.spaceM),
         children: <Widget>[
-          ShimmerCardSummary(_data),
+          ShimmerCardSummary(_shimmerData),
           ShimmerCard(
-            child: Text(EnumParser.upperCamelCaseStringOf(_data.category)),
+            child:
+                Text(EnumParser.upperCamelCaseStringOf(_shimmerData.category)),
           ),
           ShimmerCard(
-            child: Text(DateParser.yearMonthDayStringOf(_data.date)),
+            child: Text(DateParser.yearMonthDayStringOf(_shimmerData.date)),
           ),
           ShimmerCard(
-            child: Text(_data.title),
+            child: Text(_shimmerData.title),
           ),
           ShimmerCard(
-            child: Text(_data.artist),
+            child: Text(_shimmerData.creator),
           ),
           ShimmerCard(
-            child: Text(_data.location),
+            child: Text(_shimmerData.location),
           ),
           ShimmerCard(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: _data.tags
+              children: _shimmerData.tags
                   .map(
                     (tag) => Text(tag),
                   )
@@ -71,7 +72,7 @@ class ShimmerCardDetail extends StatelessWidget {
           Screenshot(
             controller: _controller,
             child: ShimmerCardSummary(
-              _data,
+              _shimmerData,
               elevation: 0,
             ),
           ),

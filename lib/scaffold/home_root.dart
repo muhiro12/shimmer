@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/hive/shimmer_data_list.dart';
+import 'package:shimmer/hive/shimmer_data.dart';
 import 'package:shimmer/model/data_store.dart';
 import 'package:shimmer/scaffold/settings_root.dart';
 import 'package:shimmer/widget/home_list_item.dart';
@@ -20,13 +20,14 @@ class HomeRoot extends StatelessWidget {
       ),
       body: SafeArea(
         child: ValueListenableBuilder(
-          valueListenable: DataStore.listenableData,
+          valueListenable: DataStore.listenableShimmerData,
           builder: (context, box, widget) {
-            final ShimmerDataList dataList = DataStore.fetchDataList();
+            final List<ShimmerData> shimmerDataList =
+                DataStore.fetchShimmerDataList();
             return ListView(
-              children: dataList.value
+              children: shimmerDataList
                   .map(
-                    (data) => HomeListItem(data),
+                    (shimmerData) => HomeListItem(shimmerData),
                   )
                   .toList(),
             );

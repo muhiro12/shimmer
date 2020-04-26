@@ -8,9 +8,9 @@ import 'package:shimmer/scaffold/shimmer_card_detail.dart';
 import 'package:shimmer/widget/shimmer_card_summary.dart';
 
 class HomeListItem extends StatelessWidget {
-  final ShimmerData _data;
+  final ShimmerData _shimmerData;
 
-  HomeListItem(this._data);
+  HomeListItem(this._shimmerData);
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +21,18 @@ class HomeListItem extends StatelessWidget {
           child: Row(
             children: <Widget>[
               Text(
-                _data.tags?.first ?? '#None',
+                _shimmerData.tags.isNotEmpty
+                    ? _shimmerData.tags.first
+                    : '#None',
                 style: Theme.of(context)
                     .textTheme
                     .headline
                     .copyWith(color: Colors.grey),
               ),
+              Text(_shimmerData.date.toString().substring(10)),
               Spacer(),
               Text(
-                EnumParser.upperCamelCaseStringOf(_data.category),
+                EnumParser.upperCamelCaseStringOf(_shimmerData.category),
                 style: TextStyle(
                   color: Theme.of(context).accentColor,
                 ),
@@ -40,7 +43,7 @@ class HomeListItem extends StatelessWidget {
         Container(
           transform: Matrix4.translationValues(AppSize.spaceL, 0, 0),
           child: ShimmerCardSummary(
-            _data,
+            _shimmerData,
             onTap: () => _onCardTap(context),
           ),
         ),
@@ -51,7 +54,7 @@ class HomeListItem extends StatelessWidget {
   void _onCardTap(BuildContext context) {
     RouteNavigator.push(
       context: context,
-      widget: ShimmerCardDetail(_data),
+      widget: ShimmerCardDetail(_shimmerData),
     );
   }
 }

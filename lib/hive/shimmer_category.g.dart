@@ -8,7 +8,7 @@ part of 'shimmer_category.dart';
 
 class ShimmerCategoryAdapter extends TypeAdapter<ShimmerCategory> {
   @override
-  final typeId = 0;
+  final typeId = 1;
 
   @override
   ShimmerCategory read(BinaryReader reader) {
