@@ -21,10 +21,12 @@ class ShimmerCardSummary extends StatelessWidget {
         builder: (context, constraints) {
           return Row(
             children: <Widget>[
-              Image.network(
-                'https://www.pakutaso.com/shared/img/thumb/KUMAKICHI1027642_TP_V.jpg',
-                width: constraints.maxWidth / 2,
-              ),
+              _shimmerData.images.isNotEmpty
+                  ? Image.memory(
+                      _shimmerData.images.first,
+                      width: constraints.maxWidth / 2,
+                    )
+                  : Container(),
               SizedBox(
                 width: AppSize.spaceM,
               ),

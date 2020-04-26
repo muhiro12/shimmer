@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:hive/hive.dart';
 import 'package:shimmer/hive/shimmer_category.dart';
@@ -32,7 +33,7 @@ class ShimmerData {
   String theme = '';
 
   @HiveField(8)
-  List<File> images = [];
+  List<Uint8List> images = [];
 
   @HiveField(9)
   List<String> tags = [];

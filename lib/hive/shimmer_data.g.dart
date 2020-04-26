@@ -25,7 +25,7 @@ class ShimmerDataAdapter extends TypeAdapter<ShimmerData> {
       ..detail = fields[5] as String
       ..note = fields[6] as String
       ..theme = fields[7] as String
-      ..images = (fields[8] as List)?.cast<File>()
+      ..images = (fields[8] as List)?.cast<Uint8List>()
       ..tags = (fields[9] as List)?.cast<String>()
       ..star = fields[10] as int
       ..creator = fields[11] as String

@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +25,7 @@ class _ShimmerCardCreatorState extends State<ShimmerCardCreator> {
   final TextEditingController _artistController = TextEditingController();
   final TextEditingController _locationController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
-  final List<File> _images = [];
+  final List<Uint8List> _imageList = [];
   final TextEditingController _tagController = TextEditingController();
 
   @override
@@ -82,12 +82,12 @@ class _ShimmerCardCreatorState extends State<ShimmerCardCreator> {
                       builder: (context, constraints) {
                         List<Widget> list = [];
                         list.addAll(
-                          _images.map(
+                          _imageList.map(
                             (image) => SizedBox(
                               width: AppSize.componentL,
                               height: AppSize.componentL,
                               child: Card(
-                                child: Image.file(image),
+                                child: Image.memory(image),
                               ),
                             ),
                           ),
@@ -129,7 +129,7 @@ class _ShimmerCardCreatorState extends State<ShimmerCardCreator> {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
     if (image != null) {
       setState(() {
-        _images.add(image);
+        _imageList.add(image.readAsBytesSync());
       });
     }
   }
@@ -141,6 +141,7 @@ class _ShimmerCardCreatorState extends State<ShimmerCardCreator> {
     shimmerData.creator = _artistController.text;
     shimmerData.location = _locationController.text;
     shimmerData.tags = [_tagController.text];
+    shimmerData.images = _imageList;
     DataStore.createShimmerData(shimmerData);
     Navigator.pop(context);
   }
