@@ -3,20 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/configuration/app_size.dart';
 import 'package:shimmer/hive/shimmer_data.dart';
 import 'package:shimmer/model/date_parser.dart';
+import 'package:shimmer/model/route_navigator.dart';
+import 'package:shimmer/scaffold/shimmer_card_detail.dart';
 import 'package:shimmer/widget/shimmer_card.dart';
 
 class ShimmerCardSummary extends StatelessWidget {
   final ShimmerData _shimmerData;
   final double elevation;
-  final Function onTap;
+  final bool toDetail;
 
-  ShimmerCardSummary(this._shimmerData, {this.elevation, this.onTap});
+  ShimmerCardSummary(this._shimmerData,
+      {this.elevation, this.toDetail = false});
 
   @override
   Widget build(BuildContext context) {
     return ShimmerCard(
       elevation: elevation,
-      onTap: onTap,
+      onTap: toDetail ? () => _onTap(context) : null,
       child: LayoutBuilder(
         builder: (context, constraints) {
           return Row(
@@ -49,6 +52,13 @@ class ShimmerCardSummary extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+
+  void _onTap(BuildContext context) {
+    RouteNavigator.push(
+      context: context,
+      widget: ShimmerCardDetail(_shimmerData),
     );
   }
 }

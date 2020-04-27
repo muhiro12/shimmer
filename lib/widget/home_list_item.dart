@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/configuration/app_size.dart';
 import 'package:shimmer/hive/shimmer_data.dart';
 import 'package:shimmer/model/enum_parser.dart';
-import 'package:shimmer/model/route_navigator.dart';
-import 'package:shimmer/scaffold/shimmer_card_detail.dart';
 import 'package:shimmer/widget/shimmer_card_summary.dart';
 
 class HomeListItem extends StatelessWidget {
@@ -44,17 +42,10 @@ class HomeListItem extends StatelessWidget {
           transform: Matrix4.translationValues(AppSize.spaceL, 0, 0),
           child: ShimmerCardSummary(
             _shimmerData,
-            onTap: () => _onCardTap(context),
+            toDetail: true,
           ),
         ),
       ],
-    );
-  }
-
-  void _onCardTap(BuildContext context) {
-    RouteNavigator.push(
-      context: context,
-      widget: ShimmerCardDetail(_shimmerData),
     );
   }
 }
