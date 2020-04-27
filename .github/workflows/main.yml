@@ -41,9 +41,6 @@ jobs:
     - name: Slack Notification
       uses: rtCamp/action-slack-notify@v2.0.0
       env:
-        SLACK_CHANNEL: GitHub
-        SLACK_COLOR: '#3278BD'
         SLACK_MESSAGE: 'Post Content :rocket:'
         SLACK_TITLE: Post Title
-        SLACK_USERNAME: Actions
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
