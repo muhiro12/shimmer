@@ -32,11 +32,11 @@ jobs:
         echo Add other actions to build,
         echo test, and deploy your project.
 
-    - name: Flutter action
-      uses: subosito/flutter-action@v1.3.0
-    - run: flutter pub get
-    - run: flutter test
-    - run: flutter build apk
+#     - name: Flutter action
+#       uses: subosito/flutter-action@v1.3.0
+#     - run: flutter pub get
+#     - run: flutter test
+#     - run: flutter build apk
 
     - name: Slack Notification
       uses: rtCamp/action-slack-notify@v2.0.0
