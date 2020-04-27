@@ -26,13 +26,14 @@ jobs:
       uses: subosito/flutter-action@v1.3.0
     - run: flutter pub get
     - run: flutter test
-    - run: flutter build ios --no-codesign --verbose
+    - run: flutter clean
+    - run: flutter build ios --no-codesign
     - run: flutter build apk
 
     - name: Firebase App Distribution
       uses: wzieba/Firebase-Distribution-Github-Action@v1.2.1
       with:
-        appId: ${{secrets.FIREBASE_APP_ID}}
+        appId: ${{secrets.FIREBASE_APP_ID_ANDROID}}
         token: ${{secrets.FIREBASE_TOKEN}}
         file: build/app/outputs/apk/release/app-release.apk
 
@@ -42,4 +43,4 @@ jobs:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
         SLACK_COLOR: '#171515'
         SLACK_ICON: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
-        SLACK_USERNAME: Actions
+        SLACK_USERNAME: Shimmer
