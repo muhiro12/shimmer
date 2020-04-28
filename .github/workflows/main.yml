@@ -87,6 +87,7 @@ jobs:
       with:
         appId: ${{secrets.FIREBASE_APP_ID_IOS}}
         token: ${{secrets.FIREBASE_TOKEN}}
+        groups: testers
         file: ios/app-release.ipa
 
     - name: Firebase App Distribution
@@ -94,6 +95,7 @@ jobs:
       with:
         appId: ${{secrets.FIREBASE_APP_ID_ANDROID}}
         token: ${{secrets.FIREBASE_TOKEN}}
+        groups: testers
         file: android/app-release.apk
 
   notify:
@@ -108,4 +110,5 @@ jobs:
         SLACK_COLOR: '#171515'
         SLACK_ICON: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
         SLACK_USERNAME: ${{ github.repository }}
-        SLACK_MESSAGE: Actions has been completed.\n${{ github.sha }}
+        SLACK_TITLE: Now Available
+        SLACK_MESSAGE: https://appdistribution.firebase.dev/app_distro/projects
