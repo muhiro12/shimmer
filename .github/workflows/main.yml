@@ -36,7 +36,7 @@ jobs:
     - run: flutter build apk
 
     - name: Slack Notification
-      id: failure()
+      if: failure()
       uses: rtCamp/action-slack-notify@v2.0.0
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
