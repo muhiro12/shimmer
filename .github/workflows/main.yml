@@ -22,10 +22,10 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
-    - name: Set up Provisioning Profile
+    - name: Import Provisioning Profile
       run: |
         mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-        echo '${{ secrets.PROVISIONING_PROFILE }}' | openssl base64 -d -out ~/Library/MobileDevice/Provisioning\ Profiles/Shimmer.mobileprovision
+        echo '${{ secrets.PROVISIONING_PROFILE }}' | openssl base64 -d -out ~/Library/MobileDevice/Provisioning\ Profiles/output.mobileprovision
 
     - name: Import Code-Signing Certificates
       uses: Apple-Actions/import-codesign-certs@v1
@@ -40,21 +40,34 @@ jobs:
     - run: flutter build ios
     - run: flutter build apk
 
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        name: apk
+        path: build/app/outputs/apk/release/app-release.apk
+
   deploy:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
+
+    - name: Download artifact
+      uses: actions/download-artifact@v1.0.0
+      with:
+        name: apk
+
     - name: Firebase App Distribution
       uses: wzieba/Firebase-Distribution-Github-Action@v1.2.1
       with:
         appId: ${{secrets.FIREBASE_APP_ID_ANDROID}}
         token: ${{secrets.FIREBASE_TOKEN}}
-        file: build/app/outputs/apk/release/app-release.apk
+        file: apk
 
   notify:
     needs: [build, deploy]
     runs-on: ubuntu-latest
     steps:
+
     - name: Slack Notification
       uses: rtCamp/action-slack-notify@v2.0.0
       env:
