@@ -43,8 +43,8 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
       with:
-        name: apk
-        path: build/app/outputs/apk/release/app-release.apk
+        name: android
+        path: build/app/outputs/apk/release
 
   deploy:
     needs: [build]
@@ -56,14 +56,14 @@ jobs:
     - name: Download artifact
       uses: actions/download-artifact@v1.0.0
       with:
-        name: apk
+        name: android
 
     - name: Firebase App Distribution
       uses: wzieba/Firebase-Distribution-Github-Action@v1.2.1
       with:
         appId: ${{secrets.FIREBASE_APP_ID_ANDROID}}
         token: ${{secrets.FIREBASE_TOKEN}}
-        file: apk
+        file: android/app-release.apk
 
   notify:
     needs: [build, deploy]
