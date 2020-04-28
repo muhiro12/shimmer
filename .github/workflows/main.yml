@@ -43,7 +43,7 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
       with:
-        name: apk
+        name: android
         path: build/app/outputs/apk/release/app-release.apk
 
   deploy:
@@ -56,14 +56,14 @@ jobs:
     - name: Download artifact
       uses: actions/download-artifact@v1.0.0
       with:
-        name: apk
+        name: android
 
     - name: Firebase App Distribution
       uses: wzieba/Firebase-Distribution-Github-Action@v1.2.1
       with:
         appId: ${{secrets.FIREBASE_APP_ID_ANDROID}}
         token: ${{secrets.FIREBASE_TOKEN}}
-        file: app-release.apk
+        file: android/app-release.apk
 
   notify:
     needs: [build, deploy]
@@ -76,5 +76,5 @@ jobs:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
         SLACK_COLOR: '#171515'
         SLACK_ICON: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
-        SLACK_USERNAME: Actions
-        SLACK_MESSAGE: Completed
+        SLACK_USERNAME: ${{ github.repository }}
+        SLACK_MESSAGE: Actions has been completed.
