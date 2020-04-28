@@ -37,7 +37,7 @@ jobs:
       uses: subosito/flutter-action@v1.3.0
     - run: flutter pub get
     - run: flutter test
-    - run: flutter build ios --verbose
+    - run: flutter build ios --no-codesign --verbose
     - run: flutter build apk
 
     - name: Firebase App Distribution
