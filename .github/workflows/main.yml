@@ -37,9 +37,13 @@ jobs:
       uses: subosito/flutter-action@v1.3.0
     - run: flutter pub get
     - run: flutter test
-    - run: flutter build ios --verbose
+    - run: flutter build ios
     - run: flutter build apk
 
+  deploy:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
     - name: Firebase App Distribution
       uses: wzieba/Firebase-Distribution-Github-Action@v1.2.1
       with:
@@ -48,6 +52,7 @@ jobs:
         file: build/app/outputs/apk/release/app-release.apk
 
   notify:
+    needs: [build, deploy]
     runs-on: ubuntu-latest
     steps:
     - name: Slack Notification
