@@ -35,6 +35,16 @@ jobs:
     - run: flutter build ios --no-codesign --verbose
     - run: flutter build apk
 
+    - name: Slack Notification
+      id: failure()
+      uses: rtCamp/action-slack-notify@v2.0.0
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        SLACK_COLOR: '#171515'
+        SLACK_ICON: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
+        SLACK_USERNAME: Shimmer
+        SLACK_MESSAGE: Failed
+
     - name: Firebase App Distribution
       uses: wzieba/Firebase-Distribution-Github-Action@v1.2.1
       with:
@@ -42,9 +52,6 @@ jobs:
         token: ${{secrets.FIREBASE_TOKEN}}
         file: build/app/outputs/apk/release/app-release.apk
 
-  notify:
-    runs-on: ubuntu-latest
-    steps:
     - name: Slack Notification
       uses: rtCamp/action-slack-notify@v2.0.0
       env:
@@ -52,3 +59,4 @@ jobs:
         SLACK_COLOR: '#171515'
         SLACK_ICON: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
         SLACK_USERNAME: Shimmer
+        SLACK_MESSAGE: Completed
