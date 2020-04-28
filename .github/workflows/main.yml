@@ -22,6 +22,9 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
+    - name: Set up Provisioning Profile
+      run: openssl base64 -d -in ${{ secrets.PROVISIONING_PROFILE }} -out ~/Library/MobileDevice/Provisioning\ Profiles/Shimmer.mobileprovision
+
     - name: Import Code-Signing Certificates
       uses: Apple-Actions/import-codesign-certs@v1
       with: 
