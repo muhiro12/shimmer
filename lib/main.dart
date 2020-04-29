@@ -98,7 +98,9 @@ class _MyHomePageState extends State<MyHomePage> {
         child: ShimmerCardCreatorLauncher(),
       ),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppSize.radius),
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(AppSize.radius),
+        ),
       ),
     );
   }

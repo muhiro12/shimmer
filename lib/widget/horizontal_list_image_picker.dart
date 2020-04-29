@@ -42,6 +42,7 @@ class _HorizontalListImagePickerState extends State<HorizontalListImagePicker> {
       IconButton(
         icon: Icon(
           Icons.add_photo_alternate,
+          color: Colors.grey.shade600,
         ),
         iconSize: AppSize.componentS,
         onPressed: _onImageIconPressed,
