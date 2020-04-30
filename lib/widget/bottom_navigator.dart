@@ -1,18 +1,35 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class BottomNavigator extends StatelessWidget {
+class BottomNavigator extends StatefulWidget {
   final Widget _child;
   final BottomNavigationBarItem barItem;
 
   BottomNavigator(this._child, this.barItem);
 
+  final GlobalKey<_BottomNavigatorState> key =
+      GlobalKey<_BottomNavigatorState>();
+
+  @override
+  State<StatefulWidget> createState() {
+    return _BottomNavigatorState();
+  }
+}
+
+class _BottomNavigatorState extends State<BottomNavigator> {
+  GlobalKey<NavigatorState> _key = GlobalKey<NavigatorState>();
+
   @override
   Widget build(BuildContext context) {
     return Navigator(
+      key: _key,
       onGenerateRoute: (_) => MaterialPageRoute(
-        builder: (context) => _child,
+        builder: (context) => widget._child,
       ),
     );
+  }
+
+  void popToRoot() {
+    _key.currentState.popUntil((route) => route.isFirst);
   }
 }

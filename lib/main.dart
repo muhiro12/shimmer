@@ -107,7 +107,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _onBarItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      if (_selectedIndex == index) {
+        _bottomNavigators[index].key.currentState.popToRoot();
+      } else {
+        _selectedIndex = index;
+      }
     });
   }
 }
