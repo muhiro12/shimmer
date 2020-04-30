@@ -60,6 +60,7 @@ class ShimmerCardCreator extends StatelessWidget {
                     ),
                     onPressed: () {
                       DataStore.createDebugData(
+                        _main.datePicker.key.currentState.date,
                         _category,
                         _main.starRating.key.currentState.rating,
                         _main.imagePicker.images,
@@ -93,7 +94,7 @@ class ShimmerCardCreator extends StatelessWidget {
   void _onButtonPressed(BuildContext context) {
     final shimmerData = ShimmerData();
     shimmerData.category = _category;
-//    shimmerData.date = DateTime.now();
+    shimmerData.date = _main.datePicker.key.currentState.date;
     shimmerData.title = _main.titleController.text;
     shimmerData.summary = _main.summaryController.text;
     shimmerData.detail = _main.detailController.text;

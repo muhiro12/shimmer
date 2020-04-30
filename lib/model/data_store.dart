@@ -35,11 +35,15 @@ class DataStore {
 
   // TODO: Only for debug
   static void createDebugData(
-      ShimmerCategory category, double star, List<Uint8List> images) {
+    DateTime date,
+    ShimmerCategory category,
+    double star,
+    List<Uint8List> images,
+  ) {
     final random = Random().nextInt(100);
     final shimmerData = ShimmerData();
+    shimmerData.date = date;
     shimmerData.category = category;
-    shimmerData.date = DateTime.now();
     shimmerData.title = '#$random Title';
     shimmerData.summary =
         ('木曾路はすべて山の中である。あるところは岨づたいに行く崖の道であり、あるところは数十間の深さに臨む木曾川の岸であり、あるところは山の尾をめぐる谷の入り口である。\n一筋の街道はこの深い森林地帯を貫いてい')

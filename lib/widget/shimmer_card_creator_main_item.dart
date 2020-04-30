@@ -1,17 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/configuration/app_size.dart';
-import 'package:shimmer/model/date_parser.dart';
+import 'package:shimmer/widget/date_picker.dart';
 import 'package:shimmer/widget/horizontal_list_image_picker.dart';
 import 'package:shimmer/widget/star_rating.dart';
 
 class ShimmerCardCreatorMainItem extends StatelessWidget {
+  final DatePicker datePicker = DatePicker();
   final TextEditingController titleController = TextEditingController();
   final TextEditingController summaryController = TextEditingController();
   final TextEditingController detailController = TextEditingController();
-  final TextEditingController tagController = TextEditingController();
-
   final StarRating starRating = StarRating();
+  final TextEditingController tagController = TextEditingController();
   final HorizontalListImagePicker imagePicker = HorizontalListImagePicker(
     height: AppSize.componentL,
   );
@@ -35,26 +35,7 @@ class ShimmerCardCreatorMainItem extends StatelessWidget {
                       ),
                 ),
                 Spacer(),
-                FlatButton(
-                  onPressed: () {
-                    final duration = Duration(days: 365 * 25);
-                    showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime.now().subtract(
-                        duration,
-                      ),
-                      lastDate: DateTime.now().add(
-                        duration,
-                      ),
-                    );
-                  },
-                  child: Text(
-                    DateParser.yearMonthDayStringOf(
-                      DateTime.now(),
-                    ),
-                  ),
-                ),
+                datePicker,
               ],
             ),
           ),
