@@ -5,10 +5,10 @@ import 'package:shimmer/hive/shimmer_data.dart';
 import 'package:shimmer/model/enum_parser.dart';
 import 'package:shimmer/widget/shimmer_card_summary.dart';
 
-class HomeListItem extends StatelessWidget {
+class TimelineItem extends StatelessWidget {
   final ShimmerData _shimmerData;
 
-  HomeListItem(this._shimmerData);
+  TimelineItem(this._shimmerData);
 
   @override
   Widget build(BuildContext context) {

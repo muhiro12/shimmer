@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:shimmer/configuration/app_size.dart';
 import 'package:shimmer/hive/shimmer_data.dart';
-import 'package:shimmer/model/date_parser.dart';
-import 'package:shimmer/model/enum_parser.dart';
 import 'package:shimmer/model/share.dart';
 import 'package:shimmer/widget/shimmer_card.dart';
+import 'package:shimmer/widget/shimmer_card_column.dart';
 import 'package:shimmer/widget/shimmer_card_summary.dart';
 
 class ShimmerCardDetail extends StatelessWidget {
@@ -18,6 +17,63 @@ class ShimmerCardDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<ShimmerCard> children = [
+      ShimmerCardSummary(_shimmerData),
+      ShimmerCard(
+        children: <Widget>[
+          Text(_shimmerData.summary),
+          Image.network(
+            'https://www.pakutaso.com/shared/img/thumb/cafe201261763_TP_V.jpg',
+          ),
+        ],
+      ),
+      ShimmerCard(
+        children: <Widget>[
+          Image.network(
+            'https://www.pakutaso.com/shared/img/thumb/cafe201261763_TP_V.jpg',
+          ),
+          ShimmerCardColumn(
+            children: <Widget>[
+              Text(_shimmerData.star.toString()),
+              Text(_shimmerData.tags.toString()),
+            ],
+          ),
+        ],
+      ),
+      ShimmerCard(
+        children: <Widget>[
+          ListView(
+            children: <Widget>[
+              Text(_shimmerData.detail),
+            ],
+          ),
+        ],
+      )
+    ];
+    List<Widget> subItems = [
+      ShimmerCardColumn(
+        children: <Widget>[
+          Text(_shimmerData.genre),
+          Text(_shimmerData.theme),
+        ],
+      ),
+    ];
+    subItems.addAll(
+      _shimmerData.images.map(
+        (image) => Image.memory(image),
+      ),
+    );
+    for (int index = 0; index < subItems.length / 2; index++) {
+      var subItem = [subItems[index * 2]];
+      if (subItems.length > index * 2 + 1) {
+        subItem.add(subItems[index * 2 + 1]);
+      }
+      children.add(
+        ShimmerCard(
+          children: subItem,
+        ),
+      );
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text(_shimmerData.title),
@@ -30,35 +86,7 @@ class ShimmerCardDetail extends StatelessWidget {
       ),
       body: ListView(
         padding: EdgeInsets.all(AppSize.spaceM),
-        children: <Widget>[
-          ShimmerCardSummary(_shimmerData),
-          ShimmerCard(
-            child:
-                Text(EnumParser.upperCamelCaseStringOf(_shimmerData.category)),
-          ),
-          ShimmerCard(
-            child: Text(DateParser.yearMonthDayStringOf(_shimmerData.date)),
-          ),
-          ShimmerCard(
-            child: Text(_shimmerData.title),
-          ),
-          ShimmerCard(
-            child: Text(_shimmerData.creator),
-          ),
-          ShimmerCard(
-            child: Text(_shimmerData.location),
-          ),
-          ShimmerCard(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: _shimmerData.tags
-                  .map(
-                    (tag) => Text(tag),
-                  )
-                  .toList(),
-            ),
-          ),
-        ],
+        children: children,
       ),
     );
   }

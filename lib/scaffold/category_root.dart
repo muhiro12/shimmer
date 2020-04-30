@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/configuration/app_size.dart';
 import 'package:shimmer/hive/shimmer_category.dart';
 import 'package:shimmer/hive/shimmer_data.dart';
 import 'package:shimmer/model/data_store.dart';
 import 'package:shimmer/model/enum_parser.dart';
 import 'package:shimmer/model/route_navigator.dart';
-import 'package:shimmer/widget/shimmer_card_summary.dart';
+import 'package:shimmer/widget/timeline_item.dart';
 
 class CategoryRoot extends StatelessWidget {
   @override
@@ -49,13 +48,9 @@ class CategoryRoot extends StatelessWidget {
                       )
                       .toList();
               return ListView(
-                padding: EdgeInsets.all(AppSize.spaceM),
                 children: shimmerDataList
                     .map(
-                      (shimmerData) => ShimmerCardSummary(
-                        shimmerData,
-                        toDetail: true,
-                      ),
+                      (shimmerData) => TimelineItem(shimmerData),
                     )
                     .toList(),
               );

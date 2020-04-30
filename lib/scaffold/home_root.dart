@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/hive/shimmer_data.dart';
 import 'package:shimmer/model/data_store.dart';
 import 'package:shimmer/scaffold/settings_root.dart';
-import 'package:shimmer/widget/home_list_item.dart';
+import 'package:shimmer/widget/timeline_item.dart';
 
 class HomeRoot extends StatelessWidget {
   @override
@@ -27,7 +27,7 @@ class HomeRoot extends StatelessWidget {
             return ListView(
               children: shimmerDataList
                   .map(
-                    (shimmerData) => HomeListItem(shimmerData),
+                    (shimmerData) => TimelineItem(shimmerData),
                   )
                   .toList(),
             );
