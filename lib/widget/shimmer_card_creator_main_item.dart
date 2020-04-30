@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/configuration/app_size.dart';
 import 'package:shimmer/model/date_parser.dart';
 import 'package:shimmer/widget/horizontal_list_image_picker.dart';
+import 'package:shimmer/widget/star_rating.dart';
 
 class ShimmerCardCreatorMainItem extends StatelessWidget {
   final TextEditingController titleController = TextEditingController();
@@ -10,6 +11,7 @@ class ShimmerCardCreatorMainItem extends StatelessWidget {
   final TextEditingController detailController = TextEditingController();
   final TextEditingController tagController = TextEditingController();
 
+  final StarRating starRating = StarRating();
   final HorizontalListImagePicker imagePicker = HorizontalListImagePicker(
     height: AppSize.componentL,
   );
@@ -86,19 +88,7 @@ class ShimmerCardCreatorMainItem extends StatelessWidget {
                       ),
                 ),
                 Spacer(),
-                Radio(
-                  value: false,
-                ),
-                Radio(
-                  value: false,
-                ),
-                Radio(),
-                Radio(
-                  value: false,
-                ),
-                Radio(
-                  value: false,
-                ),
+                starRating,
               ],
             ),
           ),

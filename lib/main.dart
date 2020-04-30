@@ -78,8 +78,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _onFloatingActionButtonTapped,
-        tooltip: 'Create',
-        child: Icon(Icons.add),
+        tooltip: 'New',
+        child: Icon(Icons.create),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: _bottomNavigators

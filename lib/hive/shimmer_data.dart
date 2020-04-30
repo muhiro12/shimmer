@@ -38,7 +38,7 @@ class ShimmerData {
   List<String> tags = [];
 
   @HiveField(10)
-  int star = 6;
+  double star = 3;
 
   @HiveField(11)
   String creator = '';

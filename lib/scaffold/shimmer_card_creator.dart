@@ -46,6 +46,28 @@ class ShimmerCardCreator extends StatelessWidget {
                 Divider(
                   height: 0,
                 ),
+                // TODO: Only for debug
+                SizedBox(
+                  width: double.infinity,
+                  height: kBottomNavigationBarHeight,
+                  child: FlatButton(
+                    child: Text(
+                      'Debug',
+                      style: Theme.of(context).textTheme.button.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red,
+                          ),
+                    ),
+                    onPressed: () {
+                      DataStore.createDebugData(
+                        _category,
+                        _main.starRating.key.currentState.rating,
+                        _main.imagePicker.images,
+                      );
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
                 SizedBox(
                   width: double.infinity,
                   height: kBottomNavigationBarHeight,
@@ -75,7 +97,7 @@ class ShimmerCardCreator extends StatelessWidget {
     shimmerData.title = _main.titleController.text;
     shimmerData.summary = _main.summaryController.text;
     shimmerData.detail = _main.detailController.text;
-//    shimmerData.star = 6;
+    shimmerData.star = _main.starRating.key.currentState.rating;
     shimmerData.tags = [_main.tagController.text];
     shimmerData.images = _main.imagePicker.images;
     shimmerData.location = _sub.locationController.text;

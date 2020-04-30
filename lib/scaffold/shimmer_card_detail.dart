@@ -7,6 +7,7 @@ import 'package:shimmer/model/share.dart';
 import 'package:shimmer/widget/shimmer_card.dart';
 import 'package:shimmer/widget/shimmer_card_column.dart';
 import 'package:shimmer/widget/shimmer_card_summary.dart';
+import 'package:shimmer/widget/star_rating.dart';
 
 class ShimmerCardDetail extends StatelessWidget {
   final ShimmerData _shimmerData;
@@ -21,7 +22,11 @@ class ShimmerCardDetail extends StatelessWidget {
       ShimmerCardSummary(_shimmerData),
       ShimmerCard(
         children: <Widget>[
-          Text(_shimmerData.summary),
+          ListView(
+            children: <Widget>[
+              Text(_shimmerData.summary),
+            ],
+          ),
           Image.network(
             'https://www.pakutaso.com/shared/img/thumb/cafe201261763_TP_V.jpg',
           ),
@@ -34,7 +39,10 @@ class ShimmerCardDetail extends StatelessWidget {
           ),
           ShimmerCardColumn(
             children: <Widget>[
-              Text(_shimmerData.star.toString()),
+              StarRating(
+                initialRating: _shimmerData.star,
+                touchEnabled: false,
+              ),
               Text(_shimmerData.tags.toString()),
             ],
           ),
