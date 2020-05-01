@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:shimmer/configuration/app_parameter.dart';
 
 class HorizontalListImagePicker extends StatefulWidget {
@@ -10,7 +10,8 @@ class HorizontalListImagePicker extends StatefulWidget {
 
   HorizontalListImagePicker({this.height = AppParameter.componentM});
 
-  final List<Uint8List> images = [];
+  final GlobalKey<_HorizontalListImagePickerState> key =
+      GlobalKey<_HorizontalListImagePickerState>();
 
   @override
   State<StatefulWidget> createState() {
@@ -21,6 +22,9 @@ class HorizontalListImagePicker extends StatefulWidget {
 class _HorizontalListImagePickerState extends State<HorizontalListImagePicker> {
   final ScrollController _scrollController = ScrollController();
 
+  List<Uint8List> images = [];
+  List<Asset> assets = [];
+
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback(
@@ -28,7 +32,7 @@ class _HorizontalListImagePickerState extends State<HorizontalListImagePicker> {
     );
     List<Widget> list = [];
     list.addAll(
-      widget.images.map(
+      images.map(
         (image) => SizedBox(
           width: widget.height,
           height: widget.height,
@@ -59,12 +63,25 @@ class _HorizontalListImagePickerState extends State<HorizontalListImagePicker> {
   }
 
   void _onImageIconPressed() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      setState(() {
-        widget.images.add(image.readAsBytesSync());
-      });
+    try {
+      assets = await MultiImagePicker.pickImages(
+        maxImages: 8,
+        selectedAssets: assets,
+      );
+    } on Exception catch (error) {
+      print(error);
     }
+    List<Uint8List> newImages = [];
+    await Future.forEach(
+      assets,
+      (_asset) async {
+        final byteData = await _asset.getByteData();
+        newImages.add(byteData.buffer.asUint8List());
+      },
+    );
+    setState(() {
+      images = newImages;
+    });
   }
 
   void _scrollToLast() {

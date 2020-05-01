@@ -62,7 +62,7 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
                       _items.datePicker.key.currentState.date,
                       _category,
                       _items.starRating.key.currentState.rating,
-                      _items.imagePicker.images,
+                      _items.imagePicker.key.currentState.images,
                     );
                     Navigator.pop(context);
                   },
@@ -98,7 +98,7 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
     shimmerData.detail = _items.detailController.text;
     shimmerData.star = _items.starRating.key.currentState.rating;
     shimmerData.tags = [_items.tagController.text];
-    shimmerData.images = _items.imagePicker.images;
+    shimmerData.images = _items.imagePicker.key.currentState.images;
     shimmerData.location = _expansion.locationController.text;
     shimmerData.creator = _expansion.creatorController.text;
     shimmerData.genre = _expansion.genreController.text;
