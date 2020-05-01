@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:shimmer/configuration/app_parameter.dart';
 import 'package:shimmer/hive/shimmer_data.dart';
-import 'package:shimmer/model/share.dart';
+import 'package:shimmer/model/interface/share.dart';
 import 'package:shimmer/widget/common/shimemr_card.dart';
 import 'package:shimmer/widget/common/shimmer_card_column.dart';
 import 'package:shimmer/widget/common/shimmer_card_summary.dart';

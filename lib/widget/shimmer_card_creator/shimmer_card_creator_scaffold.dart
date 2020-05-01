@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/hive/shimmer_category.dart';
 import 'package:shimmer/hive/shimmer_data.dart';
-import 'package:shimmer/model/data_store/shimmer_data_data_store.dart';
-import 'package:shimmer/model/parser/enum_parser.dart';
+import 'package:shimmer/model/enum_parser.dart';
+import 'package:shimmer/model/interface/shimmer_data_data_store.dart';
 import 'package:shimmer/widget/shimmer_card_creator/shimmer_card_creator_expansion.dart';
 import 'package:shimmer/widget/shimmer_card_creator/shimmer_card_creator_items.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/hive/shimmer_data.dart';
-import 'package:shimmer/model/data_store/shimmer_data_data_store.dart';
+import 'package:shimmer/model/interface/shimmer_data_data_store.dart';
 import 'package:shimmer/widget/common/timeline.dart';
 import 'package:shimmer/widget/settings/settings_scaffold.dart';
 

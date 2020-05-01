@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/model/parser/date_parser.dart';
+import 'package:shimmer/model/date_parser.dart';
 
 class DatePicker extends StatefulWidget {
   final GlobalKey<_DatePickerState> key = GlobalKey<_DatePickerState>();

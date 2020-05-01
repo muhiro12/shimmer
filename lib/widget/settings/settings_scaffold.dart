@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/model/data_store/configuration_data_store.dart';
+import 'package:shimmer/model/interface/configuration_data_store.dart';
 
 class SettingsScaffold extends StatelessWidget {
   @override

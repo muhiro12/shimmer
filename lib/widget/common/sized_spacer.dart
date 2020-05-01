@@ -12,6 +12,7 @@ class SizedSpacer extends StatelessWidget {
     return Container(
       width: width,
       height: height,
+      // TODO: Only for debug
       color: Colors.red.shade100,
     );
   }

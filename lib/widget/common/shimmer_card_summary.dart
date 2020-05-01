@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/hive/shimmer_data.dart';
-import 'package:shimmer/model/parser/date_parser.dart';
-import 'package:shimmer/model/route_navigator.dart';
+import 'package:shimmer/model/date_parser.dart';
+import 'package:shimmer/widget/common/route_navigator.dart';
 import 'package:shimmer/widget/common/shimemr_card.dart';
 import 'package:shimmer/widget/shimmer_card_detail/shimmer_card_detail_scaffold.dart';
 
