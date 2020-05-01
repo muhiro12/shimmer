@@ -28,13 +28,16 @@ class _StarRatingState extends State<StarRating> {
   Widget build(BuildContext context) {
     return SmoothStarRating(
       rating: rating,
-      onRatingChanged: (value) {
-        if (widget.touchEnabled) {
-          setState(() {
-            rating = value;
-          });
-        }
-      },
+      onRatingChanged: _onRatingChanged,
     );
+  }
+
+  void _onRatingChanged(value) {
+    if (!widget.touchEnabled) {
+      return;
+    }
+    setState(() {
+      rating = value;
+    });
   }
 }

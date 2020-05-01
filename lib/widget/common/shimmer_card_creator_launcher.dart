@@ -1,17 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/configuration/app_size.dart';
+import 'package:shimmer/configuration/app_parameter.dart';
 import 'package:shimmer/hive/shimmer_category.dart';
-import 'package:shimmer/model/enum_parser.dart';
-import 'package:shimmer/scaffold/shimmer_card_creator.dart';
+import 'package:shimmer/model/parser/enum_parser.dart';
+import 'package:shimmer/widget/common/sized_spacer.dart';
+import 'package:shimmer/widget/shimmer_card_creator/shimmer_card_creator_scaffold.dart';
 
 class ShimmerCardCreatorLauncher extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        SizedBox(
-          height: AppSize.spaceS,
+        SizedSpacer(
+          height: AppParameter.spaceS,
         ),
         ListTile(
           title: Text(
@@ -23,7 +24,7 @@ class ShimmerCardCreatorLauncher extends StatelessWidget {
         ),
         Divider(
           color: Theme.of(context).accentColor,
-          thickness: AppSize.border,
+          thickness: AppParameter.border,
         ),
         Expanded(
           child: ListView(
@@ -44,7 +45,7 @@ class ShimmerCardCreatorLauncher extends StatelessWidget {
   void _onListItemTap(BuildContext context, ShimmerCategory category) {
     showCupertinoModalPopup(
       context: context,
-      builder: (context) => ShimmerCardCreator(category),
+      builder: (context) => ShimmerCardCreatorScaffold(category),
     ).whenComplete(
       () => Navigator.pop(context),
     );

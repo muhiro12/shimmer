@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/configuration/app_size.dart';
+import 'package:shimmer/configuration/app_parameter.dart';
 import 'package:shimmer/configuration/app_theme.dart';
-import 'package:shimmer/model/data_store.dart';
-import 'package:shimmer/scaffold/category_root.dart';
-import 'package:shimmer/scaffold/home_root.dart';
-import 'package:shimmer/widget/bottom_navigator.dart';
-import 'package:shimmer/widget/shimmer_card_creator_launcher.dart';
+import 'package:shimmer/model/data_store/configuration_data_store.dart';
+import 'package:shimmer/model/data_store/data_store.dart';
+import 'package:shimmer/widget/category/category_scaffold.dart';
+import 'package:shimmer/widget/common/bottom_navigator.dart';
+import 'package:shimmer/widget/common/shimmer_card_creator_launcher.dart';
+import 'package:shimmer/widget/home/home_scaffold.dart';
 
 void main() async {
   await DataStore.init();
@@ -17,11 +18,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: DataStore.listenableConfiguration,
+      valueListenable: ConfigurationDataStore.listenableConfiguration,
       builder: (context, box, widget) {
-        final handwriting = DataStore.fetchHandWriting();
-        final darkMode = DataStore.fetchDarkMode();
-        final primaryColor = DataStore.fetchPrimaryColor();
+        final handwriting = ConfigurationDataStore.fetchHandWriting();
+        final darkMode = ConfigurationDataStore.fetchDarkMode();
+        final primaryColor = ConfigurationDataStore.fetchPrimaryColor();
         return MaterialApp(
           title: 'Shimmer',
           theme: AppTheme(primaryColor, handwriting).light(),
@@ -48,14 +49,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final List<BottomNavigator> _bottomNavigators = [
     BottomNavigator(
-      HomeRoot(),
+      HomeScaffold(),
       BottomNavigationBarItem(
         icon: Icon(Icons.home),
         title: Text('Home'),
       ),
     ),
     BottomNavigator(
-      CategoryRoot(),
+      CategoryScaffold(),
       BottomNavigationBarItem(
         icon: Icon(Icons.category),
         title: Text('Category'),
@@ -99,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
-          top: Radius.circular(AppSize.radius),
+          top: Radius.circular(AppParameter.radius),
         ),
       ),
     );

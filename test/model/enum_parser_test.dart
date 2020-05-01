@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shimmer/hive/shimmer_category.dart';
 import 'package:shimmer/hive/shimmer_data_box.dart';
-import 'package:shimmer/model/enum_parser.dart';
+import 'package:shimmer/model/parser/enum_parser.dart';
 
 void main() {
   group(

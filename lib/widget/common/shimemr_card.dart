@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/configuration/app_size.dart';
+import 'package:shimmer/configuration/app_parameter.dart';
+import 'package:shimmer/widget/common/sized_spacer.dart';
 
 class ShimmerCard extends StatelessWidget {
   final List<Widget> children;
@@ -16,8 +17,8 @@ class ShimmerCard extends StatelessWidget {
       (index, child) {
         if (index > 0) {
           childrenWithSpace.add(
-            SizedBox(
-              width: AppSize.spaceM,
+            SizedSpacer(
+              width: AppParameter.spaceM,
             ),
           );
         }
@@ -33,9 +34,9 @@ class ShimmerCard extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: Card(
-          elevation: elevation ?? 4,
+          elevation: elevation ?? AppParameter.elevation,
           child: Container(
-            padding: EdgeInsets.all(AppSize.spaceM),
+            padding: EdgeInsets.all(AppParameter.spaceM),
             child: Row(
               children: childrenWithSpace,
             ),

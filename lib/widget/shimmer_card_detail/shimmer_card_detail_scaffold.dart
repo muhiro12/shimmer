@@ -1,18 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:shimmer/configuration/app_size.dart';
+import 'package:shimmer/configuration/app_parameter.dart';
 import 'package:shimmer/hive/shimmer_data.dart';
 import 'package:shimmer/model/share.dart';
-import 'package:shimmer/widget/shimmer_card.dart';
-import 'package:shimmer/widget/shimmer_card_column.dart';
-import 'package:shimmer/widget/shimmer_card_summary.dart';
-import 'package:shimmer/widget/star_rating.dart';
+import 'package:shimmer/widget/common/shimemr_card.dart';
+import 'package:shimmer/widget/common/shimmer_card_column.dart';
+import 'package:shimmer/widget/common/shimmer_card_summary.dart';
+import 'package:shimmer/widget/common/star_rating.dart';
 
-class ShimmerCardDetail extends StatelessWidget {
+class ShimmerCardDetailScaffold extends StatelessWidget {
   final ShimmerData _shimmerData;
 
-  ShimmerCardDetail(this._shimmerData);
+  ShimmerCardDetailScaffold(this._shimmerData);
 
   final ScreenshotController _controller = ScreenshotController();
 
@@ -93,7 +93,7 @@ class ShimmerCardDetail extends StatelessWidget {
         ],
       ),
       body: ListView(
-        padding: EdgeInsets.all(AppSize.spaceM),
+        padding: EdgeInsets.all(AppParameter.spaceM),
         children: children,
       ),
     );
@@ -109,7 +109,7 @@ class ShimmerCardDetail extends StatelessWidget {
             controller: _controller,
             child: ShimmerCardSummary(
               _shimmerData,
-              elevation: 0,
+              elevation: AppParameter.zero,
             ),
           ),
           IconButton(

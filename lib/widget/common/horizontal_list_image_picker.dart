@@ -3,12 +3,12 @@ import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:shimmer/configuration/app_size.dart';
+import 'package:shimmer/configuration/app_parameter.dart';
 
 class HorizontalListImagePicker extends StatefulWidget {
   final double height;
 
-  HorizontalListImagePicker({this.height = AppSize.componentM});
+  HorizontalListImagePicker({this.height = AppParameter.componentM});
 
   final List<Uint8List> images = [];
 
@@ -44,7 +44,7 @@ class _HorizontalListImagePickerState extends State<HorizontalListImagePicker> {
           Icons.add_photo_alternate,
           color: Colors.grey.shade600,
         ),
-        iconSize: AppSize.componentS,
+        iconSize: AppParameter.componentS,
         onPressed: _onImageIconPressed,
       ),
     );

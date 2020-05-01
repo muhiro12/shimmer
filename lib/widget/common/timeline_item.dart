@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/configuration/app_size.dart';
+import 'package:shimmer/configuration/app_parameter.dart';
 import 'package:shimmer/hive/shimmer_data.dart';
-import 'package:shimmer/model/enum_parser.dart';
-import 'package:shimmer/widget/shimmer_card_summary.dart';
+import 'package:shimmer/model/parser/enum_parser.dart';
+import 'package:shimmer/widget/common/shimmer_card_summary.dart';
 
 class TimelineItem extends StatelessWidget {
   final ShimmerData _shimmerData;
@@ -15,7 +15,7 @@ class TimelineItem extends StatelessWidget {
     return Column(
       children: <Widget>[
         Container(
-          margin: EdgeInsets.all(AppSize.spaceM),
+          margin: EdgeInsets.all(AppParameter.spaceM),
           child: Row(
             children: <Widget>[
               Text(
@@ -39,7 +39,7 @@ class TimelineItem extends StatelessWidget {
           ),
         ),
         Container(
-          transform: Matrix4.translationValues(AppSize.spaceL, 0, 0),
+          transform: Matrix4.translationValues(AppParameter.spaceL, 0, 0),
           child: ShimmerCardSummary(
             _shimmerData,
             toDetail: true,

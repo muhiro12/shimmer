@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/model/data_store.dart';
+import 'package:shimmer/model/data_store/configuration_data_store.dart';
 
-class SettingsRoot extends StatelessWidget {
+class SettingsScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final handWriting = DataStore.fetchHandWriting();
-    final darkMode = DataStore.fetchDarkMode();
+    final handWriting = ConfigurationDataStore.fetchHandWriting();
+    final darkMode = ConfigurationDataStore.fetchDarkMode();
     return Scaffold(
       appBar: AppBar(
         title: Text('Create'),
@@ -67,14 +67,14 @@ class SettingsRoot extends StatelessWidget {
   }
 
   void _onHandWritingChanged(bool value) {
-    DataStore.saveHandWriting(value);
+    ConfigurationDataStore.saveHandWriting(value);
   }
 
   void _onDarkModeChanged(bool value) {
-    DataStore.saveDarkMode(value);
+    ConfigurationDataStore.saveDarkMode(value);
   }
 
   void _onColorCardTap(MaterialColor color) {
-    DataStore.savePrimaryColor(color);
+    ConfigurationDataStore.savePrimaryColor(color);
   }
 }

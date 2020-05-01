@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/hive/shimmer_data.dart';
-import 'package:shimmer/model/data_store.dart';
-import 'package:shimmer/scaffold/settings_root.dart';
-import 'package:shimmer/widget/timeline_item.dart';
+import 'package:shimmer/model/data_store/shimmer_data_data_store.dart';
+import 'package:shimmer/widget/common/timeline.dart';
+import 'package:shimmer/widget/settings/settings_scaffold.dart';
 
-class HomeRoot extends StatelessWidget {
+class HomeScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,17 +20,11 @@ class HomeRoot extends StatelessWidget {
       ),
       body: SafeArea(
         child: ValueListenableBuilder(
-          valueListenable: DataStore.listenableShimmerData,
+          valueListenable: ShimmerDataDataStore.listenableShimmerData,
           builder: (context, box, widget) {
             final List<ShimmerData> shimmerDataList =
-                DataStore.fetchShimmerDataList();
-            return ListView(
-              children: shimmerDataList
-                  .map(
-                    (shimmerData) => TimelineItem(shimmerData),
-                  )
-                  .toList(),
-            );
+                ShimmerDataDataStore.fetchShimmerDataList().toList();
+            return Timeline(shimmerDataList);
           },
         ),
       ),
@@ -40,7 +34,7 @@ class HomeRoot extends StatelessWidget {
   void _onSettingsIconPressed(BuildContext context) {
     showCupertinoModalPopup(
       context: context,
-      builder: (context) => SettingsRoot(),
+      builder: (context) => SettingsScaffold(),
     );
   }
 }

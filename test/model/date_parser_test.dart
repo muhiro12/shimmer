@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shimmer/model/date_parser.dart';
+import 'package:shimmer/model/parser/date_parser.dart';
 
 void main() {
   group(
