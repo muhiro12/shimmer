@@ -30,6 +30,7 @@ dependencies:
   screenshot: ^0.1.1
   image_picker: ^0.6.5+2
   smooth_star_rating: ^1.0.4+2
+  multi_image_picker: ^4.6.7
 
 dev_dependencies:
   flutter_test:
