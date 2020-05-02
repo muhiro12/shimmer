@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shimmer/database/shimmer_category.dart';
-import 'package:shimmer/database/shimmer_log_box.dart';
+import 'package:shimmer/interface/database/shimmer_category.dart';
+import 'package:shimmer/interface/database/shimmer_log_box.dart';
 import 'package:shimmer/model/enum_parser.dart';
 
 void main() {

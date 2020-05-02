@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/database/shimmer_log.dart';
+import 'package:shimmer/interface/database/shimmer_log.dart';
 import 'package:shimmer/model/date_parser.dart';
-import 'package:shimmer/scaffold/shimmer_card_detail_scaffold.dart';
-import 'package:shimmer/widget/route_navigator.dart';
+import 'package:shimmer/router/shimmer_card_detail_scaffold_router.dart';
 import 'package:shimmer/widget/shimemr_card.dart';
 import 'package:shimmer/widget/shimmer_card_child.dart';
 
@@ -18,7 +17,7 @@ class ShimmerCardSummary extends ShimmerCard {
   Widget build(BuildContext context) {
     return ShimmerCard(
       elevation: elevation,
-      onTap: toDetail ? () => _onCardTap(context) : null,
+      onTap: toDetail ? () => _onCardTap(context, _log) : null,
       children: <ShimmerCardChild>[
         ShimmerCardChild.instance(_log.images, end: 1),
         ShimmerCardChild(
@@ -40,11 +39,11 @@ class ShimmerCardSummary extends ShimmerCard {
     );
   }
 
-  void _onCardTap(BuildContext context) {
-    RouteNavigator.push(
-      context: context,
-      widget: ShimmerCardDetailScaffold(_log),
-    );
+  void _onCardTap(BuildContext context, ShimmerLog log) {
+    ShimmerCardDetailScaffoldRouter(
+      context,
+      log,
+    ).push();
   }
 
   @override

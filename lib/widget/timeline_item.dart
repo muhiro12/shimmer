@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/configuration/app_parameter.dart';
-import 'package:shimmer/database/shimmer_log.dart';
+import 'package:shimmer/interface/database/shimmer_log.dart';
 import 'package:shimmer/model/enum_parser.dart';
 import 'package:shimmer/widget/shimmer_card_summary.dart';
 

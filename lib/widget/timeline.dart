@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:shimmer/database/shimmer_log.dart';
+import 'package:shimmer/interface/database/shimmer_log.dart';
 import 'package:shimmer/widget/timeline_item.dart';
 
 class Timeline extends StatelessWidget {

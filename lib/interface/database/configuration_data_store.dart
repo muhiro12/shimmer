@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:shimmer/database/configuration_box.dart';
+import 'package:shimmer/interface/database/configuration_box.dart';
 
 class ConfigurationDataStore {
   static final _configurationBox = Hive.box(ConfigurationBox.key.toString());

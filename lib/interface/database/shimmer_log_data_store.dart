@@ -3,9 +3,9 @@ import 'dart:typed_data';
 
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:shimmer/database/shimmer_category.dart';
-import 'package:shimmer/database/shimmer_log.dart';
-import 'package:shimmer/database/shimmer_log_box.dart';
+import 'package:shimmer/interface/database/shimmer_category.dart';
+import 'package:shimmer/interface/database/shimmer_log.dart';
+import 'package:shimmer/interface/database/shimmer_log_box.dart';
 
 class ShimmerLogDataStore {
   static final _logBox = Hive.box<ShimmerLog>(ShimmerLogBox.key.toString());

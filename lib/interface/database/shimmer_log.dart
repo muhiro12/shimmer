@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:hive/hive.dart';
-import 'package:shimmer/database/shimmer_category.dart';
+import 'package:shimmer/interface/database/shimmer_category.dart';
 
 part 'shimmer_log.g.dart';
 
