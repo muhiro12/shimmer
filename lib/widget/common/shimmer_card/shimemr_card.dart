@@ -1,19 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/configuration/app_parameter.dart';
+import 'package:shimmer/widget/common/shimmer_card/shimmer_card_child.dart';
 import 'package:shimmer/widget/common/sized_spacer.dart';
 
 class ShimmerCard extends StatelessWidget {
-  final List<Widget> children;
+  final List<ShimmerCardChild> children;
   final double elevation;
   final Function onTap;
 
-  ShimmerCard({this.children, this.elevation, this.onTap});
+  ShimmerCard({this.children = const [], this.elevation, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     final List<Widget> childrenWithSpace = [];
-    children.asMap().forEach(
+    children.where((child) => !child.isEmpty()).toList().asMap().forEach(
       (index, child) {
         if (index > 0) {
           childrenWithSpace.add(
@@ -44,5 +45,9 @@ class ShimmerCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  bool isEmpty() {
+    return children.where((child) => !child.isEmpty()).isEmpty;
   }
 }

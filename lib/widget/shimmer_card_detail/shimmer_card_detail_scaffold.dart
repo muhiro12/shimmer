@@ -4,9 +4,9 @@ import 'package:screenshot/screenshot.dart';
 import 'package:shimmer/configuration/app_parameter.dart';
 import 'package:shimmer/hive/shimmer_data.dart';
 import 'package:shimmer/model/interface/share.dart';
-import 'package:shimmer/widget/common/shimemr_card.dart';
-import 'package:shimmer/widget/common/shimmer_card_column.dart';
-import 'package:shimmer/widget/common/shimmer_card_summary.dart';
+import 'package:shimmer/widget/common/shimmer_card/shimemr_card.dart';
+import 'package:shimmer/widget/common/shimmer_card/shimmer_card_child.dart';
+import 'package:shimmer/widget/common/shimmer_card/shimmer_card_summary.dart';
 import 'package:shimmer/widget/common/star_rating.dart';
 
 class ShimmerCardDetailScaffold extends StatelessWidget {
@@ -18,70 +18,6 @@ class ShimmerCardDetailScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<ShimmerCard> children = [
-      ShimmerCardSummary(_shimmerData),
-      ShimmerCard(
-        children: <Widget>[
-          ListView(
-            children: <Widget>[
-              Text(_shimmerData.summary),
-            ],
-          ),
-          Image.network(
-            'https://www.pakutaso.com/shared/img/thumb/cafe201261763_TP_V.jpg',
-          ),
-        ],
-      ),
-      ShimmerCard(
-        children: <Widget>[
-          Image.network(
-            'https://www.pakutaso.com/shared/img/thumb/cafe201261763_TP_V.jpg',
-          ),
-          ShimmerCardColumn(
-            children: <Widget>[
-              StarRating(
-                initialRating: _shimmerData.star,
-                touchEnabled: false,
-              ),
-              Text(_shimmerData.tags.toString()),
-            ],
-          ),
-        ],
-      ),
-      ShimmerCard(
-        children: <Widget>[
-          ListView(
-            children: <Widget>[
-              Text(_shimmerData.detail),
-            ],
-          ),
-        ],
-      )
-    ];
-    List<Widget> subItems = [
-      ShimmerCardColumn(
-        children: <Widget>[
-          Text(_shimmerData.genre),
-          Text(_shimmerData.theme),
-        ],
-      ),
-    ];
-    subItems.addAll(
-      _shimmerData.images.map(
-        (image) => Image.memory(image),
-      ),
-    );
-    for (int index = 0; index < subItems.length / 2; index++) {
-      var subItem = [subItems[index * 2]];
-      if (subItems.length > index * 2 + 1) {
-        subItem.add(subItems[index * 2 + 1]);
-      }
-      children.add(
-        ShimmerCard(
-          children: subItem,
-        ),
-      );
-    }
     return Scaffold(
       appBar: AppBar(
         title: Text(_shimmerData.title),
@@ -94,9 +30,66 @@ class ShimmerCardDetailScaffold extends StatelessWidget {
       ),
       body: ListView(
         padding: EdgeInsets.all(AppParameter.spaceM),
-        children: children,
+        children: _children(),
       ),
     );
+  }
+
+  List<ShimmerCard> _children() {
+    final List<ShimmerCard> children = <ShimmerCard>[
+      ShimmerCardSummary(_shimmerData),
+      ShimmerCard(
+        children: [
+          ShimmerCardChild.instance([_shimmerData.summary]),
+        ],
+      ),
+      ShimmerCard(
+        children: [
+          ShimmerCardChild(
+            body: Align(
+              child: StarRating(
+                initialRating: _shimmerData.star,
+                touchEnabled: false,
+              ),
+            ),
+          ),
+          ShimmerCardChild.instance(_shimmerData.images, start: 1, end: 2),
+        ],
+      ),
+      ShimmerCard(
+        children: [
+          ShimmerCardChild.instance(
+            [
+              _shimmerData.detail,
+            ],
+            scrollable: true,
+          ),
+        ],
+      ),
+      ShimmerCard(
+        children: [
+          ShimmerCardChild.instance(_shimmerData.images, start: 2, end: 3),
+          ShimmerCardChild.instance(
+            [
+              _shimmerData.genre,
+              _shimmerData.theme,
+            ],
+          ),
+        ],
+      ),
+    ];
+    if (_shimmerData.images.isNotEmpty) {
+      children.addAll(
+        _shimmerData.images.sublist(3).map(
+              (image) => ShimmerCard(
+                children: [
+                  ShimmerCardChild.instance([image])
+                ],
+              ),
+            ),
+      );
+    }
+    return children.where((shimmerCard) => !shimmerCard.isEmpty()).toList();
   }
 
   void _onShareIconPressed(BuildContext context) {

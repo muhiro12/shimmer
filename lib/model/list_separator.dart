@@ -1,14 +1,14 @@
 import 'dart:math';
 
 class ListSeparator {
-  static List execute(List list, {int by = 1}) {
+  static List execute(List list, {int separatedBy = 1}) {
     final newList = [];
-    for (int index = 0; index < list.length / by; index++) {
+    for (int index = 0; index < list.length / separatedBy; index++) {
       newList.add(
         list.sublist(
-          index * by,
+          index * separatedBy,
           min(
-            index * by + by,
+            index * separatedBy + separatedBy,
             list.length,
           ),
         ),

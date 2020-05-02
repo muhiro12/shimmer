@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/configuration/app_parameter.dart';
 import 'package:shimmer/hive/shimmer_data.dart';
 import 'package:shimmer/model/enum_parser.dart';
-import 'package:shimmer/widget/common/shimmer_card_summary.dart';
+import 'package:shimmer/widget/common/shimmer_card/shimmer_card_summary.dart';
 
 class TimelineItem extends StatelessWidget {
   final ShimmerData _shimmerData;

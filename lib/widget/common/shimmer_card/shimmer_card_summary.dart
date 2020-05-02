@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/hive/shimmer_data.dart';
 import 'package:shimmer/model/date_parser.dart';
 import 'package:shimmer/widget/common/route_navigator.dart';
-import 'package:shimmer/widget/common/shimemr_card.dart';
+import 'package:shimmer/widget/common/shimmer_card/shimemr_card.dart';
+import 'package:shimmer/widget/common/shimmer_card/shimmer_card_child.dart';
 import 'package:shimmer/widget/shimmer_card_detail/shimmer_card_detail_scaffold.dart';
 
 class ShimmerCardSummary extends ShimmerCard {
@@ -19,24 +20,22 @@ class ShimmerCardSummary extends ShimmerCard {
     return ShimmerCard(
       elevation: elevation,
       onTap: toDetail ? () => _onCardTap(context) : null,
-      children: <Widget>[
-        _shimmerData.images.isNotEmpty
-            ? Image.memory(
-                _shimmerData.images.first,
-              )
-            : Container(),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(DateParser.yearMonthDayStringOf(_shimmerData.date)),
-            Text(
-              _shimmerData.title,
-              style: Theme.of(context).textTheme.headline,
-            ),
-            Text(_shimmerData.creator),
-            Text(_shimmerData.location),
-          ],
+      children: <ShimmerCardChild>[
+        ShimmerCardChild.instance(_shimmerData.images, end: 1),
+        ShimmerCardChild(
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(DateParser.yearMonthDayStringOf(_shimmerData.date)),
+              Text(
+                _shimmerData.title,
+                style: Theme.of(context).textTheme.headline,
+              ),
+              Text(_shimmerData.creator),
+              Text(_shimmerData.location),
+            ],
+          ),
         ),
       ],
     );
@@ -47,5 +46,10 @@ class ShimmerCardSummary extends ShimmerCard {
       context: context,
       widget: ShimmerCardDetailScaffold(_shimmerData),
     );
+  }
+
+  @override
+  bool isEmpty() {
+    return false;
   }
 }

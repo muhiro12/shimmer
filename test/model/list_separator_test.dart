@@ -27,7 +27,7 @@ void main() {
         'return value should be List<[_]> when list is separated by 1',
         () {
           expect(
-            ListSeparator.execute(evenList, by: 1),
+            ListSeparator.execute(evenList, separatedBy: 1),
             [
               [0],
               [1],
@@ -43,7 +43,7 @@ void main() {
         'return value should be List<[_, _]> when evenList is separated by 2',
         () {
           expect(
-            ListSeparator.execute(evenList, by: 2),
+            ListSeparator.execute(evenList, separatedBy: 2),
             [
               [0, 1],
               [2, 3],
@@ -56,7 +56,7 @@ void main() {
         'return value should be List<[_, _]> when oddList is separated by 2',
         () {
           expect(
-            ListSeparator.execute(oddList, by: 2),
+            ListSeparator.execute(oddList, separatedBy: 2),
             [
               [0, 1],
               [2, 3],
@@ -70,7 +70,7 @@ void main() {
         'return value should be List<[_, _, _]> when evenList is separated by 3',
         () {
           expect(
-            ListSeparator.execute(evenList, by: 3),
+            ListSeparator.execute(evenList, separatedBy: 3),
             [
               [0, 1, 2],
               [3, 4, 5],
@@ -82,7 +82,7 @@ void main() {
         'return value should be List<[_, _, _]> when oddList is separated by 3',
         () {
           expect(
-            ListSeparator.execute(oddList, by: 3),
+            ListSeparator.execute(oddList, separatedBy: 3),
             [
               [0, 1, 2],
               [3, 4, 5],
