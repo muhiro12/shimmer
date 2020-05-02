@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:shimmer/configuration/app_parameter.dart';
 import 'package:shimmer/hive/shimmer_data.dart';
+import 'package:shimmer/model/enum_parser.dart';
 import 'package:shimmer/model/interface/share.dart';
 import 'package:shimmer/widget/common/shimmer_card/shimemr_card.dart';
 import 'package:shimmer/widget/common/shimmer_card/shimmer_card_child.dart';
 import 'package:shimmer/widget/common/shimmer_card/shimmer_card_summary.dart';
+import 'package:shimmer/widget/common/sized_spacer.dart';
 import 'package:shimmer/widget/common/star_rating.dart';
 
 class ShimmerCardDetailScaffold extends StatelessWidget {
@@ -40,45 +42,61 @@ class ShimmerCardDetailScaffold extends StatelessWidget {
       ShimmerCardSummary(_shimmerData),
       ShimmerCard(
         children: [
-          ShimmerCardChild.instance([_shimmerData.summary]),
-        ],
-      ),
-      ShimmerCard(
-        children: [
-          ShimmerCardChild(
-            body: Align(
-              child: StarRating(
-                initialRating: _shimmerData.star,
-                touchEnabled: false,
-              ),
-            ),
+          ShimmerCardChild.instance(
+            [_shimmerData.summary],
           ),
-          ShimmerCardChild.instance(_shimmerData.images, start: 1, end: 2),
         ],
       ),
       ShimmerCard(
         children: [
           ShimmerCardChild.instance(
             [
-              _shimmerData.detail,
+              EnumParser.upperCamelCaseStringOf(_shimmerData.category),
+              _shimmerData.genre,
+              _shimmerData.theme,
             ],
+          ),
+          ShimmerCardChild.instance(
+            _shimmerData.images,
+            start: 1,
+            end: 2,
+          ),
+        ],
+      ),
+      ShimmerCard(
+        children: [
+          ShimmerCardChild.instance(
+            [_shimmerData.detail],
             scrollable: true,
           ),
         ],
       ),
       ShimmerCard(
         children: [
-          ShimmerCardChild.instance(_shimmerData.images, start: 2, end: 3),
           ShimmerCardChild.instance(
-            [
-              _shimmerData.genre,
-              _shimmerData.theme,
-            ],
+            _shimmerData.images,
+            start: 2,
+            end: 3,
+          ),
+          ShimmerCardChild(
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(_shimmerData.tags.toString()),
+                SizedSpacer(
+                  height: AppParameter.spaceS,
+                ),
+                StarRating(
+                  initialRating: _shimmerData.star,
+                  touchEnabled: false,
+                ),
+              ],
+            ),
           ),
         ],
       ),
     ];
-    if (_shimmerData.images.isNotEmpty) {
+    if (_shimmerData.images.length > 2) {
       children.addAll(
         _shimmerData.images.sublist(3).map(
               (image) => ShimmerCard(

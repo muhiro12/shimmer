@@ -90,6 +90,9 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
   }
 
   void _onButtonPressed(BuildContext context) {
+    if (_items.titleController.text.isEmpty) {
+      return;
+    }
     final shimmerData = ShimmerData();
     shimmerData.category = _category;
     shimmerData.date = _items.datePicker.key.currentState.date;

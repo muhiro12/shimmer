@@ -42,6 +42,8 @@ class ShimmerCardCreatorItems extends StatelessWidget {
             ),
             TextFormField(
               controller: titleController,
+              autovalidate: true,
+              validator: (value) => value.isEmpty ? 'Required' : null,
               decoration: InputDecoration(
                 labelText: 'Title',
               ),

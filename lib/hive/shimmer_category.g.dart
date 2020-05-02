@@ -14,7 +14,7 @@ class ShimmerCategoryAdapter extends TypeAdapter<ShimmerCategory> {
   ShimmerCategory read(BinaryReader reader) {
     switch (reader.readByte()) {
       case 0:
-        return ShimmerCategory.plane;
+        return ShimmerCategory.plain;
       case 1:
         return ShimmerCategory.concert;
       case 2:
@@ -33,7 +33,7 @@ class ShimmerCategoryAdapter extends TypeAdapter<ShimmerCategory> {
   @override
   void write(BinaryWriter writer, ShimmerCategory obj) {
     switch (obj) {
-      case ShimmerCategory.plane:
+      case ShimmerCategory.plain:
         writer.writeByte(0);
         break;
       case ShimmerCategory.concert:

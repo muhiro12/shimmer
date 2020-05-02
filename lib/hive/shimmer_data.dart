@@ -11,7 +11,7 @@ class ShimmerData {
   DateTime createdDate = DateTime.now();
 
   @HiveField(1)
-  ShimmerCategory category = ShimmerCategory.plane;
+  ShimmerCategory category = ShimmerCategory.plain;
 
   @HiveField(2)
   DateTime date = DateTime.now();

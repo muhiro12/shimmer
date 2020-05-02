@@ -5,7 +5,7 @@ part 'shimmer_category.g.dart';
 @HiveType(typeId: 1)
 enum ShimmerCategory {
   @HiveField(0)
-  plane,
+  plain,
 
   @HiveField(1)
   concert,

@@ -38,6 +38,7 @@ class ShimmerCardChild extends StatelessWidget {
     if (scrollable) {
       return ShimmerCardChild(
         body: ListView(
+          shrinkWrap: true,
           children: children,
         ),
       );

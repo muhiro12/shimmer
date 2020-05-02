@@ -13,7 +13,7 @@ class SizedSpacer extends StatelessWidget {
       width: width,
       height: height,
       // TODO: Only for debug
-      color: Colors.red.shade100,
+//      color: Colors.red.shade100,
     );
   }
 }
