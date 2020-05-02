@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/configuration/app_parameter.dart';
-import 'package:shimmer/widget/common/date_picker.dart';
-import 'package:shimmer/widget/common/horizontal_list_image_picker.dart';
-import 'package:shimmer/widget/common/star_rating.dart';
+import 'package:shimmer/widget/date_picker.dart';
+import 'package:shimmer/widget/horizontal_list_image_picker.dart';
+import 'package:shimmer/widget/star_rating.dart';
 
 class ShimmerCardCreatorItems extends StatelessWidget {
   final DatePicker datePicker = DatePicker();

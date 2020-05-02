@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/hive/shimmer_data.dart';
-import 'package:shimmer/model/interface/shimmer_data_data_store.dart';
-import 'package:shimmer/widget/common/timeline.dart';
-import 'package:shimmer/widget/settings/settings_scaffold.dart';
+import 'package:shimmer/database/shimmer_log.dart';
+import 'package:shimmer/model/interface/shimmer_log_data_store.dart';
+import 'package:shimmer/scaffold/settings_scaffold.dart';
+import 'package:shimmer/widget/timeline.dart';
 
 class HomeScaffold extends StatelessWidget {
   @override
@@ -20,11 +20,11 @@ class HomeScaffold extends StatelessWidget {
       ),
       body: SafeArea(
         child: ValueListenableBuilder(
-          valueListenable: ShimmerDataDataStore.listenableShimmerData,
+          valueListenable: ShimmerLogDataStore.listenableLog,
           builder: (context, box, widget) {
-            final List<ShimmerData> shimmerDataList =
-                ShimmerDataDataStore.fetchShimmerDataList().toList();
-            return Timeline(shimmerDataList);
+            final List<ShimmerLog> logList =
+                ShimmerLogDataStore.fetchLogList().toList();
+            return Timeline(logList);
           },
         ),
       ),

@@ -4,10 +4,10 @@ import 'package:shimmer/configuration/app_parameter.dart';
 import 'package:shimmer/configuration/app_theme.dart';
 import 'package:shimmer/model/interface/configuration_data_store.dart';
 import 'package:shimmer/model/interface/data_store.dart';
-import 'package:shimmer/widget/category/category_scaffold.dart';
-import 'package:shimmer/widget/common/bottom_navigator.dart';
-import 'package:shimmer/widget/common/shimmer_card_creator_launcher.dart';
-import 'package:shimmer/widget/home/home_scaffold.dart';
+import 'package:shimmer/scaffold/category_scaffold.dart';
+import 'package:shimmer/scaffold/home_scaffold.dart';
+import 'package:shimmer/widget/bottom_navigator.dart';
+import 'package:shimmer/widget/shimmer_card_creator_launcher.dart';
 
 void main() async {
   await DataStore.init();

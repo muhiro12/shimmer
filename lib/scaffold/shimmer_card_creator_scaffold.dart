@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/hive/shimmer_category.dart';
-import 'package:shimmer/hive/shimmer_data.dart';
+import 'package:shimmer/database/shimmer_category.dart';
+import 'package:shimmer/database/shimmer_log.dart';
 import 'package:shimmer/model/enum_parser.dart';
-import 'package:shimmer/model/interface/shimmer_data_data_store.dart';
-import 'package:shimmer/widget/shimmer_card_creator/shimmer_card_creator_expansion.dart';
-import 'package:shimmer/widget/shimmer_card_creator/shimmer_card_creator_items.dart';
+import 'package:shimmer/model/interface/shimmer_log_data_store.dart';
+import 'package:shimmer/widget/shimmer_card_creator_expansion.dart';
+import 'package:shimmer/widget/shimmer_card_creator_items.dart';
 
 class ShimmerCardCreatorScaffold extends StatelessWidget {
   final ShimmerCategory _category;
@@ -58,7 +58,7 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
                         ),
                   ),
                   onPressed: () {
-                    ShimmerDataDataStore.createDebugData(
+                    ShimmerLogDataStore.createDebugData(
                       _items.datePicker.key.currentState.date,
                       _category,
                       _items.starRating.key.currentState.rating,
@@ -93,21 +93,21 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
     if (_items.titleController.text.isEmpty) {
       return;
     }
-    final shimmerData = ShimmerData();
-    shimmerData.category = _category;
-    shimmerData.date = _items.datePicker.key.currentState.date;
-    shimmerData.title = _items.titleController.text;
-    shimmerData.summary = _items.summaryController.text;
-    shimmerData.detail = _items.detailController.text;
-    shimmerData.star = _items.starRating.key.currentState.rating;
-    shimmerData.tags = [_items.tagController.text];
-    shimmerData.images = _items.imagePicker.key.currentState.images;
-    shimmerData.location = _expansion.locationController.text;
-    shimmerData.creator = _expansion.creatorController.text;
-    shimmerData.genre = _expansion.genreController.text;
-    shimmerData.theme = _expansion.themeController.text;
-    shimmerData.note = _expansion.noteController.text;
-    ShimmerDataDataStore.createShimmerData(shimmerData);
+    final log = ShimmerLog();
+    log.category = _category;
+    log.date = _items.datePicker.key.currentState.date;
+    log.title = _items.titleController.text;
+    log.summary = _items.summaryController.text;
+    log.detail = _items.detailController.text;
+    log.star = _items.starRating.key.currentState.rating;
+    log.tags = [_items.tagController.text];
+    log.images = _items.imagePicker.key.currentState.images;
+    log.location = _expansion.locationController.text;
+    log.creator = _expansion.creatorController.text;
+    log.genre = _expansion.genreController.text;
+    log.theme = _expansion.themeController.text;
+    log.note = _expansion.noteController.text;
+    ShimmerLogDataStore.createLog(log);
     Navigator.pop(context);
   }
 }

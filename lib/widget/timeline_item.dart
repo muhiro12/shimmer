@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/configuration/app_parameter.dart';
-import 'package:shimmer/hive/shimmer_data.dart';
+import 'package:shimmer/database/shimmer_log.dart';
 import 'package:shimmer/model/enum_parser.dart';
-import 'package:shimmer/widget/common/shimmer_card/shimmer_card_summary.dart';
+import 'package:shimmer/widget/shimmer_card_summary.dart';
 
 class TimelineItem extends StatelessWidget {
-  final ShimmerData _shimmerData;
+  final ShimmerLog _log;
 
-  TimelineItem(this._shimmerData);
+  TimelineItem(this._log);
 
   @override
   Widget build(BuildContext context) {
@@ -19,18 +19,16 @@ class TimelineItem extends StatelessWidget {
           child: Row(
             children: <Widget>[
               Text(
-                _shimmerData.tags.isNotEmpty
-                    ? _shimmerData.tags.first
-                    : '#None',
+                _log.tags.isNotEmpty ? _log.tags.first : '#None',
                 style: Theme.of(context)
                     .textTheme
                     .headline
                     .copyWith(color: Colors.grey),
               ),
-              Text(_shimmerData.date.toString().substring(10)),
+              Text(_log.date.toString().substring(10)),
               Spacer(),
               Text(
-                EnumParser.upperCamelCaseStringOf(_shimmerData.category),
+                EnumParser.upperCamelCaseStringOf(_log.category),
                 style: TextStyle(
                   color: Theme.of(context).accentColor,
                 ),
@@ -41,7 +39,7 @@ class TimelineItem extends StatelessWidget {
         Container(
           transform: Matrix4.translationValues(AppParameter.spaceL, 0, 0),
           child: ShimmerCardSummary(
-            _shimmerData,
+            _log,
             toDetail: true,
           ),
         ),

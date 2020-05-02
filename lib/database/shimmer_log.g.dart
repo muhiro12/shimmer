@@ -1,22 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'shimmer_data.dart';
+part of 'shimmer_log.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class ShimmerDataAdapter extends TypeAdapter<ShimmerData> {
+class ShimmerLogAdapter extends TypeAdapter<ShimmerLog> {
   @override
   final typeId = 0;
 
   @override
-  ShimmerData read(BinaryReader reader) {
+  ShimmerLog read(BinaryReader reader) {
     var numOfFields = reader.readByte();
     var fields = <int, dynamic>{
       for (var i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return ShimmerData()
+    return ShimmerLog()
       ..createdDate = fields[0] as DateTime
       ..category = fields[1] as ShimmerCategory
       ..date = fields[2] as DateTime
@@ -37,7 +37,7 @@ class ShimmerDataAdapter extends TypeAdapter<ShimmerData> {
   }
 
   @override
-  void write(BinaryWriter writer, ShimmerData obj) {
+  void write(BinaryWriter writer, ShimmerLog obj) {
     writer
       ..writeByte(17)
       ..writeByte(0)

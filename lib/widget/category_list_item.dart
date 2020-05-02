@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/hive/shimmer_category.dart';
+import 'package:shimmer/database/shimmer_category.dart';
 import 'package:shimmer/model/enum_parser.dart';
-import 'package:shimmer/widget/category/category_timeline_scaffold.dart';
-import 'package:shimmer/widget/common/route_navigator.dart';
+import 'package:shimmer/scaffold/category_timeline_scaffold.dart';
+import 'package:shimmer/widget/route_navigator.dart';
 
 class CategoryListItem extends StatelessWidget {
   final ShimmerCategory _category;

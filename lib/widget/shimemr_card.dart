@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/configuration/app_parameter.dart';
-import 'package:shimmer/widget/common/shimmer_card/shimmer_card_child.dart';
-import 'package:shimmer/widget/common/sized_spacer.dart';
+import 'package:shimmer/widget/shimmer_card_child.dart';
+import 'package:shimmer/widget/sized_spacer.dart';
 
 class ShimmerCard extends StatelessWidget {
   final List<ShimmerCardChild> children;

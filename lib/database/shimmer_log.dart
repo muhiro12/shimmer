@@ -1,12 +1,12 @@
 import 'dart:typed_data';
 
 import 'package:hive/hive.dart';
-import 'package:shimmer/hive/shimmer_category.dart';
+import 'package:shimmer/database/shimmer_category.dart';
 
-part 'shimmer_data.g.dart';
+part 'shimmer_log.g.dart';
 
 @HiveType(typeId: 0)
-class ShimmerData {
+class ShimmerLog {
   @HiveField(0)
   DateTime createdDate = DateTime.now();
 

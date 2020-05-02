@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/configuration/app_parameter.dart';
-import 'package:shimmer/hive/shimmer_category.dart';
+import 'package:shimmer/database/shimmer_category.dart';
 import 'package:shimmer/model/enum_parser.dart';
-import 'package:shimmer/widget/common/sized_spacer.dart';
-import 'package:shimmer/widget/shimmer_card_creator/shimmer_card_creator_scaffold.dart';
+import 'package:shimmer/scaffold/shimmer_card_creator_scaffold.dart';
+import 'package:shimmer/widget/sized_spacer.dart';
 
 class ShimmerCardCreatorLauncher extends StatelessWidget {
   @override

@@ -2,19 +2,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:shimmer/configuration/app_parameter.dart';
-import 'package:shimmer/hive/shimmer_data.dart';
+import 'package:shimmer/database/shimmer_log.dart';
 import 'package:shimmer/model/enum_parser.dart';
 import 'package:shimmer/model/interface/share.dart';
-import 'package:shimmer/widget/common/shimmer_card/shimemr_card.dart';
-import 'package:shimmer/widget/common/shimmer_card/shimmer_card_child.dart';
-import 'package:shimmer/widget/common/shimmer_card/shimmer_card_summary.dart';
-import 'package:shimmer/widget/common/sized_spacer.dart';
-import 'package:shimmer/widget/common/star_rating.dart';
+import 'package:shimmer/widget/shimemr_card.dart';
+import 'package:shimmer/widget/shimmer_card_child.dart';
+import 'package:shimmer/widget/shimmer_card_summary.dart';
+import 'package:shimmer/widget/sized_spacer.dart';
+import 'package:shimmer/widget/star_rating.dart';
 
 class ShimmerCardDetailScaffold extends StatelessWidget {
-  final ShimmerData _shimmerData;
+  final ShimmerLog _log;
 
-  ShimmerCardDetailScaffold(this._shimmerData);
+  ShimmerCardDetailScaffold(this._log);
 
   final ScreenshotController _controller = ScreenshotController();
 
@@ -22,7 +22,7 @@ class ShimmerCardDetailScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_shimmerData.title),
+        title: Text(_log.title),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.share),
@@ -39,11 +39,11 @@ class ShimmerCardDetailScaffold extends StatelessWidget {
 
   List<ShimmerCard> _children() {
     final List<ShimmerCard> children = <ShimmerCard>[
-      ShimmerCardSummary(_shimmerData),
+      ShimmerCardSummary(_log),
       ShimmerCard(
         children: [
           ShimmerCardChild.instance(
-            [_shimmerData.summary],
+            [_log.summary],
           ),
         ],
       ),
@@ -51,13 +51,13 @@ class ShimmerCardDetailScaffold extends StatelessWidget {
         children: [
           ShimmerCardChild.instance(
             [
-              EnumParser.upperCamelCaseStringOf(_shimmerData.category),
-              _shimmerData.genre,
-              _shimmerData.theme,
+              EnumParser.upperCamelCaseStringOf(_log.category),
+              _log.genre,
+              _log.theme,
             ],
           ),
           ShimmerCardChild.instance(
-            _shimmerData.images,
+            _log.images,
             start: 1,
             end: 2,
           ),
@@ -66,7 +66,7 @@ class ShimmerCardDetailScaffold extends StatelessWidget {
       ShimmerCard(
         children: [
           ShimmerCardChild.instance(
-            [_shimmerData.detail],
+            [_log.detail],
             scrollable: true,
           ),
         ],
@@ -74,7 +74,7 @@ class ShimmerCardDetailScaffold extends StatelessWidget {
       ShimmerCard(
         children: [
           ShimmerCardChild.instance(
-            _shimmerData.images,
+            _log.images,
             start: 2,
             end: 3,
           ),
@@ -82,12 +82,12 @@ class ShimmerCardDetailScaffold extends StatelessWidget {
             body: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text(_shimmerData.tags.toString()),
+                Text(_log.tags.toString()),
                 SizedSpacer(
                   height: AppParameter.spaceS,
                 ),
                 StarRating(
-                  initialRating: _shimmerData.star,
+                  initialRating: _log.star,
                   touchEnabled: false,
                 ),
               ],
@@ -96,9 +96,9 @@ class ShimmerCardDetailScaffold extends StatelessWidget {
         ],
       ),
     ];
-    if (_shimmerData.images.length > 2) {
+    if (_log.images.length > 2) {
       children.addAll(
-        _shimmerData.images.sublist(3).map(
+        _log.images.sublist(3).map(
               (image) => ShimmerCard(
                 children: [
                   ShimmerCardChild.instance([image])
@@ -119,7 +119,7 @@ class ShimmerCardDetailScaffold extends StatelessWidget {
           Screenshot(
             controller: _controller,
             child: ShimmerCardSummary(
-              _shimmerData,
+              _log,
               elevation: AppParameter.zero,
             ),
           ),
