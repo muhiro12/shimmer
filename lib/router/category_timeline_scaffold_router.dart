@@ -8,8 +8,10 @@ class CategoryTimelineScaffoldRouter extends Router {
   final BuildContext context;
   final ShimmerCategory category;
 
-  CategoryTimelineScaffoldRouter(
-      {this.context, this.category = ShimmerCategory.plain});
+  CategoryTimelineScaffoldRouter({
+    this.context,
+    this.category = ShimmerCategory.plain,
+  });
 
   @override
   CategoryTimelineScaffold injected() {

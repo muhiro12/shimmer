@@ -5,21 +5,24 @@ import 'package:shimmer/router/router.dart';
 import 'package:shimmer/scaffold/shimmer_card_detail_scaffold.dart';
 
 class ShimmerCardDetailScaffoldRouter extends Router {
-  final BuildContext _context;
-  final ShimmerLog _log;
+  final BuildContext context;
+  final ShimmerLog log;
 
-  ShimmerCardDetailScaffoldRouter(this._context, this._log);
+  ShimmerCardDetailScaffoldRouter({
+    this.context,
+    this.log,
+  });
 
   @override
   ShimmerCardDetailScaffold injected() {
     return ShimmerCardDetailScaffold(
-      _log,
+      log,
     );
   }
 
   void push() {
     Navigator.push(
-      _context,
+      context,
       MaterialPageRoute(
         builder: (_) => injected(),
       ),

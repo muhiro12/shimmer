@@ -3,6 +3,56 @@ import 'package:shimmer/model/extended_list.dart';
 
 void main() {
   group(
+    'added()',
+    () {
+      final original = [0, 1, 2, 3, 4, 5];
+      final result = ExtendedList(original).added(6);
+      test(
+        'return value should be added value',
+        () {
+          expect(
+            result,
+            [0, 1, 2, 3, 4, 5, 6],
+          );
+        },
+      );
+      test(
+        'return value should not be changed',
+        () {
+          expect(
+            original,
+            [0, 1, 2, 3, 4, 5],
+          );
+        },
+      );
+    },
+  );
+  group(
+    'addedAll()',
+    () {
+      final original = [0, 1, 2, 3, 4, 5];
+      final result = ExtendedList(original).addedAll([6, 7]);
+      test(
+        'return value should be added value',
+        () {
+          expect(
+            result,
+            [0, 1, 2, 3, 4, 5, 6, 7],
+          );
+        },
+      );
+      test(
+        'return value should not be changed',
+        () {
+          expect(
+            original,
+            [0, 1, 2, 3, 4, 5],
+          );
+        },
+      );
+    },
+  );
+  group(
     'safetySublist() case original is null',
     () {
       final original = null;

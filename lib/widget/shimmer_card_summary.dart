@@ -45,8 +45,8 @@ class ShimmerCardSummary extends ShimmerCard {
 
   void _onCardTap(BuildContext context, ShimmerLog log) {
     ShimmerCardDetailScaffoldRouter(
-      context,
-      log,
+      context: context,
+      log: log,
     ).push();
   }
 

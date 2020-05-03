@@ -5,7 +5,11 @@ class ShimmerCardChild extends StatelessWidget {
   final bool isEmpty;
   final bool isNotEmpty;
 
-  ShimmerCardChild({this.body, this.isEmpty = true, this.isNotEmpty = false});
+  ShimmerCardChild({
+    this.body,
+    this.isEmpty = true,
+    this.isNotEmpty = false,
+  });
 
   @override
   Widget build(BuildContext context) {

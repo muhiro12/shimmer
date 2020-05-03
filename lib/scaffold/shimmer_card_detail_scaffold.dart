@@ -33,80 +33,82 @@ class ShimmerCardDetailScaffold extends StatelessWidget {
       ),
       body: ListView(
         padding: EdgeInsets.all(AppParameter.spaceM),
-        children: _children(),
-      ),
-    );
-  }
-
-  List<ShimmerCard> _children() {
-    final List<ShimmerCard> children = <ShimmerCard>[
-      ShimmerCardSummary(_log),
-      ShimmerCard(
-        children: [
-          ShimmerCardChildRouter(
-            items: [_log.summary],
-          ).injected(),
-        ],
-      ),
-      ShimmerCard(
-        children: [
-          ShimmerCardChildRouter(
-            items: [
-              EnumParser.upperCamelCaseStringOf(_log.category),
-              _log.genre,
-              _log.theme,
-            ],
-          ).injected(),
-          ShimmerCardChildRouter(
-            items: ExtendedList(_log.images).safetySublist(1, 2),
-          ).injected(),
-        ],
-      ),
-      ShimmerCard(
-        children: [
-          ShimmerCardChildRouter(
-            items: [_log.detail],
-            scrollable: true,
-          ).injected(),
-        ],
-      ),
-      ShimmerCard(
-        children: [
-          ShimmerCardChildRouter(
-            items: ExtendedList(_log.images).safetySublist(2, 3),
-          ).injected(),
-          ShimmerCardChildRouter(
-            body: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(_log.tags.toString()),
-                SizedSpacer(
-                  height: AppParameter.spaceS,
-                ),
-                StarRating(
-                  initialRating: _log.star,
-                  touchEnabled: false,
-                ),
+        children: ExtendedList<ShimmerCard>(
+          [
+            ShimmerCardSummary(_log),
+            ShimmerCard(
+              children: [
+                ShimmerCardChildRouter(
+                  items: [_log.summary],
+                  scrollable: true,
+                ).injected(),
               ],
             ),
-          ).injected(),
-        ],
-      ),
-    ];
-    if (_log.images.length > 2) {
-      children.addAll(
-        ExtendedList(_log.images).safetySublist(3).map(
-              (image) => ShimmerCard(
-                children: [
-                  ShimmerCardChildRouter(
-                    items: [image],
-                  ).injected(),
-                ],
-              ),
+            ShimmerCard(
+              children: [
+                ShimmerCardChildRouter(
+                  items: [
+                    EnumParser.upperCamelCaseStringOf(_log.category),
+                    _log.genre,
+                    _log.theme,
+                  ],
+                ).injected(),
+                ShimmerCardChildRouter(
+                  items: ExtendedList(_log.images).safetySublist(1, 2),
+                ).injected(),
+              ],
             ),
-      );
-    }
-    return children.where((shimmerCard) => !shimmerCard.isEmpty()).toList();
+            ShimmerCard(
+              children: [
+                ShimmerCardChildRouter(
+                  items: [_log.detail],
+                  scrollable: true,
+                ).injected(),
+              ],
+            ),
+            ShimmerCard(
+              children: [
+                ShimmerCardChildRouter(
+                  items: ExtendedList(_log.images).safetySublist(2, 3),
+                ).injected(),
+                ShimmerCardChildRouter(
+                  body: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(_log.tags.toString()),
+                      SizedSpacer(
+                        height: AppParameter.spaceS,
+                      ),
+                      StarRating(
+                        initialRating: _log.star,
+                        touchEnabled: false,
+                      ),
+                    ],
+                  ),
+                ).injected(),
+              ],
+            ),
+          ],
+        )
+            .addedAll(
+              ExtendedList(
+                _log.images,
+              ).safetySublist(3).map(
+                    (image) => ShimmerCard(
+                      children: [
+                        ShimmerCardChildRouter(
+                          items: [image],
+                        ).injected(),
+                      ],
+                    ),
+                  ),
+            )
+            .where(
+              (shimmerCard) => !shimmerCard.isEmpty(),
+            )
+            .toList(),
+      ),
+    );
   }
 
   void _onShareIconPressed(BuildContext context) {
