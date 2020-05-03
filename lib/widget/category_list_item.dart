@@ -20,8 +20,8 @@ class CategoryListItem extends StatelessWidget {
 
   void _onListItemTap(BuildContext context, ShimmerCategory category) {
     CategoryTimelineScaffoldRouter(
-      context,
-      category,
+      context: context,
+      category: category,
     ).push();
   }
 }

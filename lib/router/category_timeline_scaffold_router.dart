@@ -5,21 +5,22 @@ import 'package:shimmer/router/router.dart';
 import 'package:shimmer/scaffold/category_timeline_scaffold.dart';
 
 class CategoryTimelineScaffoldRouter extends Router {
-  final BuildContext _context;
-  final ShimmerCategory _category;
+  final BuildContext context;
+  final ShimmerCategory category;
 
-  CategoryTimelineScaffoldRouter(this._context, this._category);
+  CategoryTimelineScaffoldRouter(
+      {this.context, this.category = ShimmerCategory.plain});
 
   @override
   CategoryTimelineScaffold injected() {
     return CategoryTimelineScaffold(
-      _category,
+      category,
     );
   }
 
   void push() {
     Navigator.push(
-      _context,
+      context,
       MaterialPageRoute(
         builder: (_) => injected(),
       ),
