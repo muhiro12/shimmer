@@ -11,7 +11,7 @@ class ShimmerCardDetailScaffoldRouter extends Router {
   ShimmerCardDetailScaffoldRouter(this._context, this._log);
 
   @override
-  Widget inject() {
+  ShimmerCardDetailScaffold injected() {
     return ShimmerCardDetailScaffold(
       _log,
     );
@@ -21,7 +21,7 @@ class ShimmerCardDetailScaffoldRouter extends Router {
     Navigator.push(
       _context,
       MaterialPageRoute(
-        builder: (_) => inject(),
+        builder: (_) => injected(),
       ),
     );
   }

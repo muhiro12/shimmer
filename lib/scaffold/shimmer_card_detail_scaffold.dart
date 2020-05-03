@@ -5,8 +5,9 @@ import 'package:shimmer/configuration/app_parameter.dart';
 import 'package:shimmer/interface/database/shimmer_log.dart';
 import 'package:shimmer/interface/share.dart';
 import 'package:shimmer/model/enum_parser.dart';
+import 'package:shimmer/model/extended_list.dart';
+import 'package:shimmer/router/shimmer_card_child_router.dart';
 import 'package:shimmer/widget/shimemr_card.dart';
-import 'package:shimmer/widget/shimmer_card_child.dart';
 import 'package:shimmer/widget/shimmer_card_summary.dart';
 import 'package:shimmer/widget/sized_spacer.dart';
 import 'package:shimmer/widget/star_rating.dart';
@@ -42,43 +43,39 @@ class ShimmerCardDetailScaffold extends StatelessWidget {
       ShimmerCardSummary(_log),
       ShimmerCard(
         children: [
-          ShimmerCardChild.instance(
-            [_log.summary],
-          ),
+          ShimmerCardChildRouter(
+            items: [_log.summary],
+          ).injected(),
         ],
       ),
       ShimmerCard(
         children: [
-          ShimmerCardChild.instance(
-            [
+          ShimmerCardChildRouter(
+            items: [
               EnumParser.upperCamelCaseStringOf(_log.category),
               _log.genre,
               _log.theme,
             ],
-          ),
-          ShimmerCardChild.instance(
-            _log.images,
-            start: 1,
-            end: 2,
-          ),
+          ).injected(),
+          ShimmerCardChildRouter(
+            items: ExtendedList(_log.images).safetySublist(1, 2),
+          ).injected(),
         ],
       ),
       ShimmerCard(
         children: [
-          ShimmerCardChild.instance(
-            [_log.detail],
+          ShimmerCardChildRouter(
+            items: [_log.detail],
             scrollable: true,
-          ),
+          ).injected(),
         ],
       ),
       ShimmerCard(
         children: [
-          ShimmerCardChild.instance(
-            _log.images,
-            start: 2,
-            end: 3,
-          ),
-          ShimmerCardChild(
+          ShimmerCardChildRouter(
+            items: ExtendedList(_log.images).safetySublist(2, 3),
+          ).injected(),
+          ShimmerCardChildRouter(
             body: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -92,16 +89,18 @@ class ShimmerCardDetailScaffold extends StatelessWidget {
                 ),
               ],
             ),
-          ),
+          ).injected(),
         ],
       ),
     ];
     if (_log.images.length > 2) {
       children.addAll(
-        _log.images.sublist(3).map(
+        ExtendedList(_log.images).safetySublist(3).map(
               (image) => ShimmerCard(
                 children: [
-                  ShimmerCardChild.instance([image])
+                  ShimmerCardChildRouter(
+                    items: [image],
+                  ).injected(),
                 ],
               ),
             ),

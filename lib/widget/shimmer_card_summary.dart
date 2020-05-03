@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/interface/database/shimmer_log.dart';
 import 'package:shimmer/model/date_parser.dart';
+import 'package:shimmer/model/extended_list.dart';
+import 'package:shimmer/router/shimmer_card_child_router.dart';
 import 'package:shimmer/router/shimmer_card_detail_scaffold_router.dart';
 import 'package:shimmer/widget/shimemr_card.dart';
 import 'package:shimmer/widget/shimmer_card_child.dart';
@@ -19,8 +21,10 @@ class ShimmerCardSummary extends ShimmerCard {
       elevation: elevation,
       onTap: toDetail ? () => _onCardTap(context, _log) : null,
       children: <ShimmerCardChild>[
-        ShimmerCardChild.instance(_log.images, end: 1),
-        ShimmerCardChild(
+        ShimmerCardChildRouter(
+          items: ExtendedList(_log.images).safetySublist(0, 1),
+        ).injected(),
+        ShimmerCardChildRouter(
           body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,7 +38,7 @@ class ShimmerCardSummary extends ShimmerCard {
               Text(_log.location),
             ],
           ),
-        ),
+        ).injected(),
       ],
     );
   }

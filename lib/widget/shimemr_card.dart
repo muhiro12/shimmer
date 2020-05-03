@@ -14,7 +14,7 @@ class ShimmerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Widget> childrenWithSpace = [];
-    children.where((child) => !child.isEmpty()).toList().asMap().forEach(
+    children.where((child) => child.isNotEmpty).toList().asMap().forEach(
       (index, child) {
         if (index > 0) {
           childrenWithSpace.add(
@@ -48,6 +48,6 @@ class ShimmerCard extends StatelessWidget {
   }
 
   bool isEmpty() {
-    return children.where((child) => !child.isEmpty()).isEmpty;
+    return children.where((child) => child.isNotEmpty).isEmpty;
   }
 }
