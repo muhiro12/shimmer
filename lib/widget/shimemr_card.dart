@@ -1,20 +1,52 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/configuration/app_parameter.dart';
-import 'package:shimmer/widget/shimmer_card_child.dart';
 import 'package:shimmer/widget/sized_spacer.dart';
 
 class ShimmerCard extends StatelessWidget {
-  final List<ShimmerCardChild> children;
+  final List<Widget> children;
   final double elevation;
   final Function onTap;
 
-  ShimmerCard({this.children = const [], this.elevation, this.onTap});
+  ShimmerCard._({
+    this.children,
+    this.elevation,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
+    return AspectRatio(
+      aspectRatio: 16 / 9,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Card(
+          elevation: elevation ?? AppParameter.elevation,
+          child: Container(
+            padding: EdgeInsets.all(AppParameter.spaceM),
+            child: Row(
+              children: children,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  static ShimmerCard init({
+    List<Widget> children,
+    double elevation,
+    Function onTap,
+  }) {
+    if (children == null) {
+      return null;
+    }
+    final filtered = children.where((child) => child != null).toList();
+    if (filtered.isEmpty) {
+      return null;
+    }
     final List<Widget> childrenWithSpace = [];
-    children.where((child) => child.isNotEmpty).toList().asMap().forEach(
+    filtered.asMap().forEach(
       (index, child) {
         if (index > 0) {
           childrenWithSpace.add(
@@ -30,24 +62,10 @@ class ShimmerCard extends StatelessWidget {
         );
       },
     );
-    return AspectRatio(
-      aspectRatio: 16 / 9,
-      child: GestureDetector(
-        onTap: onTap,
-        child: Card(
-          elevation: elevation ?? AppParameter.elevation,
-          child: Container(
-            padding: EdgeInsets.all(AppParameter.spaceM),
-            child: Row(
-              children: childrenWithSpace,
-            ),
-          ),
-        ),
-      ),
+    return ShimmerCard._(
+      children: childrenWithSpace,
+      elevation: elevation,
+      onTap: onTap,
     );
-  }
-
-  bool isEmpty() {
-    return children.where((child) => child.isNotEmpty).isEmpty;
   }
 }

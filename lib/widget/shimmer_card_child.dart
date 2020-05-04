@@ -1,18 +1,70 @@
+import 'dart:typed_data';
+
 import 'package:flutter/cupertino.dart';
 
 class ShimmerCardChild extends StatelessWidget {
-  final Widget body;
-  final bool isEmpty;
-  final bool isNotEmpty;
+  final Widget _body;
 
-  ShimmerCardChild({
-    this.body,
-    this.isEmpty = true,
-    this.isNotEmpty = false,
-  });
+  ShimmerCardChild._(this._body);
 
   @override
   Widget build(BuildContext context) {
-    return body;
+    return _body;
+  }
+
+  static ShimmerCardChild init<T>({
+    Widget body,
+    List<T> items = const [],
+    bool scrollable = false,
+  }) {
+    if (body != null) {
+      return ShimmerCardChild._(body);
+    }
+    List<Widget> children = createChildren<T>(items);
+    if (children.isEmpty) {
+      return null;
+    }
+    if (scrollable) {
+      return ShimmerCardChild._(
+        ListView(
+          shrinkWrap: true,
+          children: children,
+        ),
+      );
+    } else {
+      return ShimmerCardChild._(
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: children,
+        ),
+      );
+    }
+  }
+
+  static List<Widget> createChildren<T>(List<T> items) {
+    switch (T) {
+      case String:
+        final List<String> texts = items as List<String>;
+        final notEmptyTexts = texts.where((text) => text.isNotEmpty).toList();
+        return notEmptyTexts
+            .map(
+              (text) => Text(
+                text,
+                textAlign: TextAlign.center,
+              ),
+            )
+            .toList();
+      case Uint8List:
+        final List<Uint8List> images = items as List<Uint8List>;
+        return images
+            .map(
+              (image) => Expanded(
+                child: Image.memory(image),
+              ),
+            )
+            .toList();
+      default:
+        return [];
+    }
   }
 }

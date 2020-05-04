@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/interface/database/shimmer_category.dart';
 import 'package:shimmer/model/enum_parser.dart';
-import 'package:shimmer/router/category_timeline_scaffold_router.dart';
+import 'package:shimmer/scaffold/category_timeline_scaffold.dart';
 
 class CategoryListItem extends StatelessWidget {
   final ShimmerCategory _category;
@@ -14,14 +14,16 @@ class CategoryListItem extends StatelessWidget {
     final title = EnumParser.upperCamelCaseStringOf(_category);
     return ListTile(
       title: Text(title),
-      onTap: () => _onListItemTap(context, _category),
+      onTap: () => _pushToTimeline(context, _category),
     );
   }
 
-  void _onListItemTap(BuildContext context, ShimmerCategory category) {
-    CategoryTimelineScaffoldRouter(
-      context: context,
-      category: category,
-    ).push();
+  void _pushToTimeline(BuildContext context, ShimmerCategory category) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => CategoryTimelineScaffold(category),
+      ),
+    );
   }
 }
