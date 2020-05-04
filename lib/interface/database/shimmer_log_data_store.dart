@@ -12,7 +12,7 @@ class ShimmerLogDataStore {
   static final listenableLog = _logBox.listenable();
 
   static void createLog(ShimmerLog log) {
-    saveLogList(log);
+    saveLogs(log);
   }
 
   // TODO: Only for debug
@@ -44,14 +44,14 @@ class ShimmerLogDataStore {
     log.genre = 'Genre';
     log.theme = 'Theme';
     log.note = '恥の多い生涯を送って来ました。\n自分には、人間の生活というものが、見当つかないのです。自分は東北の田';
-    saveLogList(log);
+    saveLogs(log);
   }
 
-  static List<ShimmerLog> fetchLogList() {
+  static List<ShimmerLog> fetchLogs() {
     return _logBox.values.toList().reversed.toList();
   }
 
-  static void saveLogList(ShimmerLog log) {
+  static void saveLogs(ShimmerLog log) {
     _logBox.add(log);
   }
 }

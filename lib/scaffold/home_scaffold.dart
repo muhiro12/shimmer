@@ -22,9 +22,9 @@ class HomeScaffold extends StatelessWidget {
         child: ValueListenableBuilder(
           valueListenable: ShimmerLogDataStore.listenableLog,
           builder: (context, box, widget) {
-            final List<ShimmerLog> logList =
-                ShimmerLogDataStore.fetchLogList().toList();
-            return Timeline(logList);
+            final List<ShimmerLog> logs =
+                ShimmerLogDataStore.fetchLogs().toList();
+            return Timeline(logs);
           },
         ),
       ),

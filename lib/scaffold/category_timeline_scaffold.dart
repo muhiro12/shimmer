@@ -21,12 +21,12 @@ class CategoryTimelineScaffold extends StatelessWidget {
         child: ValueListenableBuilder(
           valueListenable: ShimmerLogDataStore.listenableLog,
           builder: (context, box, widget) {
-            final List<ShimmerLog> logList = ShimmerLogDataStore.fetchLogList()
+            final List<ShimmerLog> logs = ShimmerLogDataStore.fetchLogs()
                 .where(
                   (log) => log.category == _category,
                 )
                 .toList();
-            return Timeline(logList);
+            return Timeline(logs);
           },
         ),
       ),

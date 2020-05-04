@@ -6,14 +6,16 @@ import 'package:shimmer/scaffold/category_timeline_scaffold.dart';
 
 class CategoryListItem extends StatelessWidget {
   final ShimmerCategory _category;
+  final int _count;
 
-  CategoryListItem(this._category);
+  CategoryListItem(this._category, this._count);
 
   @override
   Widget build(BuildContext context) {
     final title = EnumParser.upperCamelCaseStringOf(_category);
     return ListTile(
       title: Text(title),
+      trailing: Text('($_count)'),
       onTap: () => _pushToTimeline(context, _category),
     );
   }
