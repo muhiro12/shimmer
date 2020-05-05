@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/interface/database/shimmer_log.dart';
-import 'package:shimmer/interface/database/shimmer_log_data_store.dart';
+import 'package:shimmer/model/shimmer_logs_repository.dart';
 import 'package:shimmer/scaffold/settings_scaffold.dart';
 import 'package:shimmer/widget/timeline.dart';
 
@@ -20,10 +20,10 @@ class HomeScaffold extends StatelessWidget {
       ),
       body: SafeArea(
         child: ValueListenableBuilder(
-          valueListenable: ShimmerLogDataStore.listenableLog,
+          valueListenable: ShimmerLogsRepository.instance.listenable(),
           builder: (context, box, widget) {
             final List<ShimmerLog> logs =
-                ShimmerLogDataStore.fetchLogs().toList();
+                ShimmerLogsRepository.instance.fetchAllReversed().toList();
             return Timeline(logs);
           },
         ),

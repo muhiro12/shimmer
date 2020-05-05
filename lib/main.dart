@@ -2,15 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/configuration/app_parameter.dart';
 import 'package:shimmer/configuration/app_theme.dart';
-import 'package:shimmer/interface/database/configuration_data_store.dart';
-import 'package:shimmer/interface/database/data_store.dart';
+import 'package:shimmer/interface/database/database.dart';
+import 'package:shimmer/model/configurations_repository.dart';
 import 'package:shimmer/scaffold/category_scaffold.dart';
 import 'package:shimmer/scaffold/home_scaffold.dart';
 import 'package:shimmer/widget/bottom_navigator.dart';
 import 'package:shimmer/widget/shimmer_card_creator_launcher.dart';
 
 void main() async {
-  await DataStore.init();
+  await Database.init();
   runApp(MyApp());
 }
 
@@ -18,16 +18,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: ConfigurationDataStore.listenableConfiguration,
+      valueListenable: ConfigurationsRepository.instance.listenable(),
       builder: (context, box, widget) {
-        final handwriting = ConfigurationDataStore.fetchHandWriting();
-        final darkMode = ConfigurationDataStore.fetchDarkMode();
-        final primaryColor = ConfigurationDataStore.fetchPrimaryColor();
+        final isDarkMode = ConfigurationsRepository.instance.fetchIsDarkMode();
+        final isHandwriting =
+            ConfigurationsRepository.instance.fetchIsHandWriting();
+        final primaryColor =
+            ConfigurationsRepository.instance.fetchPrimaryColor();
         return MaterialApp(
           title: 'Shimmer',
-          theme: AppTheme(primaryColor, handwriting).light(),
-          darkTheme: AppTheme(primaryColor, handwriting).dark(),
-          themeMode: darkMode ? ThemeMode.dark : ThemeMode.light,
+          theme: AppTheme(primaryColor, isHandwriting).light(),
+          darkTheme: AppTheme(primaryColor, isHandwriting).dark(),
+          themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
           home: MyHomePage(title: 'Shimmer'),
         );
       },
@@ -66,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void dispose() async {
-    await DataStore.deInit();
+    await Database.deInit();
     super.dispose();
   }
 

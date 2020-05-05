@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/interface/database/configuration_data_store.dart';
+import 'package:shimmer/model/configurations_repository.dart';
 
 class SettingsScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final handWriting = ConfigurationDataStore.fetchHandWriting();
-    final darkMode = ConfigurationDataStore.fetchDarkMode();
+    final isDarkMode = ConfigurationsRepository.instance.fetchIsDarkMode();
+    final isHandWriting =
+        ConfigurationsRepository.instance.fetchIsHandWriting();
     return Scaffold(
       appBar: AppBar(
         title: Text('Create'),
@@ -20,19 +21,19 @@ class SettingsScaffold extends StatelessWidget {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text('Handwriting'),
+                Text('DardMode'),
                 Switch(
-                  value: handWriting,
-                  onChanged: _onHandWritingChanged,
+                  value: isDarkMode,
+                  onChanged: _saveIsDarkMode,
                 ),
               ],
             ),
             Row(
               children: <Widget>[
-                Text('DardMode'),
+                Text('Handwriting'),
                 Switch(
-                  value: darkMode,
-                  onChanged: _onDarkModeChanged,
+                  value: isHandWriting,
+                  onChanged: _saveIsHandWriting,
                 ),
               ],
             ),
@@ -54,7 +55,7 @@ class SettingsScaffold extends StatelessWidget {
                             ),
                           ),
                         ),
-                        onTap: () => _onColorCardTap(color),
+                        onTap: () => _savePrimaryColor(color),
                       ),
                     )
                     .toList(),
@@ -66,15 +67,15 @@ class SettingsScaffold extends StatelessWidget {
     );
   }
 
-  void _onHandWritingChanged(bool value) {
-    ConfigurationDataStore.saveHandWriting(value);
+  void _saveIsDarkMode(bool value) {
+    ConfigurationsRepository.instance.saveIsDarkMode(value);
   }
 
-  void _onDarkModeChanged(bool value) {
-    ConfigurationDataStore.saveDarkMode(value);
+  void _saveIsHandWriting(bool value) {
+    ConfigurationsRepository.instance.saveIsHandWriting(value);
   }
 
-  void _onColorCardTap(MaterialColor color) {
-    ConfigurationDataStore.savePrimaryColor(color);
+  void _savePrimaryColor(MaterialColor color) {
+    ConfigurationsRepository.instance.savePrimaryColor(color);
   }
 }

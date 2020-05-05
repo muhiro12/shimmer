@@ -23,23 +23,20 @@ class ShimmerLogAdapter extends TypeAdapter<ShimmerLog> {
       ..title = fields[3] as String
       ..summary = fields[4] as String
       ..detail = fields[5] as String
-      ..note = fields[6] as String
-      ..theme = fields[7] as String
+      ..star = fields[6] as double
+      ..tags = (fields[7] as List)?.cast<String>()
       ..images = (fields[8] as List)?.cast<Uint8List>()
-      ..tags = (fields[9] as List)?.cast<String>()
-      ..star = fields[10] as double
-      ..creator = fields[11] as String
-      ..location = fields[12] as String
-      ..genre = fields[13] as String
-      ..option1 = fields[14] as String
-      ..option2 = fields[15] as String
-      ..option3 = fields[16] as String;
+      ..location = fields[9] as String
+      ..creator = fields[10] as String
+      ..genre = fields[11] as String
+      ..theme = fields[12] as String
+      ..note = fields[13] as String;
   }
 
   @override
   void write(BinaryWriter writer, ShimmerLog obj) {
     writer
-      ..writeByte(17)
+      ..writeByte(14)
       ..writeByte(0)
       ..write(obj.createdDate)
       ..writeByte(1)
@@ -53,26 +50,20 @@ class ShimmerLogAdapter extends TypeAdapter<ShimmerLog> {
       ..writeByte(5)
       ..write(obj.detail)
       ..writeByte(6)
-      ..write(obj.note)
+      ..write(obj.star)
       ..writeByte(7)
-      ..write(obj.theme)
+      ..write(obj.tags)
       ..writeByte(8)
       ..write(obj.images)
       ..writeByte(9)
-      ..write(obj.tags)
-      ..writeByte(10)
-      ..write(obj.star)
-      ..writeByte(11)
-      ..write(obj.creator)
-      ..writeByte(12)
       ..write(obj.location)
-      ..writeByte(13)
+      ..writeByte(10)
+      ..write(obj.creator)
+      ..writeByte(11)
       ..write(obj.genre)
-      ..writeByte(14)
-      ..write(obj.option1)
-      ..writeByte(15)
-      ..write(obj.option2)
-      ..writeByte(16)
-      ..write(obj.option3);
+      ..writeByte(12)
+      ..write(obj.theme)
+      ..writeByte(13)
+      ..write(obj.note);
   }
 }

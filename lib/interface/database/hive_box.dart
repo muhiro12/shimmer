@@ -1,0 +1,4 @@
+enum HiveBox {
+  shimmerLogs,
+  configurations,
+}

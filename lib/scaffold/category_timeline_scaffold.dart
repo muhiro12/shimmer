@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/interface/database/shimmer_category.dart';
 import 'package:shimmer/interface/database/shimmer_log.dart';
-import 'package:shimmer/interface/database/shimmer_log_data_store.dart';
 import 'package:shimmer/model/enum_parser.dart';
+import 'package:shimmer/model/shimmer_logs_repository.dart';
 import 'package:shimmer/widget/timeline.dart';
 
 class CategoryTimelineScaffold extends StatelessWidget {
@@ -19,9 +19,10 @@ class CategoryTimelineScaffold extends StatelessWidget {
       ),
       body: SafeArea(
         child: ValueListenableBuilder(
-          valueListenable: ShimmerLogDataStore.listenableLog,
+          valueListenable: ShimmerLogsRepository.instance.listenable(),
           builder: (context, box, widget) {
-            final List<ShimmerLog> logs = ShimmerLogDataStore.fetchLogs()
+            final List<ShimmerLog> logs = ShimmerLogsRepository.instance
+                .fetchAllReversed()
                 .where(
                   (log) => log.category == _category,
                 )

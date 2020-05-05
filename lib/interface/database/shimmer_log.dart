@@ -26,35 +26,26 @@ class ShimmerLog {
   String detail = '';
 
   @HiveField(6)
-  String note = '';
+  double star = 3;
 
   @HiveField(7)
-  String theme = '';
+  List<String> tags = [];
 
   @HiveField(8)
   List<Uint8List> images = [];
 
   @HiveField(9)
-  List<String> tags = [];
-
-  @HiveField(10)
-  double star = 3;
-
-  @HiveField(11)
-  String creator = '';
-
-  @HiveField(12)
   String location = '';
 
-  @HiveField(13)
+  @HiveField(10)
+  String creator = '';
+
+  @HiveField(11)
   String genre = '';
 
-  @HiveField(14)
-  String option1 = '';
+  @HiveField(12)
+  String theme = '';
 
-  @HiveField(15)
-  String option2 = '';
-
-  @HiveField(16)
-  String option3 = '';
+  @HiveField(13)
+  String note = '';
 }

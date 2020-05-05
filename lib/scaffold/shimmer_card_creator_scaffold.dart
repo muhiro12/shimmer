@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/interface/database/shimmer_category.dart';
 import 'package:shimmer/interface/database/shimmer_log.dart';
-import 'package:shimmer/interface/database/shimmer_log_data_store.dart';
 import 'package:shimmer/model/enum_parser.dart';
+import 'package:shimmer/model/shimmer_logs_repository.dart';
 import 'package:shimmer/widget/shimmer_card_creator_expansion.dart';
 import 'package:shimmer/widget/shimmer_card_creator_items.dart';
 
@@ -58,7 +58,7 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
                         ),
                   ),
                   onPressed: () {
-                    ShimmerLogDataStore.createDebugData(
+                    ShimmerLogsRepository.instance.createDebugData(
                       _items.datePicker.key.currentState.date,
                       _category,
                       _items.starRating.key.currentState.rating,
@@ -107,7 +107,7 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
     log.genre = _expansion.genreController.text;
     log.theme = _expansion.themeController.text;
     log.note = _expansion.noteController.text;
-    ShimmerLogDataStore.createLog(log);
+    ShimmerLogsRepository.instance.createLog(log);
     Navigator.pop(context);
   }
 }

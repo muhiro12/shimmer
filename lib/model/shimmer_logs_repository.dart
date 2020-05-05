@@ -1,22 +1,46 @@
 import 'dart:math';
 import 'dart:typed_data';
 
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:flutter/foundation.dart';
 import 'package:shimmer/interface/database/shimmer_category.dart';
 import 'package:shimmer/interface/database/shimmer_log.dart';
-import 'package:shimmer/interface/database/shimmer_log_box.dart';
+import 'package:shimmer/interface/database/shimmer_logs_data_store.dart';
 
-class ShimmerLogDataStore {
-  static final _logBox = Hive.box<ShimmerLog>(ShimmerLogBox.key.toString());
-  static final listenableLog = _logBox.listenable();
+class ShimmerLogsRepository {
+  final ShimmerLogsDataStoreInterface _dataStore;
 
-  static void createLog(ShimmerLog log) {
-    saveLogs(log);
+  ShimmerLogsRepository(this._dataStore);
+
+  static final instance = ShimmerLogsRepository(ShimmerLogsDataStore());
+
+  ValueListenable listenable() {
+    return _dataStore.listenable();
+  }
+
+  void createLog(ShimmerLog log) {
+    _dataStore.add(log);
+  }
+
+  List<ShimmerLog> fetchAllReversed() {
+    return _dataStore.fetchAll().reversed.toList();
+  }
+
+  Map<ShimmerCategory, List<ShimmerLog>> fetchAllGroupedByCategory() {
+    List<ShimmerLog> logs = fetchAllReversed();
+    Map<ShimmerCategory, List<ShimmerLog>> grouped = {};
+    ShimmerCategory.values.forEach(
+      (category) {
+        final values = logs.where((log) => log.category == category).toList();
+        if (values.isNotEmpty) {
+          grouped[category] = values;
+        }
+      },
+    );
+    return grouped;
   }
 
   // TODO: Only for debug
-  static void createDebugData(
+  void createDebugData(
     DateTime date,
     ShimmerCategory category,
     double star,
@@ -44,14 +68,6 @@ class ShimmerLogDataStore {
     log.genre = 'Genre';
     log.theme = 'Theme';
     log.note = '恥の多い生涯を送って来ました。\n自分には、人間の生活というものが、見当つかないのです。自分は東北の田';
-    saveLogs(log);
-  }
-
-  static List<ShimmerLog> fetchLogs() {
-    return _logBox.values.toList().reversed.toList();
-  }
-
-  static void saveLogs(ShimmerLog log) {
-    _logBox.add(log);
+    createLog(log);
   }
 }

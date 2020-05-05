@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/interface/database/shimmer_log_data_store.dart';
-import 'package:shimmer/model/shimmer_log_repository.dart';
+import 'package:shimmer/model/shimmer_logs_repository.dart';
 import 'package:shimmer/widget/category_list_item.dart';
 
 class CategoryScaffold extends StatelessWidget {
@@ -13,9 +12,10 @@ class CategoryScaffold extends StatelessWidget {
       ),
       body: SafeArea(
         child: ValueListenableBuilder(
-          valueListenable: ShimmerLogDataStore.listenableLog,
+          valueListenable: ShimmerLogsRepository.instance.listenable(),
           builder: (context, box, widget) {
-            final grouped = ShimmerLogRepository.fetchLogsGroupedByCategory();
+            final grouped =
+                ShimmerLogsRepository.instance.fetchAllGroupedByCategory();
             return ListView(
               children: grouped.keys
                   .map(
