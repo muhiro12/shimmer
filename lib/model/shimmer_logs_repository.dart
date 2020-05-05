@@ -21,8 +21,12 @@ class ShimmerLogsRepository {
     _dataStore.add(log);
   }
 
+  List<ShimmerLog> fetchAll() {
+    return _dataStore.fetchAll();
+  }
+
   List<ShimmerLog> fetchAllReversed() {
-    return _dataStore.fetchAll().reversed.toList();
+    return fetchAll().reversed.toList();
   }
 
   Map<ShimmerCategory, List<ShimmerLog>> fetchAllGroupedByCategory() {

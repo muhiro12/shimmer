@@ -8,23 +8,25 @@ abstract class ShimmerLogsDataStoreInterface {
   List<ShimmerLog> fetchAll();
   void add(ShimmerLog log);
 
-  final Box<ShimmerLog> _box = Hive.box<ShimmerLog>(
-    HiveBox.shimmerLogs.toString(),
-  );
+  Box<ShimmerLog> _box() {
+    return Hive.box<ShimmerLog>(
+      HiveBox.shimmerLogs.toString(),
+    );
+  }
 
   ValueListenable listenable() {
-    return _box.listenable();
+    return _box().listenable();
   }
 }
 
 class ShimmerLogsDataStore extends ShimmerLogsDataStoreInterface {
   @override
   List<ShimmerLog> fetchAll() {
-    return _box.values.toList();
+    return _box().values.toList();
   }
 
   @override
   void add(ShimmerLog log) {
-    _box.add(log);
+    _box().add(log);
   }
 }
