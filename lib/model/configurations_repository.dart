@@ -7,10 +7,11 @@ class ConfigurationsRepository {
 
   ConfigurationsRepository(this._dataStore);
 
-  static final instance = ConfigurationsRepository(ConfigurationsDataStore());
+  static final instance =
+      ConfigurationsRepository(ConfigurationsDataStore.instance);
 
   ValueListenable listenable() {
-    return _dataStore.listenable();
+    return ConfigurationsDataStore.instance.listenable();
   }
 
   bool fetchIsDarkMode() {

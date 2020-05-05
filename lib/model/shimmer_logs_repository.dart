@@ -11,10 +11,10 @@ class ShimmerLogsRepository {
 
   ShimmerLogsRepository(this._dataStore);
 
-  static final instance = ShimmerLogsRepository(ShimmerLogsDataStore());
+  static final instance = ShimmerLogsRepository(ShimmerLogsDataStore.instance);
 
   ValueListenable listenable() {
-    return _dataStore.listenable();
+    return ShimmerLogsDataStore.instance.listenable();
   }
 
   void createLog(ShimmerLog log) {
