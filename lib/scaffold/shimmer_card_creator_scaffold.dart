@@ -8,9 +8,9 @@ import 'package:shimmer/widget/shimmer_card_creator_expansion.dart';
 import 'package:shimmer/widget/shimmer_card_creator_items.dart';
 
 class ShimmerCardCreatorScaffold extends StatelessWidget {
-  final ShimmerCategory _category;
-
   ShimmerCardCreatorScaffold(this._category);
+
+  final ShimmerCategory _category;
 
   final _items = ShimmerCardCreatorItems();
   final _expansion = ShimmerCardCreatorExpansion();
@@ -109,5 +109,18 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
     log.note = _expansion.noteController.text;
     ShimmerLogsRepository.instance.createLog(log);
     Navigator.pop(context);
+  }
+
+  static void showAsModal(
+    BuildContext context,
+    ShimmerCategory category, {
+    Function completion,
+  }) {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (context) => ShimmerCardCreatorScaffold(category),
+    ).whenComplete(
+      completion,
+    );
   }
 }

@@ -7,9 +7,9 @@ import 'package:shimmer/interface/database/shimmer_log.dart';
 import 'package:shimmer/interface/database/shimmer_logs_data_store.dart';
 
 class ShimmerLogsRepository {
-  final ShimmerLogsDataStoreInterface _dataStore;
-
   ShimmerLogsRepository(this._dataStore);
+
+  final ShimmerLogsDataStoreInterface _dataStore;
 
   static final instance = ShimmerLogsRepository(ShimmerLogsDataStore.instance);
 

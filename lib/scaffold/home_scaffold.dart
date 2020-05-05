@@ -36,9 +36,6 @@ class HomeScaffold extends StatelessWidget {
   }
 
   void _onSettingsIconPressed(BuildContext context) {
-    showCupertinoModalPopup(
-      context: context,
-      builder: (context) => SettingsScaffold(),
-    );
+    SettingsScaffold.showAsModal(context);
   }
 }

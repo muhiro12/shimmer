@@ -78,4 +78,11 @@ class SettingsScaffold extends StatelessWidget {
   void _savePrimaryColor(MaterialColor color) {
     ConfigurationsRepository.instance.savePrimaryColor(color);
   }
+
+  static void showAsModal(BuildContext context) {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (context) => SettingsScaffold(),
+    );
+  }
 }

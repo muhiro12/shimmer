@@ -8,11 +8,15 @@ import 'package:shimmer/widget/shimemr_card.dart';
 import 'package:shimmer/widget/shimmer_card_child.dart';
 
 class ShimmerCardSummary extends StatelessWidget {
+  ShimmerCardSummary(
+    this._log, {
+    this.elevation,
+    this.toDetail = false,
+  });
+
   final ShimmerLog _log;
   final double elevation;
   final bool toDetail;
-
-  ShimmerCardSummary(this._log, {this.elevation, this.toDetail = false});
 
   @override
   Widget build(BuildContext context) {
@@ -43,11 +47,6 @@ class ShimmerCardSummary extends StatelessWidget {
   }
 
   void _pushToDetail(BuildContext context, ShimmerLog log) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => ShimmerCardDetailScaffold(log),
-      ),
-    );
+    ShimmerCardDetailScaffold.push(context, log);
   }
 }

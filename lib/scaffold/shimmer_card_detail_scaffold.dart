@@ -13,9 +13,9 @@ import 'package:shimmer/widget/sized_spacer.dart';
 import 'package:shimmer/widget/star_rating.dart';
 
 class ShimmerCardDetailScaffold extends StatelessWidget {
-  final ShimmerLog _log;
-
   ShimmerCardDetailScaffold(this._log);
+
+  final ShimmerLog _log;
 
   final ScreenshotController _controller = ScreenshotController();
 
@@ -137,5 +137,14 @@ class ShimmerCardDetailScaffold extends StatelessWidget {
       pixelRatio: MediaQuery.of(context).devicePixelRatio,
     );
     Share.image(image);
+  }
+
+  static void push(BuildContext context, ShimmerLog log) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => ShimmerCardDetailScaffold(log),
+      ),
+    );
   }
 }

@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavigator extends StatefulWidget {
+  BottomNavigator(this._child, this.barItem);
+
   final Widget _child;
   final BottomNavigationBarItem barItem;
-
-  BottomNavigator(this._child, this.barItem);
 
   final GlobalKey<_BottomNavigatorState> key =
       GlobalKey<_BottomNavigatorState>();

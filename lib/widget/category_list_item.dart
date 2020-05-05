@@ -5,10 +5,10 @@ import 'package:shimmer/model/enum_parser.dart';
 import 'package:shimmer/scaffold/category_timeline_scaffold.dart';
 
 class CategoryListItem extends StatelessWidget {
+  CategoryListItem(this._category, this._count);
+
   final ShimmerCategory _category;
   final int _count;
-
-  CategoryListItem(this._category, this._count);
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +21,6 @@ class CategoryListItem extends StatelessWidget {
   }
 
   void _pushToTimeline(BuildContext context, ShimmerCategory category) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => CategoryTimelineScaffold(category),
-      ),
-    );
+    CategoryTimelineScaffold.push(context, category);
   }
 }

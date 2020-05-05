@@ -7,9 +7,9 @@ import 'package:shimmer/configuration/app_parameter.dart';
 import 'package:shimmer/model/list_extension.dart';
 
 class HorizontalListImagePicker extends StatefulWidget {
-  final double height;
-
   HorizontalListImagePicker({this.height = AppParameter.componentM});
+
+  final double height;
 
   final GlobalKey<_HorizontalListImagePickerState> key =
       GlobalKey<_HorizontalListImagePickerState>();

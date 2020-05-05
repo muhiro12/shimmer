@@ -7,9 +7,9 @@ import 'package:shimmer/model/shimmer_logs_repository.dart';
 import 'package:shimmer/widget/timeline.dart';
 
 class CategoryTimelineScaffold extends StatelessWidget {
-  final ShimmerCategory _category;
-
   CategoryTimelineScaffold(this._category);
+
+  final ShimmerCategory _category;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +30,15 @@ class CategoryTimelineScaffold extends StatelessWidget {
             return Timeline(logs);
           },
         ),
+      ),
+    );
+  }
+
+  static void push(BuildContext context, ShimmerCategory category) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => CategoryTimelineScaffold(category),
       ),
     );
   }

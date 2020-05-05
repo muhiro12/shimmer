@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/interface/database/configurations_data_store.dart';
 
 class ConfigurationsRepository {
-  final ConfigurationsDataStoreInterface _dataStore;
-
   ConfigurationsRepository(this._dataStore);
+
+  final ConfigurationsDataStoreInterface _dataStore;
 
   static final instance =
       ConfigurationsRepository(ConfigurationsDataStore.instance);

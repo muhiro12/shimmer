@@ -4,15 +4,15 @@ import 'package:shimmer/configuration/app_parameter.dart';
 import 'package:shimmer/widget/sized_spacer.dart';
 
 class ShimmerCard extends StatelessWidget {
-  final List<Widget> children;
-  final double elevation;
-  final Function onTap;
-
   ShimmerCard._({
     this.children,
     this.elevation,
     this.onTap,
   });
+
+  final List<Widget> children;
+  final double elevation;
+  final Function onTap;
 
   @override
   Widget build(BuildContext context) {

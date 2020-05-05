@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/configuration/app_parameter.dart';
 import 'package:shimmer/configuration/app_theme.dart';
 import 'package:shimmer/interface/database/database.dart';
 import 'package:shimmer/model/configurations_repository.dart';
@@ -42,6 +41,8 @@ class MyHomePage extends StatefulWidget {
 
   final String title;
 
+  static BuildContext context;
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -74,13 +75,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    MyHomePage.context = context;
     return Scaffold(
       body: IndexedStack(
         index: _selectedIndex,
         children: _bottomNavigators,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _onFloatingActionButtonTapped,
+        onPressed: _showCreatorLauncher,
         tooltip: 'New',
         child: Icon(Icons.create),
       ),
@@ -94,18 +96,8 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void _onFloatingActionButtonTapped() {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) => SafeArea(
-        child: ShimmerCardCreatorLauncher(),
-      ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(AppParameter.radius),
-        ),
-      ),
-    );
+  void _showCreatorLauncher() {
+    ShimmerCardCreatorLauncher.showAsBottomSheet();
   }
 
   void _onBarItemTapped(int index) {

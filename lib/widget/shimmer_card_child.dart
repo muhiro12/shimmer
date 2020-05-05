@@ -3,9 +3,9 @@ import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 
 class ShimmerCardChild extends StatelessWidget {
-  final Widget _body;
-
   ShimmerCardChild._(this._body);
+
+  final Widget _body;
 
   @override
   Widget build(BuildContext context) {

@@ -22,24 +22,14 @@ class EmptyPage extends StatelessWidget {
               color: Theme.of(context).primaryColor,
             ),
             iconSize: AppParameter.componentS,
-            onPressed: () => _showCreatorLauncher(context),
+            onPressed: _showCreatorLauncher,
           ),
         ],
       ),
     );
   }
 
-  void _showCreatorLauncher(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) => SafeArea(
-        child: ShimmerCardCreatorLauncher(),
-      ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(AppParameter.radius),
-        ),
-      ),
-    );
+  void _showCreatorLauncher() {
+    ShimmerCardCreatorLauncher.showAsBottomSheet();
   }
 }

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
+  AppTheme(this.primaryColor, this.handwriting);
+
   final MaterialColor primaryColor;
   final bool handwriting;
-
-  AppTheme(this.primaryColor, this.handwriting);
 
   ThemeData light() {
     final themeData = _themeData(Brightness.light);

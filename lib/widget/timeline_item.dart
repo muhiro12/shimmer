@@ -6,9 +6,9 @@ import 'package:shimmer/model/enum_parser.dart';
 import 'package:shimmer/widget/shimmer_card_summary.dart';
 
 class TimelineItem extends StatelessWidget {
-  final ShimmerLog _log;
-
   TimelineItem(this._log);
+
+  final ShimmerLog _log;
 
   @override
   Widget build(BuildContext context) {

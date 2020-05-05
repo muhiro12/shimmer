@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class StarRating extends StatefulWidget {
+  StarRating({this.initialRating = 3, this.touchEnabled = true});
+
   final double initialRating;
   final bool touchEnabled;
-
-  StarRating({this.initialRating = 3, this.touchEnabled = true});
 
   final GlobalKey<_StarRatingState> key = GlobalKey<_StarRatingState>();
 
