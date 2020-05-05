@@ -3,6 +3,22 @@ import 'package:shimmer/model/extended_list.dart';
 
 void main() {
   group(
+    'toList()',
+    () {
+      final original = [0, 1, 2, 3, 4, 5];
+      final result = ExtendedList(original).toList();
+      test(
+        'return value should be original',
+        () {
+          expect(
+            result,
+            original,
+          );
+        },
+      );
+    },
+  );
+  group(
     'added()',
     () {
       final original = [0, 1, 2, 3, 4, 5];
