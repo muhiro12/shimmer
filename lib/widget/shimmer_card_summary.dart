@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/interface/database/shimmer_log.dart';
 import 'package:shimmer/model/date_parser.dart';
-import 'package:shimmer/model/extended_list.dart';
+import 'package:shimmer/model/list_extension.dart';
 import 'package:shimmer/scaffold/shimmer_card_detail_scaffold.dart';
 import 'package:shimmer/widget/shimemr_card.dart';
 import 'package:shimmer/widget/shimmer_card_child.dart';
@@ -21,7 +21,7 @@ class ShimmerCardSummary extends StatelessWidget {
       onTap: toDetail ? () => _pushToDetail(context, _log) : null,
       children: <ShimmerCardChild>[
         ShimmerCardChild.init(
-          items: ExtendedList(_log.images).safetySublist(0, 1),
+          items: _log.images.safetySublist(0, 1),
         ),
         ShimmerCardChild.init(
           body: Column(

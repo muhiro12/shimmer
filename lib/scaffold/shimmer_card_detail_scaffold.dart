@@ -5,7 +5,7 @@ import 'package:shimmer/configuration/app_parameter.dart';
 import 'package:shimmer/interface/database/shimmer_log.dart';
 import 'package:shimmer/interface/share.dart';
 import 'package:shimmer/model/enum_parser.dart';
-import 'package:shimmer/model/extended_list.dart';
+import 'package:shimmer/model/list_extension.dart';
 import 'package:shimmer/widget/shimemr_card.dart';
 import 'package:shimmer/widget/shimmer_card_child.dart';
 import 'package:shimmer/widget/shimmer_card_summary.dart';
@@ -33,67 +33,63 @@ class ShimmerCardDetailScaffold extends StatelessWidget {
       ),
       body: ListView(
         padding: EdgeInsets.all(AppParameter.spaceM),
-        children: ExtendedList<Widget>(
-          [
-            ShimmerCardSummary(_log),
-            ShimmerCard.init(
-              children: [
-                ShimmerCardChild.init(
-                  items: [_log.summary],
-                  scrollable: true,
-                ),
-              ],
-            ),
-            ShimmerCard.init(
-              children: [
-                ShimmerCardChild.init(
-                  items: [
-                    EnumParser.upperCamelCaseStringOf(_log.category),
-                    _log.genre,
-                    _log.theme,
+        children: <Widget>[
+          ShimmerCardSummary(_log),
+          ShimmerCard.init(
+            children: [
+              ShimmerCardChild.init(
+                items: [_log.summary],
+                scrollable: true,
+              ),
+            ],
+          ),
+          ShimmerCard.init(
+            children: [
+              ShimmerCardChild.init(
+                items: [
+                  EnumParser.upperCamelCaseStringOf(_log.category),
+                  _log.genre,
+                  _log.theme,
+                ],
+              ),
+              ShimmerCardChild.init(
+                items: _log.images.safetySublist(1, 2),
+              ),
+            ],
+          ),
+          ShimmerCard.init(
+            children: [
+              ShimmerCardChild.init(
+                items: [_log.detail],
+                scrollable: true,
+              ),
+            ],
+          ),
+          ShimmerCard.init(
+            children: [
+              ShimmerCardChild.init(
+                items: _log.images.safetySublist(2, 3),
+              ),
+              ShimmerCardChild.init(
+                body: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(_log.tags.toString()),
+                    SizedSpacer(
+                      height: AppParameter.spaceS,
+                    ),
+                    StarRating(
+                      initialRating: _log.star,
+                      touchEnabled: false,
+                    ),
                   ],
                 ),
-                ShimmerCardChild.init(
-                  items: ExtendedList(_log.images).safetySublist(1, 2),
-                ),
-              ],
-            ),
-            ShimmerCard.init(
-              children: [
-                ShimmerCardChild.init(
-                  items: [_log.detail],
-                  scrollable: true,
-                ),
-              ],
-            ),
-            ShimmerCard.init(
-              children: [
-                ShimmerCardChild.init(
-                  items: ExtendedList(_log.images).safetySublist(2, 3),
-                ),
-                ShimmerCardChild.init(
-                  body: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(_log.tags.toString()),
-                      SizedSpacer(
-                        height: AppParameter.spaceS,
-                      ),
-                      StarRating(
-                        initialRating: _log.star,
-                        touchEnabled: false,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ],
-        )
+              ),
+            ],
+          ),
+        ]
             .addedAll(
-              ExtendedList(
-                _log.images,
-              ).safetySublist(3).map(
+              _log.images.safetySublist(3).map(
                     (image) => ShimmerCard.init(
                       children: [
                         ShimmerCardChild.init(

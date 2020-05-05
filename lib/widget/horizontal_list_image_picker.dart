@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:shimmer/configuration/app_parameter.dart';
-import 'package:shimmer/model/extended_list.dart';
+import 'package:shimmer/model/list_extension.dart';
 
 class HorizontalListImagePicker extends StatefulWidget {
   final double height;
@@ -36,28 +36,27 @@ class _HorizontalListImagePickerState extends State<HorizontalListImagePicker> {
       child: ListView(
         controller: _scrollController,
         scrollDirection: Axis.horizontal,
-        children: ExtendedList<Widget>(
-          images
-              .map(
-                (image) => SizedBox(
-                  width: widget.height,
-                  height: widget.height,
-                  child: Card(
-                    child: Image.memory(image),
-                  ),
+        children: images
+            .map<Widget>(
+              (image) => SizedBox(
+                width: widget.height,
+                height: widget.height,
+                child: Card(
+                  child: Image.memory(image),
                 ),
-              )
-              .toList(),
-        ).added(
-          IconButton(
-            icon: Icon(
-              Icons.add_photo_alternate,
-              color: Colors.grey.shade600,
+              ),
+            )
+            .toList()
+            .added(
+              IconButton(
+                icon: Icon(
+                  Icons.add_photo_alternate,
+                  color: Colors.grey.shade600,
+                ),
+                iconSize: AppParameter.componentS,
+                onPressed: _onImageIconPressed,
+              ),
             ),
-            iconSize: AppParameter.componentS,
-            onPressed: _onImageIconPressed,
-          ),
-        ),
       ),
     );
   }

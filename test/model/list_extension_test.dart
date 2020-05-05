@@ -1,28 +1,12 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shimmer/model/extended_list.dart';
+import 'package:shimmer/model/list_extension.dart';
 
 void main() {
-  group(
-    'toList()',
-    () {
-      final original = [0, 1, 2, 3, 4, 5];
-      final result = ExtendedList(original).toList();
-      test(
-        'return value should be original',
-        () {
-          expect(
-            result,
-            original,
-          );
-        },
-      );
-    },
-  );
   group(
     'added()',
     () {
       final original = [0, 1, 2, 3, 4, 5];
-      final result = ExtendedList(original).added(6);
+      final result = original.added(6);
       test(
         'return value should be added value',
         () {
@@ -47,7 +31,7 @@ void main() {
     'addedAll()',
     () {
       final original = [0, 1, 2, 3, 4, 5];
-      final result = ExtendedList(original).addedAll([6, 7]);
+      final result = original.addedAll([6, 7]);
       test(
         'return value should be added value',
         () {
@@ -69,26 +53,10 @@ void main() {
     },
   );
   group(
-    'safetySublist() case original is null',
-    () {
-      final original = null;
-      final instance = ExtendedList(original);
-      test(
-        'return value should be null',
-        () {
-          expect(
-            instance.safetySublist(0),
-            null,
-          );
-        },
-      );
-    },
-  );
-  group(
     'safetySublist() case original is empty',
     () {
       final original = [];
-      final instance = ExtendedList(original);
+      final instance = original;
       test(
         'return value should be empty when start is 0',
         () {
@@ -113,7 +81,7 @@ void main() {
     'safetySublist() case default',
     () {
       final original = [0, 1, 2, 3, 4, 5];
-      final instance = ExtendedList(original);
+      final instance = original;
       test(
         'return value should be original.sublist(0) when start is null',
         () {
@@ -216,26 +184,10 @@ void main() {
     },
   );
   group(
-    'separated() case original is null',
-    () {
-      final original = null;
-      final instance = ExtendedList(original);
-      test(
-        'return value should be null',
-        () {
-          expect(
-            instance.separated(by: 2),
-            null,
-          );
-        },
-      );
-    },
-  );
-  group(
     'separated() case original length is even number',
     () {
       final original = [0, 1, 2, 3, 4, 5];
-      final instance = ExtendedList(original);
+      final instance = original;
       test(
         'return value should be List<[_]> when list is separated by none',
         () {
@@ -299,7 +251,7 @@ void main() {
     'separated() case original length is even number',
     () {
       final original = [0, 1, 2, 3, 4, 5, 6];
-      final instance = ExtendedList(original);
+      final instance = original;
       test(
         'return value should be List<[_, _]> when list is separated by 2',
         () {
