@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/model/shimmer_logs_repository.dart';
 import 'package:shimmer/widget/category_list_item.dart';
 import 'package:shimmer/widget/empty_page.dart';
+import 'package:shimmer/widget/new_floating_action_button.dart';
 
 class CategoryScaffold extends StatelessWidget {
   @override
@@ -33,6 +34,7 @@ class CategoryScaffold extends StatelessWidget {
           },
         ),
       ),
+      floatingActionButton: NewFloatingActionButton(),
     );
   }
 }

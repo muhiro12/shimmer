@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/main.dart';
 import 'package:shimmer/model/configurations_repository.dart';
 
 class SettingsScaffold extends StatelessWidget {
@@ -79,9 +80,9 @@ class SettingsScaffold extends StatelessWidget {
     ConfigurationsRepository.instance.savePrimaryColor(color);
   }
 
-  static void showAsModal(BuildContext context) {
+  static void showAsModal() {
     showCupertinoModalPopup(
-      context: context,
+      context: MyHomePage.context,
       builder: (context) => SettingsScaffold(),
     );
   }

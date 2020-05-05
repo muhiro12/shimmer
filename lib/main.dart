@@ -6,7 +6,6 @@ import 'package:shimmer/model/configurations_repository.dart';
 import 'package:shimmer/scaffold/category_scaffold.dart';
 import 'package:shimmer/scaffold/home_scaffold.dart';
 import 'package:shimmer/widget/bottom_navigator.dart';
-import 'package:shimmer/widget/shimmer_card_creator_launcher.dart';
 
 void main() async {
   await Database.init();
@@ -81,11 +80,6 @@ class _MyHomePageState extends State<MyHomePage> {
         index: _selectedIndex,
         children: _bottomNavigators,
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _showCreatorLauncher,
-        tooltip: 'New',
-        child: Icon(Icons.create),
-      ),
       bottomNavigationBar: BottomNavigationBar(
         items: _bottomNavigators
             .map((bottomNavigator) => bottomNavigator.barItem)
@@ -94,10 +88,6 @@ class _MyHomePageState extends State<MyHomePage> {
         onTap: _onBarItemTapped,
       ),
     );
-  }
-
-  void _showCreatorLauncher() {
-    ShimmerCardCreatorLauncher.showAsBottomSheet();
   }
 
   void _onBarItemTapped(int index) {

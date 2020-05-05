@@ -4,6 +4,7 @@ import 'package:shimmer/interface/database/shimmer_log.dart';
 import 'package:shimmer/model/shimmer_logs_repository.dart';
 import 'package:shimmer/scaffold/settings_scaffold.dart';
 import 'package:shimmer/widget/empty_page.dart';
+import 'package:shimmer/widget/new_floating_action_button.dart';
 import 'package:shimmer/widget/timeline.dart';
 
 class HomeScaffold extends StatelessWidget {
@@ -15,7 +16,7 @@ class HomeScaffold extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.settings),
-            onPressed: () => _onSettingsIconPressed(context),
+            onPressed: _onSettingsIconPressed,
           ),
         ],
       ),
@@ -32,10 +33,11 @@ class HomeScaffold extends StatelessWidget {
           },
         ),
       ),
+      floatingActionButton: NewFloatingActionButton(),
     );
   }
 
-  void _onSettingsIconPressed(BuildContext context) {
-    SettingsScaffold.showAsModal(context);
+  void _onSettingsIconPressed() {
+    SettingsScaffold.showAsModal();
   }
 }

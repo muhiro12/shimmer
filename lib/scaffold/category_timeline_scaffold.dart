@@ -4,6 +4,7 @@ import 'package:shimmer/interface/database/shimmer_category.dart';
 import 'package:shimmer/interface/database/shimmer_log.dart';
 import 'package:shimmer/model/enum_parser.dart';
 import 'package:shimmer/model/shimmer_logs_repository.dart';
+import 'package:shimmer/widget/new_floating_action_button.dart';
 import 'package:shimmer/widget/timeline.dart';
 
 class CategoryTimelineScaffold extends StatelessWidget {
@@ -31,6 +32,7 @@ class CategoryTimelineScaffold extends StatelessWidget {
           },
         ),
       ),
+      floatingActionButton: NewFloatingActionButton(),
     );
   }
 

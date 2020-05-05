@@ -6,6 +6,7 @@ import 'package:shimmer/interface/database/shimmer_log.dart';
 import 'package:shimmer/interface/share.dart';
 import 'package:shimmer/model/enum_parser.dart';
 import 'package:shimmer/model/list_extension.dart';
+import 'package:shimmer/widget/edit_floating_action_button.dart';
 import 'package:shimmer/widget/shimemr_card.dart';
 import 'package:shimmer/widget/shimmer_card_child.dart';
 import 'package:shimmer/widget/shimmer_card_summary.dart';
@@ -104,6 +105,7 @@ class ShimmerCardDetailScaffold extends StatelessWidget {
             )
             .toList(),
       ),
+      floatingActionButton: EditFloatingActionButton(_log),
     );
   }
 

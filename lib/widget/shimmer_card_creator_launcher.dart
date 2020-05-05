@@ -45,7 +45,6 @@ class ShimmerCardCreatorLauncher extends StatelessWidget {
 
   void _onListItemTap(BuildContext context, ShimmerCategory category) {
     ShimmerCardCreatorScaffold.showAsModal(
-      context,
       category,
       completion: () => Navigator.pop(context),
     );
