@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/interface/database/shimmer_log.dart';
 import 'package:shimmer/model/shimmer_logs_repository.dart';
 import 'package:shimmer/scaffold/settings_scaffold.dart';
+import 'package:shimmer/widget/empty_page.dart';
 import 'package:shimmer/widget/timeline.dart';
 
 class HomeScaffold extends StatelessWidget {
@@ -24,6 +25,9 @@ class HomeScaffold extends StatelessWidget {
           builder: (context, box, widget) {
             final List<ShimmerLog> logs =
                 ShimmerLogsRepository.instance.fetchAllReversed().toList();
+            if (logs.isEmpty) {
+              return EmptyPage();
+            }
             return Timeline(logs);
           },
         ),

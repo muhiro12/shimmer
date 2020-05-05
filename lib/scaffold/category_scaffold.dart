@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/model/shimmer_logs_repository.dart';
 import 'package:shimmer/widget/category_list_item.dart';
+import 'package:shimmer/widget/empty_page.dart';
 
 class CategoryScaffold extends StatelessWidget {
   @override
@@ -16,6 +17,9 @@ class CategoryScaffold extends StatelessWidget {
           builder: (context, box, widget) {
             final grouped =
                 ShimmerLogsRepository.instance.fetchAllGroupedByCategory();
+            if (grouped.isEmpty) {
+              return EmptyPage();
+            }
             return ListView(
               children: grouped.keys
                   .map(
