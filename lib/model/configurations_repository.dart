@@ -42,7 +42,7 @@ class ConfigurationsRepository {
   }
 
   MaterialColor fetchPrimaryColor() {
-    final colorValue = _dataStore.fetch(
+    final colorValue = _dataStore.fetch<int>(
           Configuration.primaryColorValue,
         ) ??
         Colors.blue.value;

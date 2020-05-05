@@ -6,9 +6,6 @@ import 'package:shimmer/model/shimmer_logs_repository.dart';
 
 class ShimmerLogsDataStoreTest extends ShimmerLogsDataStoreInterface {
   @override
-  void add(ShimmerLog log) {}
-
-  @override
   List<ShimmerLog> fetchAll() {
     final log1 = ShimmerLog();
     log1.date = DateTime(1);
@@ -29,6 +26,9 @@ class ShimmerLogsDataStoreTest extends ShimmerLogsDataStoreInterface {
     ];
     return testData;
   }
+
+  @override
+  void add(ShimmerLog log) {}
 }
 
 void main() {
