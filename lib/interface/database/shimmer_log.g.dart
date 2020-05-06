@@ -16,21 +16,22 @@ class ShimmerLogAdapter extends TypeAdapter<ShimmerLog> {
     var fields = <int, dynamic>{
       for (var i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return ShimmerLog()
-      ..createdDate = fields[0] as DateTime
-      ..category = fields[1] as ShimmerCategory
-      ..date = fields[2] as DateTime
-      ..title = fields[3] as String
-      ..summary = fields[4] as String
-      ..detail = fields[5] as String
-      ..star = fields[6] as double
-      ..tags = (fields[7] as List)?.cast<String>()
-      ..images = (fields[8] as List)?.cast<Uint8List>()
-      ..location = fields[9] as String
-      ..creator = fields[10] as String
-      ..genre = fields[11] as String
-      ..theme = fields[12] as String
-      ..note = fields[13] as String;
+    return ShimmerLog(
+      createdDate: fields[0] as DateTime,
+      category: fields[1] as ShimmerCategory,
+      date: fields[2] as DateTime,
+      title: fields[3] as String,
+      summary: fields[4] as String,
+      detail: fields[5] as String,
+      star: fields[6] as double,
+      tags: (fields[7] as List)?.cast<String>(),
+      images: (fields[8] as List)?.cast<Uint8List>(),
+      location: fields[9] as String,
+      creator: fields[10] as String,
+      genre: fields[11] as String,
+      theme: fields[12] as String,
+      note: fields[13] as String,
+    );
   }
 
   @override

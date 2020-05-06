@@ -7,17 +7,20 @@ import 'package:shimmer/model/shimmer_logs_repository.dart';
 class ShimmerLogsDataStoreTest extends ShimmerLogsDataStoreInterface {
   @override
   List<ShimmerLog> fetchAll() {
-    final log1 = ShimmerLog();
-    log1.date = DateTime(1);
-    log1.category = ShimmerCategory.plain;
+    final log1 = ShimmerLog(
+      date: DateTime(1),
+      category: ShimmerCategory.plain,
+    );
 
-    final log2 = ShimmerLog();
-    log2.date = DateTime(200);
-    log2.category = ShimmerCategory.concert;
+    final log2 = ShimmerLog(
+      date: DateTime(200),
+      category: ShimmerCategory.concert,
+    );
 
-    final log3 = ShimmerLog();
-    log3.date = DateTime(30);
-    log3.category = ShimmerCategory.plain;
+    final log3 = ShimmerLog(
+      date: DateTime(30),
+      category: ShimmerCategory.plain,
+    );
 
     final testData = <ShimmerLog>[
       log1,

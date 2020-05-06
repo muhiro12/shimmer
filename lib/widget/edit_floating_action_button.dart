@@ -18,6 +18,6 @@ class EditFloatingActionButton extends StatelessWidget {
   }
 
   void _showCreatorLauncher() {
-    ShimmerCardCreatorScaffold.showAsModal(_log.category);
+    ShimmerCardCreatorScaffold.showAsModal(_log);
   }
 }

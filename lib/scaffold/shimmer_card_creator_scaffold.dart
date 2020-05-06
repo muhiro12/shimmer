@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/interface/database/shimmer_category.dart';
 import 'package:shimmer/interface/database/shimmer_log.dart';
 import 'package:shimmer/main.dart';
 import 'package:shimmer/model/enum_parser.dart';
@@ -9,15 +8,16 @@ import 'package:shimmer/widget/shimmer_card_creator_expansion.dart';
 import 'package:shimmer/widget/shimmer_card_creator_items.dart';
 
 class ShimmerCardCreatorScaffold extends StatelessWidget {
-  ShimmerCardCreatorScaffold(this._category);
+  ShimmerCardCreatorScaffold(this._log);
 
-  final ShimmerCategory _category;
+  final ShimmerLog _log;
 
   final _items = ShimmerCardCreatorItems();
   final _expansion = ShimmerCardCreatorExpansion();
 
   @override
   Widget build(BuildContext context) {
+    _insertLog();
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -35,7 +35,7 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
                 child: ListView(
                   children: <Widget>[
                     Text(
-                      EnumParser.upperCamelCaseStringOf(_category),
+                      EnumParser.upperCamelCaseStringOf(_log.category),
                       style: Theme.of(context).textTheme.headline,
                     ),
                     _items,
@@ -61,7 +61,7 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
                   onPressed: () {
                     ShimmerLogsRepository.instance.createDebugData(
                       _items.datePicker.key.currentState.date,
-                      _category,
+                      _log.category,
                       _items.starRating.key.currentState.rating,
                       _items.imagePicker.key.currentState.images,
                     );
@@ -94,31 +94,54 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
     if (_items.titleController.text.isEmpty) {
       return;
     }
-    final log = ShimmerLog();
-    log.category = _category;
-    log.date = _items.datePicker.key.currentState.date;
-    log.title = _items.titleController.text;
-    log.summary = _items.summaryController.text;
-    log.detail = _items.detailController.text;
-    log.star = _items.starRating.key.currentState.rating;
-    log.tags = [_items.tagController.text];
-    log.images = _items.imagePicker.key.currentState.images;
-    log.location = _expansion.locationController.text;
-    log.creator = _expansion.creatorController.text;
-    log.genre = _expansion.genreController.text;
-    log.theme = _expansion.themeController.text;
-    log.note = _expansion.noteController.text;
+    final log = _pickUpLog();
     ShimmerLogsRepository.instance.createLog(log);
     Navigator.pop(context);
   }
 
+  void _insertLog() {
+    // TODO: Uncomment
+//    category: _log.category,
+//    _items.datePicker.key.currentState.date = _log.date;
+    _items.titleController.text = _log.title;
+    _items.summaryController.text = _log.summary;
+    _items.detailController.text = _log.detail;
+//    _items.starRating.key.currentState.rating = _log.star;
+    // TODO: to List
+    _items.tagController.text = _log.tags.toString();
+//    _items.imagePicker.key.currentState.images = _log.images;
+    _expansion.locationController.text = _log.location;
+    _expansion.creatorController.text = _log.creator;
+    _expansion.genreController.text = _log.genre;
+    _expansion.themeController.text = _log.theme;
+    _expansion.noteController.text = _log.note;
+  }
+
+  ShimmerLog _pickUpLog() {
+    return ShimmerLog(
+      category: _log.category,
+      date: _items.datePicker.key.currentState.date,
+      title: _items.titleController.text,
+      summary: _items.summaryController.text,
+      detail: _items.detailController.text,
+      star: _items.starRating.key.currentState.rating,
+      tags: [_items.tagController.text],
+      images: _items.imagePicker.key.currentState.images,
+      location: _expansion.locationController.text,
+      creator: _expansion.creatorController.text,
+      genre: _expansion.genreController.text,
+      theme: _expansion.themeController.text,
+      note: _expansion.noteController.text,
+    );
+  }
+
   static void showAsModal(
-    ShimmerCategory category, {
+    ShimmerLog log, {
     Function completion,
   }) {
     showCupertinoModalPopup(
       context: MyHomePage.context,
-      builder: (context) => ShimmerCardCreatorScaffold(category),
+      builder: (context) => ShimmerCardCreatorScaffold(log),
     ).whenComplete(
       () {
         if (completion != null) {

@@ -7,6 +7,23 @@ part 'shimmer_log.g.dart';
 
 @HiveType(typeId: 0)
 class ShimmerLog {
+  ShimmerLog({
+    this.createdDate,
+    this.category,
+    this.date,
+    this.title,
+    this.summary,
+    this.detail,
+    this.star,
+    this.tags,
+    this.images,
+    this.location,
+    this.creator,
+    this.genre,
+    this.theme,
+    this.note,
+  });
+
   @HiveField(0)
   DateTime createdDate = DateTime.now();
 
