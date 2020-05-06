@@ -12,16 +12,19 @@ class EditFloatingActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      onPressed: _onPressed,
+      onPressed: () => _onPressed(context),
       tooltip: 'Edit',
       child: Icon(Icons.edit),
     );
   }
 
-  void _onPressed() {
+  void _onPressed(BuildContext context) {
     ShimmerCardCreatorScaffold.showAsModal(
       type: ShimmerCardCreatorType.edit,
       log: _log,
+      completion: (isDeleted) {
+        if (isDeleted) Navigator.pop(context);
+      },
     );
   }
 }

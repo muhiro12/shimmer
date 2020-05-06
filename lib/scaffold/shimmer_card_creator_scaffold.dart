@@ -177,6 +177,7 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
 
   void _deleteLog() {
     ShimmerLogsRepository.instance.deleteLog(_log);
+    _isDeleted = true;
   }
 
   static ShimmerCardCreatorScaffold init({
@@ -205,10 +206,12 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
     );
   }
 
+  static bool _isDeleted = false;
+
   static void showAsModal({
     ShimmerCardCreatorType type,
     ShimmerLog log,
-    Function completion,
+    Function(bool isDeleted) completion,
   }) {
     showCupertinoModalPopup(
       context: MyHomePage.context,
@@ -219,8 +222,9 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
     ).whenComplete(
       () {
         if (completion != null) {
-          completion();
+          completion(_isDeleted);
         }
+        _isDeleted = false;
       },
     );
   }

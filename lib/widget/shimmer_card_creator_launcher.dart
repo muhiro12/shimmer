@@ -52,7 +52,7 @@ class ShimmerCardCreatorLauncher extends StatelessWidget {
     ShimmerCardCreatorScaffold.showAsModal(
       type: ShimmerCardCreatorType.create,
       log: log,
-      completion: () => Navigator.pop(context),
+      completion: (_) => Navigator.pop(context),
     );
   }
 
