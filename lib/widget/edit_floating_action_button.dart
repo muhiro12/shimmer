@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/interface/database/shimmer_log.dart';
+import 'package:shimmer/model/shimmer_card_creator_type.dart';
 import 'package:shimmer/scaffold/shimmer_card_creator_scaffold.dart';
 
 class EditFloatingActionButton extends StatelessWidget {
@@ -18,6 +19,9 @@ class EditFloatingActionButton extends StatelessWidget {
   }
 
   void _showCreatorLauncher() {
-    ShimmerCardCreatorScaffold.showAsModal(_log);
+    ShimmerCardCreatorScaffold.showAsModal(
+      type: ShimmerCardCreatorType.edit,
+      log: _log,
+    );
   }
 }

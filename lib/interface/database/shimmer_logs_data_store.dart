@@ -6,7 +6,8 @@ import 'package:shimmer/interface/database/shimmer_log.dart';
 
 abstract class ShimmerLogsDataStoreInterface {
   List<ShimmerLog> fetchAll();
-  void add(ShimmerLog log);
+  void save(ShimmerLog log);
+  void delete(ShimmerLog log);
 }
 
 class ShimmerLogsDataStore extends ShimmerLogsDataStoreInterface {
@@ -32,7 +33,12 @@ class ShimmerLogsDataStore extends ShimmerLogsDataStoreInterface {
   }
 
   @override
-  void add(ShimmerLog log) {
-    _box.add(log);
+  void save(ShimmerLog log) {
+    _box.put(log.key, log);
+  }
+
+  @override
+  void delete(ShimmerLog log) {
+    _box.delete(log.key);
   }
 }

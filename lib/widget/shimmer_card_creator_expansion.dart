@@ -3,11 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/configuration/app_parameter.dart';
 
 class ShimmerCardCreatorExpansion extends StatelessWidget {
-  final TextEditingController locationController = TextEditingController();
-  final TextEditingController creatorController = TextEditingController();
-  final TextEditingController genreController = TextEditingController();
-  final TextEditingController themeController = TextEditingController();
-  final TextEditingController noteController = TextEditingController();
+  ShimmerCardCreatorExpansion._({
+    this.locationController,
+    this.creatorController,
+    this.genreController,
+    this.themeController,
+    this.noteController,
+  });
+
+  final TextEditingController locationController;
+  final TextEditingController creatorController;
+  final TextEditingController genreController;
+  final TextEditingController themeController;
+  final TextEditingController noteController;
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +76,22 @@ class ShimmerCardCreatorExpansion extends StatelessWidget {
         right: AppParameter.spaceM,
       ),
       child: child,
+    );
+  }
+
+  static ShimmerCardCreatorExpansion init({
+    String location,
+    String creator,
+    String genre,
+    String theme,
+    String note,
+  }) {
+    return ShimmerCardCreatorExpansion._(
+      locationController: TextEditingController(text: location),
+      creatorController: TextEditingController(text: creator),
+      genreController: TextEditingController(text: genre),
+      themeController: TextEditingController(text: theme),
+      noteController: TextEditingController(text: note),
     );
   }
 }

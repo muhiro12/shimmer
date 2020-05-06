@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/model/date_parser.dart';
 
 class DatePicker extends StatefulWidget {
+  DatePicker({this.initialDate});
+
+  final DateTime initialDate;
+
   final GlobalKey<_DatePickerState> key = GlobalKey<_DatePickerState>();
 
   @override
@@ -12,7 +16,13 @@ class DatePicker extends StatefulWidget {
 }
 
 class _DatePickerState extends State<DatePicker> {
-  DateTime date = DateTime.now();
+  DateTime date;
+
+  @override
+  void initState() {
+    super.initState();
+    date = widget.initialDate ?? DateTime.now();
+  }
 
   @override
   Widget build(BuildContext context) {

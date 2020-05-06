@@ -7,8 +7,12 @@ import 'package:shimmer/configuration/app_parameter.dart';
 import 'package:shimmer/model/list_extension.dart';
 
 class HorizontalListImagePicker extends StatefulWidget {
-  HorizontalListImagePicker({this.height = AppParameter.componentM});
+  HorizontalListImagePicker({
+    this.initialImages = const [],
+    this.height = AppParameter.componentM,
+  });
 
+  final List<Uint8List> initialImages;
   final double height;
 
   final GlobalKey<_HorizontalListImagePickerState> key =
@@ -36,7 +40,10 @@ class _HorizontalListImagePickerState extends State<HorizontalListImagePicker> {
       child: ListView(
         controller: _scrollController,
         scrollDirection: Axis.horizontal,
-        children: images
+        children: widget.initialImages
+            .addedAll(
+              images,
+            )
             .map<Widget>(
               (image) => SizedBox(
                 width: widget.height,

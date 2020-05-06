@@ -3,21 +3,26 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/interface/database/shimmer_log.dart';
 import 'package:shimmer/main.dart';
 import 'package:shimmer/model/enum_parser.dart';
+import 'package:shimmer/model/shimmer_card_creator_type.dart';
 import 'package:shimmer/model/shimmer_logs_repository.dart';
 import 'package:shimmer/widget/shimmer_card_creator_expansion.dart';
 import 'package:shimmer/widget/shimmer_card_creator_items.dart';
 
 class ShimmerCardCreatorScaffold extends StatelessWidget {
-  ShimmerCardCreatorScaffold(this._log);
+  ShimmerCardCreatorScaffold._(
+    this._type,
+    this._log,
+    this._items,
+    this._expansion,
+  );
 
+  final ShimmerCardCreatorType _type;
   final ShimmerLog _log;
-
-  final _items = ShimmerCardCreatorItems();
-  final _expansion = ShimmerCardCreatorExpansion();
+  final ShimmerCardCreatorItems _items;
+  final ShimmerCardCreatorExpansion _expansion;
 
   @override
   Widget build(BuildContext context) {
-    _insertLog();
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -74,13 +79,30 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
                 height: kBottomNavigationBarHeight,
                 child: FlatButton(
                   child: Text(
-                    'Create',
+                    _type.title(),
                     style: Theme.of(context)
                         .textTheme
                         .button
                         .copyWith(fontWeight: FontWeight.bold),
                   ),
-                  onPressed: () => _onButtonPressed(context),
+                  onPressed: () => _onSaveButtonPressed(context),
+                ),
+              ),
+              Visibility(
+                visible: _type == ShimmerCardCreatorType.edit,
+                child: SizedBox(
+                  width: double.infinity,
+                  height: kBottomNavigationBarHeight,
+                  child: FlatButton(
+                    child: Text(
+                      'Delete',
+                      style: Theme.of(context).textTheme.button.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red,
+                          ),
+                    ),
+                    onPressed: () => _onDeleteButtonPressed(context),
+                  ),
                 ),
               ),
             ],
@@ -90,58 +112,78 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
     );
   }
 
-  void _onButtonPressed(BuildContext context) {
+  void _onSaveButtonPressed(BuildContext context) {
     if (_items.titleController.text.isEmpty) {
       return;
     }
-    final log = _pickUpLog();
-    ShimmerLogsRepository.instance.createLog(log);
+    _createLog();
     Navigator.pop(context);
   }
 
-  void _insertLog() {
-    // TODO: Uncomment
-//    category: _log.category,
-//    _items.datePicker.key.currentState.date = _log.date;
-    _items.titleController.text = _log.title;
-    _items.summaryController.text = _log.summary;
-    _items.detailController.text = _log.detail;
-//    _items.starRating.key.currentState.rating = _log.star;
-    // TODO: to List
-    _items.tagController.text = _log.tags.toString();
-//    _items.imagePicker.key.currentState.images = _log.images;
-    _expansion.locationController.text = _log.location;
-    _expansion.creatorController.text = _log.creator;
-    _expansion.genreController.text = _log.genre;
-    _expansion.themeController.text = _log.theme;
-    _expansion.noteController.text = _log.note;
+  void _onDeleteButtonPressed(BuildContext context) {
+    _deleteLog();
+    Navigator.pop(context);
   }
 
-  ShimmerLog _pickUpLog() {
-    return ShimmerLog(
-      category: _log.category,
-      date: _items.datePicker.key.currentState.date,
-      title: _items.titleController.text,
-      summary: _items.summaryController.text,
-      detail: _items.detailController.text,
-      star: _items.starRating.key.currentState.rating,
-      tags: [_items.tagController.text],
-      images: _items.imagePicker.key.currentState.images,
-      location: _expansion.locationController.text,
-      creator: _expansion.creatorController.text,
-      genre: _expansion.genreController.text,
-      theme: _expansion.themeController.text,
-      note: _expansion.noteController.text,
+  void _createLog() {
+    _log
+      ..category = _log.category
+      ..date = _items.datePicker.key.currentState.date
+      ..title = _items.titleController.text
+      ..summary = _items.summaryController.text
+      ..detail = _items.detailController.text
+      ..star = _items.starRating.key.currentState.rating
+      ..tags = [_items.tagController.text]
+      ..images = _items.imagePicker.key.currentState.images
+      ..location = _expansion.locationController.text
+      ..creator = _expansion.creatorController.text
+      ..genre = _expansion.genreController.text
+      ..theme = _expansion.themeController.text
+      ..note = _expansion.noteController.text;
+    ShimmerLogsRepository.instance.saveLog(_log);
+  }
+
+  void _deleteLog() {
+    ShimmerLogsRepository.instance.deleteLog(_log);
+  }
+
+  static ShimmerCardCreatorScaffold init({
+    ShimmerCardCreatorType type,
+    ShimmerLog log,
+  }) {
+    return ShimmerCardCreatorScaffold._(
+      type,
+      log,
+      ShimmerCardCreatorItems.init(
+        date: log.date,
+        title: log.title,
+        summary: log.summary,
+        detail: log.detail,
+        star: log.star,
+        tags: log.tags,
+        images: log.images,
+      ),
+      ShimmerCardCreatorExpansion.init(
+        location: log.location,
+        creator: log.creator,
+        genre: log.genre,
+        theme: log.theme,
+        note: log.note,
+      ),
     );
   }
 
-  static void showAsModal(
-    ShimmerLog log, {
+  static void showAsModal({
+    ShimmerCardCreatorType type,
+    ShimmerLog log,
     Function completion,
   }) {
     showCupertinoModalPopup(
       context: MyHomePage.context,
-      builder: (context) => ShimmerCardCreatorScaffold(log),
+      builder: (context) => ShimmerCardCreatorScaffold.init(
+        type: type,
+        log: log,
+      ),
     ).whenComplete(
       () {
         if (completion != null) {

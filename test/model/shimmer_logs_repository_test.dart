@@ -31,7 +31,10 @@ class ShimmerLogsDataStoreTest extends ShimmerLogsDataStoreInterface {
   }
 
   @override
-  void add(ShimmerLog log) {}
+  void save(ShimmerLog log) {}
+
+  @override
+  void delete(ShimmerLog log) {}
 }
 
 void main() {

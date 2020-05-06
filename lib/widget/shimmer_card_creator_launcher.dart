@@ -5,6 +5,7 @@ import 'package:shimmer/interface/database/shimmer_category.dart';
 import 'package:shimmer/interface/database/shimmer_log.dart';
 import 'package:shimmer/main.dart';
 import 'package:shimmer/model/enum_parser.dart';
+import 'package:shimmer/model/shimmer_card_creator_type.dart';
 import 'package:shimmer/scaffold/shimmer_card_creator_scaffold.dart';
 import 'package:shimmer/widget/sized_spacer.dart';
 
@@ -49,7 +50,8 @@ class ShimmerCardCreatorLauncher extends StatelessWidget {
       category: category,
     );
     ShimmerCardCreatorScaffold.showAsModal(
-      log,
+      type: ShimmerCardCreatorType.create,
+      log: log,
       completion: () => Navigator.pop(context),
     );
   }

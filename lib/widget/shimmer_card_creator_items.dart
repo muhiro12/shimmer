@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/configuration/app_parameter.dart';
@@ -6,15 +8,23 @@ import 'package:shimmer/widget/horizontal_list_image_picker.dart';
 import 'package:shimmer/widget/star_rating.dart';
 
 class ShimmerCardCreatorItems extends StatelessWidget {
-  final DatePicker datePicker = DatePicker();
-  final TextEditingController titleController = TextEditingController();
-  final TextEditingController summaryController = TextEditingController();
-  final TextEditingController detailController = TextEditingController();
-  final StarRating starRating = StarRating();
-  final TextEditingController tagController = TextEditingController();
-  final HorizontalListImagePicker imagePicker = HorizontalListImagePicker(
-    height: AppParameter.componentL,
-  );
+  ShimmerCardCreatorItems._({
+    this.datePicker,
+    this.titleController,
+    this.summaryController,
+    this.detailController,
+    this.starRating,
+    this.tagController,
+    this.imagePicker,
+  });
+
+  final DatePicker datePicker;
+  final TextEditingController titleController;
+  final TextEditingController summaryController;
+  final TextEditingController detailController;
+  final StarRating starRating;
+  final TextEditingController tagController;
+  final HorizontalListImagePicker imagePicker;
 
   @override
   Widget build(BuildContext context) {
@@ -88,6 +98,26 @@ class ShimmerCardCreatorItems extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  static ShimmerCardCreatorItems init({
+    DateTime date,
+    String title,
+    String summary,
+    String detail,
+    double star,
+    List<String> tags,
+    List<Uint8List> images,
+  }) {
+    return ShimmerCardCreatorItems._(
+      datePicker: DatePicker(initialDate: date),
+      titleController: TextEditingController(text: title),
+      summaryController: TextEditingController(text: summary),
+      detailController: TextEditingController(text: detail),
+      starRating: StarRating(initialRating: star),
+      tagController: TextEditingController(text: tags.toString()),
+      imagePicker: HorizontalListImagePicker(initialImages: images),
     );
   }
 }
