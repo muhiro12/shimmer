@@ -61,14 +61,14 @@ class _HorizontalListImagePickerState extends State<HorizontalListImagePicker> {
                   color: Colors.grey.shade600,
                 ),
                 iconSize: AppParameter.componentS,
-                onPressed: _onImageIconPressed,
+                onPressed: _onPressed,
               ),
             ),
       ),
     );
   }
 
-  void _onImageIconPressed() async {
+  void _onPressed() async {
     try {
       assets = await MultiImagePicker.pickImages(
         maxImages: 8,

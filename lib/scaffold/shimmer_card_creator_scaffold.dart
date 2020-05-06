@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/configuration/app_parameter.dart';
 import 'package:shimmer/interface/database/shimmer_log.dart';
 import 'package:shimmer/main.dart';
 import 'package:shimmer/model/enum_parser.dart';
@@ -48,61 +49,69 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
                   ],
                 ),
               ),
-              Divider(
-                height: 0,
-              ),
-              // TODO: Only for debug
-              SizedBox(
-                width: double.infinity,
-                height: kBottomNavigationBarHeight,
-                child: FlatButton(
-                  child: Text(
-                    'Debug',
-                    style: Theme.of(context).textTheme.button.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.red,
-                        ),
-                  ),
-                  onPressed: () {
-                    ShimmerLogsRepository.instance.createDebugData(
-                      _items.datePicker.key.currentState.date,
-                      _log.category,
-                      _items.starRating.key.currentState.rating,
-                      _items.imagePicker.key.currentState.images,
-                    );
-                    Navigator.pop(context);
-                  },
-                ),
-              ),
-              SizedBox(
-                width: double.infinity,
-                height: kBottomNavigationBarHeight,
-                child: FlatButton(
-                  child: Text(
-                    _type.title(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .button
-                        .copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  onPressed: () => _onSaveButtonPressed(context),
-                ),
-              ),
               Visibility(
-                visible: _type == ShimmerCardCreatorType.edit,
-                child: SizedBox(
-                  width: double.infinity,
-                  height: kBottomNavigationBarHeight,
-                  child: FlatButton(
-                    child: Text(
-                      'Delete',
-                      style: Theme.of(context).textTheme.button.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.red,
-                          ),
+                visible: MediaQuery.of(context).viewInsets.bottom ==
+                    AppParameter.zero,
+                child: Column(
+                  children: <Widget>[
+                    Divider(
+                      height: 0,
                     ),
-                    onPressed: () => _onDeleteButtonPressed(context),
-                  ),
+                    // TODO: Only for debug
+                    SizedBox(
+                      width: double.infinity,
+                      height: kBottomNavigationBarHeight,
+                      child: FlatButton(
+                        child: Text(
+                          'Debug',
+                          style: Theme.of(context).textTheme.button.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blue,
+                              ),
+                        ),
+                        onPressed: () {
+                          ShimmerLogsRepository.instance.createDebugData(
+                            _items.datePicker.key.currentState.date,
+                            _log.category,
+                            _items.starRating.key.currentState.rating,
+                            _items.imagePicker.key.currentState.images,
+                          );
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      height: kBottomNavigationBarHeight,
+                      child: FlatButton(
+                        child: Text(
+                          _type.title(),
+                          style: Theme.of(context)
+                              .textTheme
+                              .button
+                              .copyWith(fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: () => _onSaveButtonPressed(context),
+                      ),
+                    ),
+                    Visibility(
+                      visible: _type == ShimmerCardCreatorType.edit,
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: kBottomNavigationBarHeight,
+                        child: FlatButton(
+                          child: Text(
+                            'Delete',
+                            style: Theme.of(context).textTheme.button.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.red,
+                                ),
+                          ),
+                          onPressed: () => _onDeleteButtonPressed(context),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -121,8 +130,31 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
   }
 
   void _onDeleteButtonPressed(BuildContext context) {
-    _deleteLog();
-    Navigator.pop(context);
+    showDialog(
+      context: context,
+      child: AlertDialog(
+        title: Text('Caution'),
+        content: Text('This action cannot be undone.'),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Cancel'),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          FlatButton(
+            child: Text('Delete'),
+            onPressed: () {
+              _deleteLog();
+              Navigator.popUntil(
+                context,
+                (route) => route.settings.isInitialRoute,
+              );
+            },
+          ),
+        ],
+      ),
+    );
   }
 
   void _createLog() {

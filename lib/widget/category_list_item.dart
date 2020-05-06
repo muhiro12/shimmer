@@ -16,11 +16,11 @@ class CategoryListItem extends StatelessWidget {
     return ListTile(
       title: Text(title),
       trailing: Text('($_count)'),
-      onTap: () => _pushToTimeline(context, _category),
+      onTap: () => _onTap(context, _category),
     );
   }
 
-  void _pushToTimeline(BuildContext context, ShimmerCategory category) {
+  void _onTap(BuildContext context, ShimmerCategory category) {
     CategoryTimelineScaffold.push(context, category);
   }
 }

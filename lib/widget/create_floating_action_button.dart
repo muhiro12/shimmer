@@ -6,13 +6,13 @@ class CreateFloatingActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      onPressed: _showCreatorLauncher,
+      onPressed: _onPressed,
       tooltip: 'Create',
       child: Icon(Icons.add),
     );
   }
 
-  void _showCreatorLauncher() {
+  void _onPressed() {
     ShimmerCardCreatorLauncher.showAsBottomSheet();
   }
 }

@@ -22,7 +22,7 @@ class ShimmerCardSummary extends StatelessWidget {
   Widget build(BuildContext context) {
     return ShimmerCard.init(
       elevation: elevation,
-      onTap: toDetail ? () => _pushToDetail(context, _log) : null,
+      onTap: toDetail ? () => _onTap(context, _log) : null,
       children: <ShimmerCardChild>[
         ShimmerCardChild.init(
           items: _log.images.safetySublist(0, 1),
@@ -46,7 +46,7 @@ class ShimmerCardSummary extends StatelessWidget {
     );
   }
 
-  void _pushToDetail(BuildContext context, ShimmerLog log) {
+  void _onTap(BuildContext context, ShimmerLog log) {
     ShimmerCardDetailScaffold.push(context, log);
   }
 }

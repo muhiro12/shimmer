@@ -16,7 +16,7 @@ class HomeScaffold extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.settings),
-            onPressed: _onSettingsIconPressed,
+            onPressed: _onPressed,
           ),
         ],
       ),
@@ -37,7 +37,7 @@ class HomeScaffold extends StatelessWidget {
     );
   }
 
-  void _onSettingsIconPressed() {
+  void _onPressed() {
     SettingsScaffold.showAsModal();
   }
 }

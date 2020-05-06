@@ -27,14 +27,14 @@ class _DatePickerState extends State<DatePicker> {
   @override
   Widget build(BuildContext context) {
     return FlatButton(
-      onPressed: () => _onButtonPressed(context),
+      onPressed: () => _onPressed(context),
       child: Text(
         DateParser.yearMonthDayStringOf(date),
       ),
     );
   }
 
-  void _onButtonPressed(BuildContext context) async {
+  void _onPressed(BuildContext context) async {
     final selectedDate = await showDatePicker(
       context: context,
       initialDate: date,

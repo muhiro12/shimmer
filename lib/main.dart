@@ -85,12 +85,12 @@ class _MyHomePageState extends State<MyHomePage> {
             .map((bottomNavigator) => bottomNavigator.barItem)
             .toList(),
         currentIndex: _selectedIndex,
-        onTap: _onBarItemTapped,
+        onTap: _onTap,
       ),
     );
   }
 
-  void _onBarItemTapped(int index) {
+  void _onTap(int index) {
     setState(() {
       if (_selectedIndex == index) {
         _bottomNavigators[index].key.currentState.popToRoot();

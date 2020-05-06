@@ -35,7 +35,7 @@ class ShimmerCardCreatorLauncher extends StatelessWidget {
                 .map(
                   (category) => ListTile(
                     title: Text(EnumParser.upperCamelCaseStringOf(category)),
-                    onTap: () => _onListItemTap(context, category),
+                    onTap: () => _onTap(context, category),
                   ),
                 )
                 .toList(),
@@ -45,7 +45,7 @@ class ShimmerCardCreatorLauncher extends StatelessWidget {
     );
   }
 
-  void _onListItemTap(BuildContext context, ShimmerCategory category) {
+  void _onTap(BuildContext context, ShimmerCategory category) {
     final log = ShimmerLog(
       category: category,
     );
