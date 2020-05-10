@@ -23,7 +23,7 @@ class CategoryTimelineScaffold extends StatelessWidget {
           valueListenable: ShimmerLogsRepository.instance.listenable(),
           builder: (context, box, widget) {
             final List<ShimmerLog> logs = ShimmerLogsRepository.instance
-                .fetchAllReversed()
+                .fetchAllSortedByCreatedDate()
                 .where(
                   (log) => log.category == _category,
                 )

@@ -15,7 +15,18 @@ class CategoryListItem extends StatelessWidget {
     final title = EnumParser.upperCamelCaseStringOf(_category);
     return ListTile(
       title: Text(title),
-      trailing: Text('($_count)'),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Text(
+            '($_count)',
+            style: Theme.of(context).textTheme.body1.copyWith(
+                  color: Colors.grey,
+                ),
+          ),
+          Icon(Icons.keyboard_arrow_right),
+        ],
+      ),
       onTap: () => _onTap(context, _category),
     );
   }

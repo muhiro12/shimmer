@@ -21,12 +21,16 @@ class ShimmerLogsRepository {
     return _dataStore.fetchAll();
   }
 
-  List<ShimmerLog> fetchAllReversed() {
-    return fetchAll().reversed.toList();
+  List<ShimmerLog> fetchAllSortedByCreatedDate() {
+    final all = fetchAll();
+    all.sort(
+      (left, right) => right.createdDate.compareTo(left.createdDate),
+    );
+    return all;
   }
 
   Map<ShimmerCategory, List<ShimmerLog>> fetchAllGroupedByCategory() {
-    List<ShimmerLog> logs = fetchAllReversed();
+    List<ShimmerLog> logs = fetchAllSortedByCreatedDate();
     Map<ShimmerCategory, List<ShimmerLog>> grouped = {};
     ShimmerCategory.values.forEach(
       (category) {

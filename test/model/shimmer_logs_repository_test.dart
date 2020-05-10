@@ -22,10 +22,16 @@ class ShimmerLogsDataStoreTest extends ShimmerLogsDataStoreInterface {
       category: ShimmerCategory.plain,
     );
 
+    final log4 = ShimmerLog(
+      date: DateTime(4000),
+      category: ShimmerCategory.book,
+    );
+
     final testData = <ShimmerLog>[
       log1,
       log2,
       log3,
+      log4,
     ];
     return testData;
   }
@@ -53,11 +59,11 @@ void main() {
         },
       );
       test(
-        'return value length should be 3',
+        'return value length should be 4',
         () {
           expect(
             result.length,
-            3,
+            4,
           );
         },
       );
@@ -82,15 +88,15 @@ void main() {
     },
   );
   group(
-    'fetchAllReversed() case test data',
+    'fetchAllCreatedDate() case test data',
     () {
-      final result = instance.fetchAllReversed();
+      final result = instance.fetchAllSortedByCreatedDate();
       test(
-        'return value length should be 3',
+        'return value length should be 4',
         () {
           expect(
             result.length,
-            3,
+            4,
           );
         },
       );
@@ -119,11 +125,11 @@ void main() {
     () {
       final result = instance.fetchAllGroupedByCategory();
       test(
-        'return value length should be 2',
+        'return value length should be 3',
         () {
           expect(
             result.length,
-            2,
+            3,
           );
         },
       );
@@ -135,6 +141,7 @@ void main() {
             [
               ShimmerCategory.plain,
               ShimmerCategory.concert,
+              ShimmerCategory.book,
             ],
           );
         },
