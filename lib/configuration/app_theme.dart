@@ -25,6 +25,7 @@ class AppTheme {
         backgroundColor: primaryColor,
       ),
       appBarTheme: _appBarTheme(themeData),
+      cardColor: Colors.grey.shade900,
     );
   }
 
