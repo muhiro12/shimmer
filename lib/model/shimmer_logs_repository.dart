@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:shimmer/interface/database/shimmer_category.dart';
 import 'package:shimmer/interface/database/shimmer_log.dart';
 import 'package:shimmer/interface/database/shimmer_logs_data_store.dart';
+import 'package:shimmer/model/categorized_logs.dart';
 
 class ShimmerLogsRepository {
   ShimmerLogsRepository(this._dataStore);
@@ -29,18 +30,25 @@ class ShimmerLogsRepository {
     return all;
   }
 
-  Map<ShimmerCategory, List<ShimmerLog>> fetchAllGroupedByCategory() {
-    List<ShimmerLog> logs = fetchAllSortedByCreatedDate();
-    Map<ShimmerCategory, List<ShimmerLog>> grouped = {};
+  List<CategorizedLogs> fetchCategorizedLogs() {
+    List<ShimmerLog> all = fetchAllSortedByCreatedDate();
+    List<CategorizedLogs> categorized = [];
     ShimmerCategory.values.forEach(
       (category) {
-        final values = logs.where((log) => log.category == category).toList();
-        if (values.isNotEmpty) {
-          grouped[category] = values;
+        final logs = all.where((log) => log.category == category).toList();
+        if (logs.isNotEmpty) {
+          categorized.add(
+            CategorizedLogs(category, logs),
+          );
         }
       },
     );
-    return grouped;
+    categorized.sort(
+      (left, right) => right.logs.length.compareTo(
+        left.logs.length,
+      ),
+    );
+    return categorized;
   }
 
   void saveLog(ShimmerLog log) {

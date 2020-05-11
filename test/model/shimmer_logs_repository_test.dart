@@ -121,9 +121,9 @@ void main() {
     },
   );
   group(
-    'fetchAllGroupedByCategory() case test data',
+    'fetchCategorizedLogs() case test data',
     () {
-      final result = instance.fetchAllGroupedByCategory();
+      final result = instance.fetchCategorizedLogs();
       test(
         'return value length should be 3',
         () {
@@ -134,10 +134,10 @@ void main() {
         },
       );
       test(
-        'return value keys should only contain plain and concert',
+        'return value categories should only contain plain, concert and book',
         () {
           expect(
-            result.keys,
+            result.map((categorizedLogs) => categorizedLogs.category),
             [
               ShimmerCategory.plain,
               ShimmerCategory.concert,
@@ -150,7 +150,13 @@ void main() {
         'return value should has 2 plain',
         () {
           expect(
-            result[ShimmerCategory.plain].length,
+            result
+                .firstWhere(
+                  (categorizedLogs) =>
+                      categorizedLogs.category == ShimmerCategory.plain,
+                )
+                .logs
+                .length,
             2,
           );
         },
@@ -159,8 +165,22 @@ void main() {
         'return value should has 1 concert',
         () {
           expect(
-            result[ShimmerCategory.concert].length,
+            result
+                .where(
+                  (categorizedLogs) =>
+                      categorizedLogs.category == ShimmerCategory.concert,
+                )
+                .length,
             1,
+          );
+        },
+      );
+      test(
+        'return value should be start with plain',
+        () {
+          expect(
+            result.first.category,
+            ShimmerCategory.plain,
           );
         },
       );

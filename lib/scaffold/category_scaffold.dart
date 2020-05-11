@@ -16,18 +16,15 @@ class CategoryScaffold extends StatelessWidget {
         child: ValueListenableBuilder(
           valueListenable: ShimmerLogsRepository.instance.listenable(),
           builder: (context, box, widget) {
-            final grouped =
-                ShimmerLogsRepository.instance.fetchAllGroupedByCategory();
-            if (grouped.isEmpty) {
+            final categorized =
+                ShimmerLogsRepository.instance.fetchCategorizedLogs();
+            if (categorized.isEmpty) {
               return EmptyPage();
             }
             return ListView(
-              children: grouped.keys
+              children: categorized
                   .map(
-                    (key) => CategoryListItem(
-                      key,
-                      grouped[key].length,
-                    ),
+                    (categorizedLogs) => CategoryListItem(categorizedLogs),
                   )
                   .toList(),
             );
