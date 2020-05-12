@@ -6,7 +6,7 @@ import 'package:shimmer/model/shimmer_logs_repository.dart';
 
 class ShimmerLogsDataStoreTest extends ShimmerLogsDataStoreInterface {
   @override
-  List<ShimmerLog> fetchAll() {
+  List<ShimmerLog> load() {
     final log1 = ShimmerLog(
       date: DateTime(1),
       category: ShimmerCategory.plain,
@@ -46,9 +46,9 @@ class ShimmerLogsDataStoreTest extends ShimmerLogsDataStoreInterface {
 void main() {
   final instance = ShimmerLogsRepository(ShimmerLogsDataStoreTest());
   group(
-    'fetchAll() case test data',
+    'fetch() case test data',
     () {
-      final result = instance.fetchAll();
+      final result = instance.fetch();
       test(
         'return value should not be null',
         () {
@@ -62,7 +62,7 @@ void main() {
         'return value length should be 4',
         () {
           expect(
-            result.length,
+            result.value.length,
             4,
           );
         },
@@ -71,8 +71,8 @@ void main() {
         'return value first date should be test data first date',
         () {
           expect(
-            result.first.date,
-            instance.fetchAll().first.date,
+            result.value.first.date,
+            instance.fetch().value.first.date,
           );
         },
       );
@@ -80,22 +80,22 @@ void main() {
         'return value last should be test data last date',
         () {
           expect(
-            result.last.date,
-            instance.fetchAll().last.date,
+            result.value.last.date,
+            instance.fetch().value.last.date,
           );
         },
       );
     },
   );
   group(
-    'fetchAllCreatedDate() case test data',
+    'fetchSortedByCreatedDate() case test data',
     () {
-      final result = instance.fetchAllSortedByCreatedDate();
+      final result = instance.fetchSortedByCreatedDate();
       test(
         'return value length should be 4',
         () {
           expect(
-            result.length,
+            result.value.length,
             4,
           );
         },
@@ -104,8 +104,8 @@ void main() {
         'return value first date should be test data last date',
         () {
           expect(
-            result.first.date,
-            instance.fetchAll().last.date,
+            result.value.first.date,
+            instance.fetch().value.last.date,
           );
         },
       );
@@ -113,17 +113,17 @@ void main() {
         'return value last should be test data first date',
         () {
           expect(
-            result.last.date,
-            instance.fetchAll().first.date,
+            result.value.last.date,
+            instance.fetch().value.first.date,
           );
         },
       );
     },
   );
   group(
-    'fetchCategorizedLogs() case test data',
+    'fetchAlbumItems() case test data',
     () {
-      final result = instance.fetchCategorizedLogs();
+      final result = instance.fetchAlbumItems();
       test(
         'return value length should be 3',
         () {
@@ -137,7 +137,7 @@ void main() {
         'return value categories should only contain plain, concert and book',
         () {
           expect(
-            result.map((categorizedLogs) => categorizedLogs.category),
+            result.map((albumItem) => albumItem.key),
             [
               ShimmerCategory.plain,
               ShimmerCategory.concert,
@@ -152,10 +152,9 @@ void main() {
           expect(
             result
                 .firstWhere(
-                  (categorizedLogs) =>
-                      categorizedLogs.category == ShimmerCategory.plain,
+                  (albumItem) => albumItem.key == ShimmerCategory.plain,
                 )
-                .logs
+                .value
                 .length,
             2,
           );
@@ -167,8 +166,7 @@ void main() {
           expect(
             result
                 .where(
-                  (categorizedLogs) =>
-                      categorizedLogs.category == ShimmerCategory.concert,
+                  (albumItem) => albumItem.key == ShimmerCategory.concert,
                 )
                 .length,
             1,
@@ -179,7 +177,7 @@ void main() {
         'return value should be start with plain',
         () {
           expect(
-            result.first.category,
+            result.first.key,
             ShimmerCategory.plain,
           );
         },

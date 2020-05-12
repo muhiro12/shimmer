@@ -17,57 +17,61 @@ class ShimmerLogAdapter extends TypeAdapter<ShimmerLog> {
       for (var i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return ShimmerLog(
-      category: fields[2] as ShimmerCategory,
-      title: fields[4] as String,
-      summary: fields[5] as String,
-      detail: fields[6] as String,
-      star: fields[7] as double,
-      tags: (fields[8] as List)?.cast<String>(),
-      images: (fields[9] as List)?.cast<Uint8List>(),
-      location: fields[10] as String,
-      creator: fields[11] as String,
-      genre: fields[12] as String,
-      theme: fields[13] as String,
-      note: fields[14] as String,
+      state: fields[3] as ShimmerLogState,
+      category: fields[10] as ShimmerCategory,
+      title: fields[12] as String,
+      summary: fields[13] as String,
+      detail: fields[14] as String,
+      star: fields[15] as double,
+      tags: (fields[16] as List)?.cast<String>(),
+      images: (fields[17] as List)?.cast<Uint8List>(),
+      location: fields[18] as String,
+      creator: fields[19] as String,
+      genre: fields[20] as String,
+      theme: fields[21] as String,
+      note: fields[22] as String,
     )
-      ..key = fields[0] as String
-      ..createdDate = fields[1] as DateTime
-      ..date = fields[3] as DateTime;
+      ..updatedAt = fields[2] as DateTime
+      ..date = fields[11] as DateTime;
   }
 
   @override
   void write(BinaryWriter writer, ShimmerLog obj) {
     writer
-      ..writeByte(15)
+      ..writeByte(17)
       ..writeByte(0)
       ..write(obj.key)
       ..writeByte(1)
       ..write(obj.createdDate)
       ..writeByte(2)
-      ..write(obj.category)
+      ..write(obj.updatedAt)
       ..writeByte(3)
-      ..write(obj.date)
-      ..writeByte(4)
-      ..write(obj.title)
-      ..writeByte(5)
-      ..write(obj.summary)
-      ..writeByte(6)
-      ..write(obj.detail)
-      ..writeByte(7)
-      ..write(obj.star)
-      ..writeByte(8)
-      ..write(obj.tags)
-      ..writeByte(9)
-      ..write(obj.images)
+      ..write(obj.state)
       ..writeByte(10)
-      ..write(obj.location)
+      ..write(obj.category)
       ..writeByte(11)
-      ..write(obj.creator)
+      ..write(obj.date)
       ..writeByte(12)
-      ..write(obj.genre)
+      ..write(obj.title)
       ..writeByte(13)
-      ..write(obj.theme)
+      ..write(obj.summary)
       ..writeByte(14)
+      ..write(obj.detail)
+      ..writeByte(15)
+      ..write(obj.star)
+      ..writeByte(16)
+      ..write(obj.tags)
+      ..writeByte(17)
+      ..write(obj.images)
+      ..writeByte(18)
+      ..write(obj.location)
+      ..writeByte(19)
+      ..write(obj.creator)
+      ..writeByte(20)
+      ..write(obj.genre)
+      ..writeByte(21)
+      ..write(obj.theme)
+      ..writeByte(22)
       ..write(obj.note);
   }
 }

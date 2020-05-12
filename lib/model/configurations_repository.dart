@@ -15,7 +15,7 @@ class ConfigurationsRepository {
   }
 
   bool fetchIsDarkMode() {
-    return _dataStore.fetch(
+    return _dataStore.load(
           Configuration.isDarkMode,
         ) ??
         false;
@@ -29,7 +29,7 @@ class ConfigurationsRepository {
   }
 
   bool fetchIsHandWriting() {
-    return _dataStore.fetch(
+    return _dataStore.load(
           Configuration.isHandWriting,
         ) ??
         false;
@@ -43,7 +43,7 @@ class ConfigurationsRepository {
   }
 
   MaterialColor fetchPrimaryColor() {
-    final colorValue = _dataStore.fetch<int>(
+    final colorValue = _dataStore.load<int>(
           Configuration.primaryColorValue,
         ) ??
         Colors.blue.value;

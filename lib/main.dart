@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/configuration/app_theme.dart';
 import 'package:shimmer/interface/database/database.dart';
 import 'package:shimmer/model/configurations_repository.dart';
-import 'package:shimmer/scaffold/category_scaffold.dart';
+import 'package:shimmer/scaffold/album_scaffold.dart';
 import 'package:shimmer/scaffold/home_scaffold.dart';
 import 'package:shimmer/widget/bottom_navigator.dart';
 
@@ -58,10 +58,10 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     ),
     BottomNavigator(
-      CategoryScaffold(),
+      AlbumScaffold(),
       BottomNavigationBarItem(
-        icon: Icon(Icons.category),
-        title: Text('Category'),
+        icon: Icon(Icons.filter),
+        title: Text('Album'),
       ),
     ),
   ];

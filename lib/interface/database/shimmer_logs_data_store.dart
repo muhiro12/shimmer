@@ -5,7 +5,7 @@ import 'package:shimmer/interface/database/hive_box.dart';
 import 'package:shimmer/interface/database/shimmer_log.dart';
 
 abstract class ShimmerLogsDataStoreInterface {
-  List<ShimmerLog> fetchAll();
+  List<ShimmerLog> load();
   void save(ShimmerLog log);
   void delete(ShimmerLog log);
 }
@@ -28,7 +28,7 @@ class ShimmerLogsDataStore extends ShimmerLogsDataStoreInterface {
   }
 
   @override
-  List<ShimmerLog> fetchAll() {
+  List<ShimmerLog> load() {
     return _box.values.toList();
   }
 

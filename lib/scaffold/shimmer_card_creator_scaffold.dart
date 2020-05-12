@@ -101,7 +101,7 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
                         height: kBottomNavigationBarHeight,
                         child: FlatButton(
                           child: Text(
-                            'Delete',
+                            'Archive',
                             style: Theme.of(context).textTheme.button.copyWith(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.red,
@@ -145,7 +145,7 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
           FlatButton(
             child: Text('Delete'),
             onPressed: () {
-              _deleteLog();
+              _archiveLog();
               Navigator.popUntil(
                 context,
                 (route) => route.settings.isInitialRoute,
@@ -175,9 +175,9 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
     ShimmerLogsRepository.instance.saveLog(_log);
   }
 
-  void _deleteLog() {
-    ShimmerLogsRepository.instance.deleteLog(_log);
-    _isDeleted = true;
+  void _archiveLog() {
+    ShimmerLogsRepository.instance.archiveLog(_log);
+    _isArchived = true;
   }
 
   static ShimmerCardCreatorScaffold init({
@@ -206,12 +206,12 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
     );
   }
 
-  static bool _isDeleted = false;
+  static bool _isArchived = false;
 
   static void showAsModal({
     ShimmerCardCreatorType type,
     ShimmerLog log,
-    Function(bool isDeleted) completion,
+    Function(bool isArchived) completion,
   }) {
     showCupertinoModalPopup(
       context: MyHomePage.context,
@@ -222,9 +222,9 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
     ).whenComplete(
       () {
         if (completion != null) {
-          completion(_isDeleted);
+          completion(_isArchived);
         }
-        _isDeleted = false;
+        _isArchived = false;
       },
     );
   }

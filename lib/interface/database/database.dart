@@ -3,6 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shimmer/interface/database/configurations_data_store.dart';
 import 'package:shimmer/interface/database/shimmer_category.dart';
 import 'package:shimmer/interface/database/shimmer_log.dart';
+import 'package:shimmer/interface/database/shimmer_log_state.dart';
 import 'package:shimmer/interface/database/shimmer_logs_data_store.dart';
 
 class Database {
@@ -10,6 +11,7 @@ class Database {
     await Hive.initFlutter();
     Hive.registerAdapter(ShimmerLogAdapter());
     Hive.registerAdapter(ShimmerCategoryAdapter());
+    Hive.registerAdapter(ShimmerLogStateAdapter());
     await ShimmerLogsDataStore.openBox();
     await ConfigurationsDataStore.openBox();
   }

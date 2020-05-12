@@ -5,26 +5,25 @@ import 'package:shimmer/widget/category_list_item.dart';
 import 'package:shimmer/widget/create_floating_action_button.dart';
 import 'package:shimmer/widget/empty_page.dart';
 
-class CategoryScaffold extends StatelessWidget {
+class AlbumScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Category'),
+        title: Text('Album'),
       ),
       body: SafeArea(
         child: ValueListenableBuilder(
           valueListenable: ShimmerLogsRepository.instance.listenable(),
           builder: (context, box, widget) {
-            final categorized =
-                ShimmerLogsRepository.instance.fetchCategorizedLogs();
-            if (categorized.isEmpty) {
+            final albumItems = ShimmerLogsRepository.instance.fetchAlbumItems();
+            if (albumItems.isEmpty) {
               return EmptyPage();
             }
             return ListView(
-              children: categorized
+              children: albumItems
                   .map(
-                    (categorizedLogs) => CategoryListItem(categorizedLogs),
+                    (albumItem) => AlbumListItem(albumItem),
                   )
                   .toList(),
             );

@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/interface/database/shimmer_category.dart';
-import 'package:shimmer/interface/database/shimmer_log.dart';
 import 'package:shimmer/model/enum_parser.dart';
+import 'package:shimmer/model/shimmer_logs.dart';
 import 'package:shimmer/model/shimmer_logs_repository.dart';
 import 'package:shimmer/widget/create_floating_action_button.dart';
 import 'package:shimmer/widget/timeline.dart';
@@ -22,12 +22,10 @@ class CategoryTimelineScaffold extends StatelessWidget {
         child: ValueListenableBuilder(
           valueListenable: ShimmerLogsRepository.instance.listenable(),
           builder: (context, box, widget) {
-            final List<ShimmerLog> logs = ShimmerLogsRepository.instance
-                .fetchAllSortedByCreatedDate()
-                .where(
-                  (log) => log.category == _category,
-                )
-                .toList();
+            final ShimmerLogs logs =
+                ShimmerLogsRepository.instance.fetchAlbumItems().firstWhere(
+                      (albumItem) => albumItem.key == _category,
+                    );
             return Timeline(logs);
           },
         ),

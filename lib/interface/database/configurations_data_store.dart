@@ -4,7 +4,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shimmer/interface/database/hive_box.dart';
 
 abstract class ConfigurationsDataStoreInterface {
-  T fetch<T>(Configuration key);
+  T load<T>(Configuration key);
   void save<T>(Configuration key, T value);
 }
 
@@ -26,7 +26,7 @@ class ConfigurationsDataStore extends ConfigurationsDataStoreInterface {
   }
 
   @override
-  T fetch<T>(Configuration key) {
+  T load<T>(Configuration key) {
     return _box.get(key.toString());
   }
 

@@ -5,7 +5,7 @@ import 'package:shimmer/model/configurations_repository.dart';
 
 class ConfigurationsDataStoreTest extends ConfigurationsDataStoreInterface {
   @override
-  T fetch<T>(Configuration key) {
+  T load<T>(Configuration key) {
     switch (T) {
       case bool:
         return true as T;

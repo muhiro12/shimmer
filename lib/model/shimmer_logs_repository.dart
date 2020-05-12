@@ -4,8 +4,9 @@ import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:shimmer/interface/database/shimmer_category.dart';
 import 'package:shimmer/interface/database/shimmer_log.dart';
+import 'package:shimmer/interface/database/shimmer_log_state.dart';
 import 'package:shimmer/interface/database/shimmer_logs_data_store.dart';
-import 'package:shimmer/model/categorized_logs.dart';
+import 'package:shimmer/model/shimmer_logs.dart';
 
 class ShimmerLogsRepository {
   ShimmerLogsRepository(this._dataStore);
@@ -18,41 +19,58 @@ class ShimmerLogsRepository {
     return ShimmerLogsDataStore.instance.listenable();
   }
 
-  List<ShimmerLog> fetchAll() {
-    return _dataStore.fetchAll();
+  ShimmerLogs fetch() {
+    return ShimmerLogs(
+      value: _dataStore.load(),
+    );
   }
 
-  List<ShimmerLog> fetchAllSortedByCreatedDate() {
-    final all = fetchAll();
-    all.sort(
+  ShimmerLogs fetchSortedByCreatedDate() {
+    final logs = fetch();
+    logs.value.sort(
       (left, right) => right.createdDate.compareTo(left.createdDate),
     );
-    return all;
+    return logs;
   }
 
-  List<CategorizedLogs> fetchCategorizedLogs() {
-    List<ShimmerLog> all = fetchAllSortedByCreatedDate();
-    List<CategorizedLogs> categorized = [];
+  List<ShimmerLogs> fetchAlbumItems() {
+    ShimmerLogs all = fetchSortedByCreatedDate();
+    List<ShimmerLogs> albumItems = [];
     ShimmerCategory.values.forEach(
       (category) {
-        final logs = all.where((log) => log.category == category).toList();
-        if (logs.isNotEmpty) {
-          categorized.add(
-            CategorizedLogs(category, logs),
-          );
-        }
+        final logs = all.value
+            .where(
+              (log) => log.category == category,
+            )
+            .toList();
+        albumItems.add(
+          ShimmerLogs(
+            key: category,
+            value: logs,
+          ),
+        );
       },
     );
-    categorized.sort(
-      (left, right) => right.logs.length.compareTo(
-        left.logs.length,
+    albumItems.sort(
+      (left, right) => right.value.length.compareTo(
+        left.value.length,
       ),
     );
-    return categorized;
+    return albumItems.where((albumItem) => albumItem.value.isNotEmpty).toList();
   }
 
   void saveLog(ShimmerLog log) {
-    _dataStore.save(log);
+    _dataStore.save(
+      log..updatedAt = DateTime.now(),
+    );
+  }
+
+  void archiveLog(ShimmerLog log) {
+    _dataStore.save(
+      log
+        ..updatedAt = DateTime.now()
+        ..state = ShimmerLogState.archived,
+    );
   }
 
   void deleteLog(ShimmerLog log) {

@@ -3,12 +3,15 @@ import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
 import 'package:shimmer/interface/database/shimmer_category.dart';
+import 'package:shimmer/interface/database/shimmer_log_state.dart';
 
 part 'shimmer_log.g.dart';
 
 @HiveType(typeId: 0)
 class ShimmerLog {
   ShimmerLog({
+    DateTime updatedAt,
+    this.state = ShimmerLogState.published,
     this.category = ShimmerCategory.plain,
     DateTime date,
     this.title = '',
@@ -23,51 +26,58 @@ class ShimmerLog {
     this.theme = '',
     this.note = '',
   }) {
+    this.updatedAt = updatedAt ?? DateTime.now();
     this.date = date ?? DateTime.now();
   }
 
   @HiveField(0)
-  String key = UniqueKey().toString();
+  final String key = UniqueKey().toString();
 
   @HiveField(1)
-  DateTime createdDate = DateTime.now();
+  final DateTime createdDate = DateTime.now();
 
   @HiveField(2)
-  ShimmerCategory category;
+  DateTime updatedAt;
 
   @HiveField(3)
-  DateTime date;
-
-  @HiveField(4)
-  String title;
-
-  @HiveField(5)
-  String summary;
-
-  @HiveField(6)
-  String detail;
-
-  @HiveField(7)
-  double star;
-
-  @HiveField(8)
-  List<String> tags;
-
-  @HiveField(9)
-  List<Uint8List> images;
+  ShimmerLogState state;
 
   @HiveField(10)
-  String location;
+  ShimmerCategory category;
 
   @HiveField(11)
-  String creator;
+  DateTime date;
 
   @HiveField(12)
-  String genre;
+  String title;
 
   @HiveField(13)
-  String theme;
+  String summary;
 
   @HiveField(14)
+  String detail;
+
+  @HiveField(15)
+  double star;
+
+  @HiveField(16)
+  List<String> tags;
+
+  @HiveField(17)
+  List<Uint8List> images;
+
+  @HiveField(18)
+  String location;
+
+  @HiveField(19)
+  String creator;
+
+  @HiveField(20)
+  String genre;
+
+  @HiveField(21)
+  String theme;
+
+  @HiveField(22)
   String note;
 }

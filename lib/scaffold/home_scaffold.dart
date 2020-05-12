@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/interface/database/shimmer_log.dart';
+import 'package:shimmer/model/shimmer_logs.dart';
 import 'package:shimmer/model/shimmer_logs_repository.dart';
 import 'package:shimmer/scaffold/settings_scaffold.dart';
 import 'package:shimmer/widget/create_floating_action_button.dart';
@@ -24,10 +24,9 @@ class HomeScaffold extends StatelessWidget {
         child: ValueListenableBuilder(
           valueListenable: ShimmerLogsRepository.instance.listenable(),
           builder: (context, box, widget) {
-            final List<ShimmerLog> logs = ShimmerLogsRepository.instance
-                .fetchAllSortedByCreatedDate()
-                .toList();
-            if (logs.isEmpty) {
+            final ShimmerLogs logs =
+                ShimmerLogsRepository.instance.fetchSortedByCreatedDate();
+            if (logs.value.isEmpty) {
               return EmptyPage();
             }
             return Timeline(logs);
