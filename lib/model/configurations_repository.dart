@@ -7,7 +7,7 @@ class ConfigurationsRepository {
 
   final ConfigurationsDataStoreInterface _dataStore;
 
-  static final instance =
+  static final ConfigurationsRepository instance =
       ConfigurationsRepository(ConfigurationsDataStore.instance);
 
   ValueListenable listenable() {

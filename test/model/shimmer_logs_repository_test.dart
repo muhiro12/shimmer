@@ -1,39 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shimmer/interface/database/shimmer_category.dart';
 import 'package:shimmer/interface/database/shimmer_log.dart';
 import 'package:shimmer/interface/database/shimmer_logs_data_store.dart';
 import 'package:shimmer/model/shimmer_logs_repository.dart';
 
+import '../test_data.dart';
+
 class ShimmerLogsDataStoreTest extends ShimmerLogsDataStoreInterface {
   @override
   List<ShimmerLog> load() {
-    final log1 = ShimmerLog(
-      date: DateTime(1),
-      category: ShimmerCategory.plain,
-    );
-
-    final log2 = ShimmerLog(
-      date: DateTime(200),
-      category: ShimmerCategory.concert,
-    );
-
-    final log3 = ShimmerLog(
-      date: DateTime(30),
-      category: ShimmerCategory.plain,
-    );
-
-    final log4 = ShimmerLog(
-      date: DateTime(4000),
-      category: ShimmerCategory.book,
-    );
-
-    final testData = <ShimmerLog>[
-      log1,
-      log2,
-      log3,
-      log4,
-    ];
-    return testData;
+    return TestData.logList();
   }
 
   @override
@@ -46,9 +21,9 @@ class ShimmerLogsDataStoreTest extends ShimmerLogsDataStoreInterface {
 void main() {
   final instance = ShimmerLogsRepository(ShimmerLogsDataStoreTest());
   group(
-    'fetch() case test data',
+    'fetchAll() case test data',
     () {
-      final result = instance.fetch();
+      final result = instance.fetchAll();
       test(
         'return value should not be null',
         () {
@@ -72,7 +47,7 @@ void main() {
         () {
           expect(
             result.value.first.date,
-            instance.fetch().value.first.date,
+            instance.fetchAll().value.first.date,
           );
         },
       );
@@ -81,16 +56,16 @@ void main() {
         () {
           expect(
             result.value.last.date,
-            instance.fetch().value.last.date,
+            instance.fetchAll().value.last.date,
           );
         },
       );
     },
   );
   group(
-    'fetchSortedByCreatedDate() case test data',
+    'fetchAllSortedByDate() case test data',
     () {
-      final result = instance.fetchSortedByCreatedDate();
+      final result = instance.fetchAllSortedByDate();
       test(
         'return value length should be 4',
         () {
@@ -105,7 +80,7 @@ void main() {
         () {
           expect(
             result.value.first.date,
-            instance.fetch().value.last.date,
+            instance.fetchAll().value.last.date,
           );
         },
       );
@@ -114,7 +89,7 @@ void main() {
         () {
           expect(
             result.value.last.date,
-            instance.fetch().value.first.date,
+            instance.fetchAll().value.first.date,
           );
         },
       );
@@ -130,55 +105,6 @@ void main() {
           expect(
             result.length,
             3,
-          );
-        },
-      );
-      test(
-        'return value categories should only contain plain, concert and book',
-        () {
-          expect(
-            result.map((albumItem) => albumItem.key),
-            [
-              ShimmerCategory.plain,
-              ShimmerCategory.concert,
-              ShimmerCategory.book,
-            ],
-          );
-        },
-      );
-      test(
-        'return value should has 2 plain',
-        () {
-          expect(
-            result
-                .firstWhere(
-                  (albumItem) => albumItem.key == ShimmerCategory.plain,
-                )
-                .value
-                .length,
-            2,
-          );
-        },
-      );
-      test(
-        'return value should has 1 concert',
-        () {
-          expect(
-            result
-                .where(
-                  (albumItem) => albumItem.key == ShimmerCategory.concert,
-                )
-                .length,
-            1,
-          );
-        },
-      );
-      test(
-        'return value should be start with plain',
-        () {
-          expect(
-            result.first.key,
-            ShimmerCategory.plain,
           );
         },
       );

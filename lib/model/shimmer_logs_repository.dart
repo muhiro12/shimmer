@@ -7,53 +7,57 @@ import 'package:shimmer/interface/database/shimmer_log.dart';
 import 'package:shimmer/interface/database/shimmer_log_state.dart';
 import 'package:shimmer/interface/database/shimmer_logs_data_store.dart';
 import 'package:shimmer/model/shimmer_logs.dart';
+import 'package:shimmer/model/shimmer_logs_parser.dart';
 
 class ShimmerLogsRepository {
   ShimmerLogsRepository(this._dataStore);
 
   final ShimmerLogsDataStoreInterface _dataStore;
 
-  static final instance = ShimmerLogsRepository(ShimmerLogsDataStore.instance);
+  static final ShimmerLogsRepository instance =
+      ShimmerLogsRepository(ShimmerLogsDataStore.instance);
 
   ValueListenable listenable() {
     return ShimmerLogsDataStore.instance.listenable();
   }
 
-  ShimmerLogs fetch() {
+  ShimmerLogs fetchAll() {
     return ShimmerLogs(
       value: _dataStore.load(),
     );
   }
 
-  ShimmerLogs fetchSortedByCreatedDate() {
-    final logs = fetch();
+  ShimmerLogs fetchAllSortedByDate() {
+    final logs = fetchAll();
     logs.value.sort(
-      (left, right) => right.createdDate.compareTo(left.createdDate),
+      (left, right) => right.date.compareTo(left.date),
     );
     return logs;
   }
 
   List<ShimmerLogs> fetchAlbumItems() {
-    ShimmerLogs all = fetchSortedByCreatedDate();
+    ShimmerLogs all = fetchAllSortedByDate();
     List<ShimmerLogs> albumItems = [];
-    ShimmerCategory.values.forEach(
-      (category) {
-        final logs = all.value
+    ShimmerLogsParser parser = ShimmerLogsParser(fetchAllSortedByDate());
+    albumItems.addAll(parser.toCategorizedLogsList());
+    albumItems.add(
+      ShimmerLogs(
+        key: 'Draft',
+        value: all.value
             .where(
-              (log) => log.category == category,
+              (log) => log.state == ShimmerLogState.draft,
             )
-            .toList();
-        albumItems.add(
-          ShimmerLogs(
-            key: category,
-            value: logs,
-          ),
-        );
-      },
+            .toList(),
+      ),
     );
-    albumItems.sort(
-      (left, right) => right.value.length.compareTo(
-        left.value.length,
+    albumItems.add(
+      ShimmerLogs(
+        key: 'Archived',
+        value: all.value
+            .where(
+              (log) => log.state == ShimmerLogState.archived,
+            )
+            .toList(),
       ),
     );
     return albumItems.where((albumItem) => albumItem.value.isNotEmpty).toList();
