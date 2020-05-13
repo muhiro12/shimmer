@@ -34,7 +34,7 @@ class ShimmerLog {
   final String key = UniqueKey().toString();
 
   @HiveField(1)
-  final DateTime createdDate = DateTime.now();
+  final DateTime createdAt = DateTime.now();
 
   @HiveField(2)
   DateTime updatedAt;

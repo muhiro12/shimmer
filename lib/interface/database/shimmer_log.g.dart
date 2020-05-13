@@ -42,7 +42,7 @@ class ShimmerLogAdapter extends TypeAdapter<ShimmerLog> {
       ..writeByte(0)
       ..write(obj.key)
       ..writeByte(1)
-      ..write(obj.createdDate)
+      ..write(obj.createdAt)
       ..writeByte(2)
       ..write(obj.updatedAt)
       ..writeByte(3)

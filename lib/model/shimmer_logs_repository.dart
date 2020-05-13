@@ -29,10 +29,8 @@ class ShimmerLogsRepository {
 
   ShimmerLogs fetchAllSortedByDate() {
     final logs = fetchAll();
-    logs.value.sort(
-      (left, right) => right.date.compareTo(left.date),
-    );
-    return logs;
+    ShimmerLogsParser parser = ShimmerLogsParser(logs);
+    return parser.sortedByDate();
   }
 
   List<ShimmerLogs> fetchAlbumItems() {
@@ -70,10 +68,8 @@ class ShimmerLogsRepository {
   }
 
   void archiveLog(ShimmerLog log) {
-    _dataStore.save(
-      log
-        ..updatedAt = DateTime.now()
-        ..state = ShimmerLogState.archived,
+    saveLog(
+      log..state = ShimmerLogState.archived,
     );
   }
 

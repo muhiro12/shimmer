@@ -2,15 +2,34 @@ import 'package:shimmer/interface/database/shimmer_category.dart';
 import 'package:shimmer/model/shimmer_logs.dart';
 
 class ShimmerLogsParser {
-  ShimmerLogsParser(this._logs);
+  ShimmerLogsParser(this.original);
 
-  final ShimmerLogs _logs;
+  final ShimmerLogs original;
+
+  ShimmerLogs _clone() {
+    return ShimmerLogs(
+      key: original.key,
+      value: List.from(original.value),
+    );
+  }
+
+  ShimmerLogs sortedByDate() {
+    final ShimmerLogs logs = _clone();
+    return ShimmerLogs(
+      key: logs.key,
+      value: logs.value
+        ..sort(
+          (left, right) => right.date.compareTo(left.date),
+        ),
+    );
+  }
 
   List<ShimmerLogs<ShimmerCategory>> toCategorizedLogsList() {
+    final ShimmerLogs logs = _clone();
     List<ShimmerLogs<ShimmerCategory>> albumItems = [];
     ShimmerCategory.values.forEach(
       (category) {
-        final logs = _logs.value
+        final value = logs.value
             .where(
               (log) => log.category == category,
             )
@@ -18,7 +37,7 @@ class ShimmerLogsParser {
         albumItems.add(
           ShimmerLogs(
             key: category,
-            value: logs,
+            value: value,
           ),
         );
       },

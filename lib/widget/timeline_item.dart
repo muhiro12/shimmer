@@ -26,7 +26,7 @@ class TimelineItem extends StatelessWidget {
                     .copyWith(color: Colors.grey),
               ),
               Text(_log.key),
-              Text(_log.createdDate.toString().substring(10)),
+              Text(_log.createdAt.toString().substring(10)),
               Spacer(),
               Text(
                 EnumParser.upperCamelCaseStringOf(_log.category),
