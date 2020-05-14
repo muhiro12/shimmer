@@ -1,5 +1,6 @@
 import 'package:shimmer/interface/database/shimmer_category.dart';
 import 'package:shimmer/interface/database/shimmer_log.dart';
+import 'package:shimmer/interface/database/shimmer_log_state.dart';
 import 'package:shimmer/model/shimmer_logs.dart';
 
 class TestData {
@@ -18,6 +19,16 @@ class TestData {
     ),
     ShimmerLog(
       date: DateTime(4000),
+      category: ShimmerCategory.book,
+    ),
+    ShimmerLog(
+      state: ShimmerLogState.archived,
+      date: DateTime(50),
+      category: ShimmerCategory.plain,
+    ),
+    ShimmerLog(
+      state: ShimmerLogState.draft,
+      date: DateTime(6),
       category: ShimmerCategory.book,
     ),
   ];

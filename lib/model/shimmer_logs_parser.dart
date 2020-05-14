@@ -1,15 +1,16 @@
 import 'package:shimmer/interface/database/shimmer_category.dart';
+import 'package:shimmer/interface/database/shimmer_log_state.dart';
 import 'package:shimmer/model/shimmer_logs.dart';
 
 class ShimmerLogsParser {
-  ShimmerLogsParser(this.original);
+  ShimmerLogsParser(this.logs);
 
-  final ShimmerLogs original;
+  ShimmerLogs logs;
 
   ShimmerLogs _clone() {
     return ShimmerLogs(
-      key: original.key,
-      value: List.from(original.value),
+      key: logs.key,
+      value: List.from(logs.value),
     );
   }
 
@@ -21,6 +22,24 @@ class ShimmerLogsParser {
         ..sort(
           (left, right) => right.date.compareTo(left.date),
         ),
+    );
+  }
+
+  ShimmerLogs whereOfPublished() {
+    return logs.where(
+      (log) => log.state == ShimmerLogState.published,
+    );
+  }
+
+  ShimmerLogs whereOfDraft() {
+    return logs.where(
+      (log) => log.state == ShimmerLogState.draft,
+    );
+  }
+
+  ShimmerLogs whereOfArchived() {
+    return logs.where(
+      (log) => log.state == ShimmerLogState.archived,
     );
   }
 

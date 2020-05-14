@@ -8,4 +8,12 @@ class ShimmerLogs<T> {
 
   final T key;
   final List<ShimmerLog> value;
+
+  ShimmerLogs where(bool test(ShimmerLog log)) {
+    final newValue = value.where(test).toList();
+    return ShimmerLogs(
+      key: key,
+      value: newValue,
+    );
+  }
 }

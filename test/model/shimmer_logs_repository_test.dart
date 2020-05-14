@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shimmer/interface/database/shimmer_category.dart';
 import 'package:shimmer/interface/database/shimmer_log.dart';
+import 'package:shimmer/interface/database/shimmer_log_state.dart';
 import 'package:shimmer/interface/database/shimmer_logs_data_store.dart';
 import 'package:shimmer/model/shimmer_logs_repository.dart';
 
@@ -20,6 +21,7 @@ class ShimmerLogsDataStoreTest extends ShimmerLogsDataStoreInterface {
 }
 
 void main() {
+  final testData = TestData.logList;
   final instance = ShimmerLogsRepository(ShimmerLogsDataStoreTest());
   group(
     'fetchAll() case test data',
@@ -35,29 +37,29 @@ void main() {
         },
       );
       test(
-        'return value length should be 4',
+        'return value length should be test data length',
         () {
           expect(
             result.value.length,
-            4,
+            testData.length,
           );
         },
       );
       test(
-        'return value first date should be test data first date',
+        'return value first date should be test data first',
         () {
           expect(
             result.value.first.date,
-            instance.fetchAll().value.first.date,
+            testData.first.date,
           );
         },
       );
       test(
-        'return value last should be test data last date',
+        'return value last should be test data last',
         () {
           expect(
             result.value.last.date,
-            instance.fetchAll().value.last.date,
+            testData.last.date,
           );
         },
       );
@@ -68,29 +70,86 @@ void main() {
     () {
       final result = instance.fetchAllSortedByDate();
       test(
-        'return value length should be 4',
+        'return value length should be test data length',
         () {
           expect(
             result.value.length,
-            4,
+            testData.length,
           );
         },
       );
       test(
-        'return value first date should be test data last date',
+        'return value first date should be test data [3]',
         () {
           expect(
             result.value.first.date,
-            instance.fetchAll().value.last.date,
+            testData[3].date,
           );
         },
       );
       test(
-        'return value last should be test data first date',
+        'return value last should be test data first',
         () {
           expect(
             result.value.last.date,
-            instance.fetchAll().value.first.date,
+            testData.first.date,
+          );
+        },
+      );
+    },
+  );
+  group(
+    'fetchPublished() case test data',
+    () {
+      final result = instance.fetchPublished();
+      test(
+        'return value should contain published',
+        () {
+          expect(
+            result.value
+                .where((log) => log.state == ShimmerLogState.published)
+                .isNotEmpty,
+            true,
+          );
+        },
+      );
+      test(
+        'return value should not contain draft',
+        () {
+          expect(
+            result.value
+                .where((log) => log.state == ShimmerLogState.draft)
+                .isEmpty,
+            true,
+          );
+        },
+      );
+      test(
+        'return value should not contain archived',
+        () {
+          expect(
+            result.value
+                .where((log) => log.state == ShimmerLogState.archived)
+                .isEmpty,
+            true,
+          );
+        },
+      );
+      test(
+        'return value first date should be test data [3]',
+        () {
+          expect(
+            result.value.first.date,
+            testData[3].date,
+          );
+        },
+      );
+      test(
+        'return value last should be test data first',
+        () {
+          expect(
+            result.value.last.date,
+            testData.first.date,
           );
         },
       );
@@ -101,24 +160,26 @@ void main() {
     () {
       final result = instance.fetchAlbumItems();
       test(
-        'return value length should be 3',
+        'return value length should be 5',
         () {
           expect(
             result.length,
-            3,
+            5,
           );
         },
       );
       test(
-        'return value categories should only contain plain, concert and book',
+        'return value key should only contain plain, concert, book, Draft and Archived',
         () {
           expect(
-            result.map((albumItem) => albumItem.key),
-            [
+            result.map((albumItem) => albumItem.key).toSet(),
+            {
               ShimmerCategory.plain,
               ShimmerCategory.concert,
               ShimmerCategory.book,
-            ],
+              'Draft',
+              'Archived',
+            },
           );
         },
       );
@@ -155,6 +216,33 @@ void main() {
           expect(
             result.first.key,
             ShimmerCategory.plain,
+          );
+        },
+      );
+      test(
+        'return value length should be 2',
+        () {
+          expect(
+            result.first.value.length,
+            2,
+          );
+        },
+      );
+      test(
+        'return value first date should be test data [2]',
+        () {
+          expect(
+            result.first.value.first.date,
+            testData[2].date,
+          );
+        },
+      );
+      test(
+        'return value last should be test data first',
+        () {
+          expect(
+            result.first.value.last.date,
+            testData.first.date,
           );
         },
       );

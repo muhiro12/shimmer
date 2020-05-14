@@ -25,7 +25,7 @@ class HomeScaffold extends StatelessWidget {
           valueListenable: ShimmerLogsRepository.instance.listenable(),
           builder: (context, box, widget) {
             final ShimmerLogs logs =
-                ShimmerLogsRepository.instance.fetchAllSortedByDate();
+                ShimmerLogsRepository.instance.fetchPublished();
             if (logs.value.isEmpty) {
               return EmptyPage();
             }

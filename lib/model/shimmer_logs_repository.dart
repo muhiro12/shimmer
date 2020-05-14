@@ -28,35 +28,34 @@ class ShimmerLogsRepository {
   }
 
   ShimmerLogs fetchAllSortedByDate() {
-    final logs = fetchAll();
-    ShimmerLogsParser parser = ShimmerLogsParser(logs);
+    final all = fetchAll();
+    ShimmerLogsParser parser = ShimmerLogsParser(all);
     return parser.sortedByDate();
+  }
+
+  ShimmerLogs fetchPublished() {
+    final all = fetchAllSortedByDate();
+    ShimmerLogsParser parser = ShimmerLogsParser(all);
+    return parser.whereOfPublished();
   }
 
   List<ShimmerLogs> fetchAlbumItems() {
     ShimmerLogs all = fetchAllSortedByDate();
-    List<ShimmerLogs> albumItems = [];
-    ShimmerLogsParser parser = ShimmerLogsParser(fetchAllSortedByDate());
-    albumItems.addAll(parser.toCategorizedLogsList());
-    albumItems.add(
+    ShimmerLogsParser parser = ShimmerLogsParser(all);
+    List<ShimmerLogs> albumItems = <ShimmerLogs>[
       ShimmerLogs(
         key: 'Draft',
-        value: all.value
-            .where(
-              (log) => log.state == ShimmerLogState.draft,
-            )
-            .toList(),
+        value: parser.whereOfDraft().value,
       ),
-    );
-    albumItems.add(
       ShimmerLogs(
         key: 'Archived',
-        value: all.value
-            .where(
-              (log) => log.state == ShimmerLogState.archived,
-            )
-            .toList(),
+        value: parser.whereOfArchived().value,
       ),
+    ];
+    parser.logs = parser.whereOfPublished();
+    albumItems.insertAll(
+      0,
+      parser.toCategorizedLogsList(),
     );
     return albumItems.where((albumItem) => albumItem.value.isNotEmpty).toList();
   }
