@@ -12,7 +12,7 @@ class EmptyPage extends StatelessWidget {
         children: <Widget>[
           Text(
             'Let\'s create\nnew Shimmer Card!!',
-            style: Theme.of(context).textTheme.title.copyWith(
+            style: Theme.of(context).textTheme.headline6.copyWith(
                   color: Colors.grey,
                 ),
           ),

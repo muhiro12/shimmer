@@ -28,7 +28,7 @@ class _StarRatingState extends State<StarRating> {
   Widget build(BuildContext context) {
     return SmoothStarRating(
       rating: rating,
-      onRatingChanged: _onRatingChanged,
+      onRated: _onRatingChanged,
     );
   }
 

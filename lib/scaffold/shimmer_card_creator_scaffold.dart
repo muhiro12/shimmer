@@ -42,7 +42,7 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       EnumParser.upperCamelCaseStringOf(_log.category),
-                      style: Theme.of(context).textTheme.headline,
+                      style: Theme.of(context).textTheme.headline5,
                     ),
                     _items,
                     _expansion,
@@ -148,7 +148,7 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
               _archiveLog();
               Navigator.popUntil(
                 context,
-                (route) => route.settings.isInitialRoute,
+                (route) => route.isFirst,
               );
             },
           ),

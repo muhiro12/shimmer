@@ -20,7 +20,7 @@ class ShimmerCardCreatorLauncher extends StatelessWidget {
         ListTile(
           title: Text(
             'Category',
-            style: Theme.of(context).textTheme.subhead.copyWith(
+            style: Theme.of(context).textTheme.subtitle1.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
           ),

@@ -45,7 +45,7 @@ class AppTheme {
     return themeData.appBarTheme.copyWith(
       color: themeData.canvasColor,
       textTheme: themeData.primaryTextTheme.copyWith(
-        title: themeData.textTheme.title.copyWith(
+        headline6: themeData.textTheme.headline6.copyWith(
           fontSize: 20,
         ),
       ),

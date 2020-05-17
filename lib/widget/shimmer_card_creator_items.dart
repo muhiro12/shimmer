@@ -41,7 +41,7 @@ class ShimmerCardCreatorItems extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     'Date',
-                    style: Theme.of(context).textTheme.subhead.copyWith(
+                    style: Theme.of(context).textTheme.subtitle1.copyWith(
                           color: Colors.grey.shade600,
                         ),
                   ),
@@ -77,7 +77,7 @@ class ShimmerCardCreatorItems extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     'Star',
-                    style: Theme.of(context).textTheme.subhead.copyWith(
+                    style: Theme.of(context).textTheme.subtitle1.copyWith(
                           color: Colors.grey.shade600,
                         ),
                   ),

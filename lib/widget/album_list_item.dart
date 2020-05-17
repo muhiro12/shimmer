@@ -20,7 +20,7 @@ class AlbumListItem extends StatelessWidget {
         children: <Widget>[
           Text(
             '(${_logs.value.length})',
-            style: Theme.of(context).textTheme.body1.copyWith(
+            style: Theme.of(context).textTheme.bodyText2.copyWith(
                   color: Colors.grey,
                 ),
           ),

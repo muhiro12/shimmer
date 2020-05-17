@@ -22,7 +22,7 @@ class TimelineItem extends StatelessWidget {
                 _log.tags.isNotEmpty ? _log.tags.first : '#None',
                 style: Theme.of(context)
                     .textTheme
-                    .headline
+                    .headline5
                     .copyWith(color: Colors.grey),
               ),
               Text(_log.key),

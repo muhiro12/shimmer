@@ -35,7 +35,7 @@ class ShimmerCardSummary extends StatelessWidget {
               Text(DateParser.yearMonthDayStringOf(_log.date)),
               Text(
                 _log.title,
-                style: Theme.of(context).textTheme.headline,
+                style: Theme.of(context).textTheme.headline5,
               ),
               Text(_log.creator),
               Text(_log.location),
