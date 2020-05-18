@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shimmer/interface/database/shimmer_category.dart';
 import 'package:shimmer/interface/database/shimmer_log_state.dart';
 import 'package:shimmer/model/shimmer_logs_parser.dart';
 
@@ -217,14 +216,14 @@ void main() {
         },
       );
       test(
-        'return value categories should only contain plain, concert and book',
+        'return value categories should only contain Plain, Concert and Book',
         () {
           expect(
             result.map((albumItem) => albumItem.key).toSet(),
             {
-              ShimmerCategory.plain,
-              ShimmerCategory.concert,
-              ShimmerCategory.book,
+              'Plain',
+              'Concert',
+              'Book',
             },
           );
         },
@@ -235,7 +234,7 @@ void main() {
           expect(
             result
                 .firstWhere(
-                  (albumItem) => albumItem.key == ShimmerCategory.plain,
+                  (albumItem) => albumItem.key == 'Plain',
                 )
                 .value
                 .length,
@@ -249,7 +248,7 @@ void main() {
           expect(
             result
                 .where(
-                  (albumItem) => albumItem.key == ShimmerCategory.concert,
+                  (albumItem) => albumItem.key == 'Concert',
                 )
                 .length,
             1,
@@ -261,7 +260,7 @@ void main() {
         () {
           expect(
             result.first.key,
-            ShimmerCategory.plain,
+            'Plain',
           );
         },
       );

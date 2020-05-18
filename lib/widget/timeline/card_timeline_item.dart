@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/configuration/app_parameter.dart';
+import 'package:shimmer/interface/database/shimmer_category.dart';
 import 'package:shimmer/interface/database/shimmer_log.dart';
-import 'package:shimmer/model/enum_parser.dart';
 import 'package:shimmer/widget/shimmer_card_summary.dart';
+import 'package:shimmer/widget/timeline/timeline_item.dart';
 
-class TimelineItem extends StatelessWidget {
-  TimelineItem(this._log);
+class CardTimelineItem extends TimelineItem {
+  CardTimelineItem(this._log) : super(_log);
 
   final ShimmerLog _log;
 
@@ -29,7 +30,7 @@ class TimelineItem extends StatelessWidget {
               Text(_log.createdAt.toString().substring(10)),
               Spacer(),
               Text(
-                EnumParser.upperCamelCaseStringOf(_log.category),
+                _log.category.toUpperCamelCaseString(),
                 style: TextStyle(
                   color: Theme.of(context).accentColor,
                 ),

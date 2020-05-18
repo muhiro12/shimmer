@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/configuration/app_parameter.dart';
+import 'package:shimmer/interface/database/shimmer_category.dart';
 import 'package:shimmer/interface/database/shimmer_log.dart';
 import 'package:shimmer/main.dart';
-import 'package:shimmer/model/enum_parser.dart';
 import 'package:shimmer/model/shimmer_card_creator_type.dart';
 import 'package:shimmer/model/shimmer_logs_repository.dart';
 import 'package:shimmer/widget/shimmer_card_creator_expansion.dart';
@@ -41,7 +41,7 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
                 child: ListView(
                   children: <Widget>[
                     Text(
-                      EnumParser.upperCamelCaseStringOf(_log.category),
+                      _log.category.toUpperCamelCaseString(),
                       style: Theme.of(context).textTheme.headline5,
                     ),
                     _items,

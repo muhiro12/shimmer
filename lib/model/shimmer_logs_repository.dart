@@ -6,6 +6,7 @@ import 'package:shimmer/interface/database/shimmer_category.dart';
 import 'package:shimmer/interface/database/shimmer_log.dart';
 import 'package:shimmer/interface/database/shimmer_log_state.dart';
 import 'package:shimmer/interface/database/shimmer_logs_data_store.dart';
+import 'package:shimmer/model/album_item.dart';
 import 'package:shimmer/model/shimmer_logs.dart';
 import 'package:shimmer/model/shimmer_logs_parser.dart';
 
@@ -39,25 +40,43 @@ class ShimmerLogsRepository {
     return parser.whereOfPublished();
   }
 
-  List<ShimmerLogs> fetchAlbumItems() {
+  List<AlbumItem> fetchAlbumItems() {
     ShimmerLogs all = fetchAllSortedByDate();
     ShimmerLogsParser parser = ShimmerLogsParser(all);
-    List<ShimmerLogs> albumItems = <ShimmerLogs>[
-      ShimmerLogs(
-        key: 'Draft',
-        value: parser.whereOfDraft().value,
+    List<AlbumItem> albumItems = <AlbumItem>[
+      AlbumItem(
+        state: ShimmerLogState.draft,
+        logs: ShimmerLogs(
+          key: ShimmerLogState.draft.toUpperCamelCaseString(),
+          value: parser.whereOfDraft().value,
+        ),
       ),
-      ShimmerLogs(
-        key: 'Archived',
-        value: parser.whereOfArchived().value,
+      AlbumItem(
+        state: ShimmerLogState.archived,
+        logs: ShimmerLogs(
+          key: ShimmerLogState.archived.toUpperCamelCaseString(),
+          value: parser.whereOfArchived().value,
+        ),
       ),
     ];
     parser.logs = parser.whereOfPublished();
     albumItems.insertAll(
       0,
-      parser.toCategorizedLogsList(),
+      parser
+          .toCategorizedLogsList()
+          .map(
+            (logs) => AlbumItem(
+              state: ShimmerLogState.published,
+              logs: logs,
+            ),
+          )
+          .toList(),
     );
-    return albumItems.where((albumItem) => albumItem.value.isNotEmpty).toList();
+    return albumItems
+        .where(
+          (albumItem) => albumItem.logs.value.isNotEmpty,
+        )
+        .toList();
   }
 
   void saveLog(ShimmerLog log) {

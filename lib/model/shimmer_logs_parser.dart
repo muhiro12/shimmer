@@ -43,9 +43,9 @@ class ShimmerLogsParser {
     );
   }
 
-  List<ShimmerLogs<ShimmerCategory>> toCategorizedLogsList() {
+  List<ShimmerLogs> toCategorizedLogsList() {
     final ShimmerLogs logs = _clone();
-    List<ShimmerLogs<ShimmerCategory>> albumItems = [];
+    List<ShimmerLogs> logsList = [];
     ShimmerCategory.values.forEach(
       (category) {
         final value = logs.value
@@ -53,19 +53,19 @@ class ShimmerLogsParser {
               (log) => log.category == category,
             )
             .toList();
-        albumItems.add(
+        logsList.add(
           ShimmerLogs(
-            key: category,
+            key: category.toUpperCamelCaseString(),
             value: value,
           ),
         );
       },
     );
-    albumItems.sort(
+    logsList.sort(
       (left, right) => right.value.length.compareTo(
         left.value.length,
       ),
     );
-    return albumItems.where((item) => item.value.isNotEmpty).toList();
+    return logsList.where((item) => item.value.isNotEmpty).toList();
   }
 }

@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:shimmer/model/enum_parser.dart';
 
 part 'shimmer_log_state.g.dart';
 
@@ -12,4 +13,10 @@ enum ShimmerLogState {
 
   @HiveField(2)
   archived,
+}
+
+extension ShimmerLogStateExtension on ShimmerLogState {
+  String toUpperCamelCaseString() {
+    return EnumParser.upperCamelCaseStringOf(this);
+  }
 }

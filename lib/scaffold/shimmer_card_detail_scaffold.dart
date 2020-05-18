@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:shimmer/configuration/app_parameter.dart';
+import 'package:shimmer/interface/database/shimmer_category.dart';
 import 'package:shimmer/interface/database/shimmer_log.dart';
 import 'package:shimmer/interface/share.dart';
-import 'package:shimmer/model/enum_parser.dart';
 import 'package:shimmer/model/list_extension.dart';
 import 'package:shimmer/widget/edit_floating_action_button.dart';
 import 'package:shimmer/widget/shimemr_card.dart';
@@ -48,7 +48,7 @@ class ShimmerCardDetailScaffold extends StatelessWidget {
             children: [
               ShimmerCardChild.init(
                 items: [
-                  EnumParser.upperCamelCaseStringOf(_log.category),
+                  _log.category.toUpperCamelCaseString(),
                   _log.genre,
                   _log.theme,
                 ],

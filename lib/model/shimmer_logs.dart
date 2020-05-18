@@ -1,12 +1,12 @@
 import 'package:shimmer/interface/database/shimmer_log.dart';
 
-class ShimmerLogs<T> {
+class ShimmerLogs {
   ShimmerLogs({
     this.key,
     this.value,
   });
 
-  final T key;
+  final String key;
   final List<ShimmerLog> value;
 
   ShimmerLogs where(bool test(ShimmerLog log)) {

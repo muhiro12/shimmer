@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shimmer/interface/database/shimmer_category.dart';
 import 'package:shimmer/interface/database/shimmer_log.dart';
 import 'package:shimmer/interface/database/shimmer_log_state.dart';
 import 'package:shimmer/interface/database/shimmer_logs_data_store.dart';
@@ -169,28 +168,48 @@ void main() {
         },
       );
       test(
-        'return value key should only contain plain, concert, book, Draft and Archived',
+        'return value state should contain published, draft and archived',
         () {
           expect(
-            result.map((albumItem) => albumItem.key).toSet(),
+            result.map((albumItem) => albumItem.state).toSet(),
             {
-              ShimmerCategory.plain,
-              ShimmerCategory.concert,
-              ShimmerCategory.book,
-              'Draft',
-              'Archived',
+              ShimmerLogState.published,
+              ShimmerLogState.draft,
+              ShimmerLogState.archived,
             },
           );
         },
       );
       test(
-        'return value should has 2 plain',
+        'published of return value should only contain Plain, Concert and Book',
         () {
           expect(
             result
-                .firstWhere(
-                  (albumItem) => albumItem.key == ShimmerCategory.plain,
+                .where(
+                  (albumItem) => albumItem.state == ShimmerLogState.published,
                 )
+                .map(
+                  (albumItem) => albumItem.logs.key,
+                )
+                .toSet(),
+            {
+              'Plain',
+              'Concert',
+              'Book',
+            },
+          );
+        },
+      );
+      test(
+        'return value should has 2 published plain',
+        () {
+          expect(
+            result
+                .where(
+                  (albumItem) => albumItem.state == ShimmerLogState.published,
+                )
+                .firstWhere((albumItem) => albumItem.logs.key == "Plain")
+                .logs
                 .value
                 .length,
             2,
@@ -198,13 +217,16 @@ void main() {
         },
       );
       test(
-        'return value should has 1 concert',
+        'return value should has 1 published concert',
         () {
           expect(
             result
                 .where(
-                  (albumItem) => albumItem.key == ShimmerCategory.concert,
+                  (albumItem) => albumItem.state == ShimmerLogState.published,
                 )
+                .firstWhere((albumItem) => albumItem.logs.key == "Concert")
+                .logs
+                .value
                 .length,
             1,
           );
@@ -214,34 +236,34 @@ void main() {
         'return value should be start with plain',
         () {
           expect(
-            result.first.key,
-            ShimmerCategory.plain,
+            result.first.logs.key,
+            'Plain',
           );
         },
       );
       test(
-        'return value length should be 2',
+        'first of return value length should be 2',
         () {
           expect(
-            result.first.value.length,
+            result.first.logs.value.length,
             2,
           );
         },
       );
       test(
-        'return value first date should be test data [2]',
+        'first of return value first date should be test data [2]',
         () {
           expect(
-            result.first.value.first.date,
+            result.first.logs.value.first.date,
             testData[2].date,
           );
         },
       );
       test(
-        'return value last should be test data first',
+        'first of return value last should be test data first',
         () {
           expect(
-            result.first.value.last.date,
+            result.first.logs.value.last.date,
             testData.first.date,
           );
         },
