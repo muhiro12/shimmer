@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/configuration/app_parameter.dart';
-import 'package:shimmer/widget/shimmer_card_creator_launcher.dart';
+import 'package:shimmer/widget/shimmer_card_creator/shimmer_card_creator_launcher.dart';
 
 class EmptyPage extends StatelessWidget {
   @override

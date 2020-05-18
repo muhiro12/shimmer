@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/configuration/app_parameter.dart';
 import 'package:shimmer/interface/database/shimmer_category.dart';
 import 'package:shimmer/interface/database/shimmer_log.dart';
-import 'package:shimmer/widget/shimmer_card_summary.dart';
+import 'package:shimmer/widget/shimmer_card/shimmer_card_summary.dart';
 import 'package:shimmer/widget/timeline/timeline_item.dart';
 
 class CardTimelineItem extends TimelineItem {
@@ -26,8 +26,6 @@ class CardTimelineItem extends TimelineItem {
                     .headline5
                     .copyWith(color: Colors.grey),
               ),
-              Text(_log.key),
-              Text(_log.createdAt.toString().substring(10)),
               Spacer(),
               Text(
                 _log.category.toUpperCamelCaseString(),

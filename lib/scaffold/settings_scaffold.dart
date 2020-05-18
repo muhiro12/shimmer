@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:shimmer/configuration/app_parameter.dart';
 import 'package:shimmer/main.dart';
 import 'package:shimmer/model/configurations_repository.dart';
 
@@ -18,49 +20,57 @@ class SettingsScaffold extends StatelessWidget {
         ],
       ),
       body: SafeArea(
-        child: Column(
+        child: ListView(
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                Text('DardMode'),
-                Switch(
-                  value: isDarkMode,
-                  onChanged: _saveIsDarkMode,
-                ),
-              ],
+            ListTile(
+              title: Text('DarkMode'),
+              trailing: Switch(
+                value: isDarkMode,
+                onChanged: _saveIsDarkMode,
+              ),
             ),
-            Row(
-              children: <Widget>[
-                Text('Handwriting'),
-                Switch(
-                  value: isHandWriting,
-                  onChanged: _saveIsHandWriting,
-                ),
-              ],
+            ListTile(
+              title: Text('HandWriting'),
+              trailing: Switch(
+                value: isHandWriting,
+                onChanged: _saveIsHandWriting,
+              ),
             ),
-            Expanded(
-              child: GridView.count(
-                crossAxisCount: 3,
-                children: Colors.primaries
-                    .map(
-                      (color) => GestureDetector(
-                        child: Card(
-                          color: color,
-                          child: Visibility(
-                            visible: color == Theme.of(context).primaryColor,
-                            child: Center(
-                              child: Icon(
-                                Icons.check,
-                                color: Colors.white,
+            ExpansionTile(
+              title: Text('PrimaryColor'),
+              children: <Widget>[
+                Container(
+                  height: AppParameter.componentL,
+                  margin: EdgeInsets.only(
+                    left: AppParameter.spaceS,
+                    right: AppParameter.spaceS,
+                  ),
+                  child: GridView.count(
+                    crossAxisCount: 2,
+                    scrollDirection: Axis.horizontal,
+                    children: Colors.primaries
+                        .map(
+                          (color) => GestureDetector(
+                            child: Card(
+                              color: color,
+                              child: Visibility(
+                                visible:
+                                    color == Theme.of(context).primaryColor,
+                                child: Center(
+                                  child: Icon(
+                                    Icons.check,
+                                    color: Colors.white,
+                                  ),
+                                ),
                               ),
                             ),
+                            onTap: () => _savePrimaryColor(color),
                           ),
-                        ),
-                        onTap: () => _savePrimaryColor(color),
-                      ),
-                    )
-                    .toList(),
-              ),
+                        )
+                        .toList(),
+                  ),
+                ),
+              ],
             ),
           ],
         ),

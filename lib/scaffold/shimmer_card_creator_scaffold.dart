@@ -6,8 +6,8 @@ import 'package:shimmer/interface/database/shimmer_log.dart';
 import 'package:shimmer/main.dart';
 import 'package:shimmer/model/shimmer_card_creator_type.dart';
 import 'package:shimmer/model/shimmer_logs_repository.dart';
-import 'package:shimmer/widget/shimmer_card_creator_expansion.dart';
-import 'package:shimmer/widget/shimmer_card_creator_items.dart';
+import 'package:shimmer/widget/shimmer_card_creator/shimmer_card_creator_expansion.dart';
+import 'package:shimmer/widget/shimmer_card_creator/shimmer_card_creator_items.dart';
 
 class ShimmerCardCreatorScaffold extends StatelessWidget {
   ShimmerCardCreatorScaffold._(
@@ -40,9 +40,12 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
               Expanded(
                 child: ListView(
                   children: <Widget>[
-                    Text(
-                      _log.category.toUpperCamelCaseString(),
-                      style: Theme.of(context).textTheme.headline5,
+                    Container(
+                      margin: EdgeInsets.all(AppParameter.spaceM),
+                      child: Text(
+                        _log.category.toUpperCamelCaseString(),
+                        style: Theme.of(context).textTheme.headline5,
+                      ),
                     ),
                     _items,
                     _expansion,

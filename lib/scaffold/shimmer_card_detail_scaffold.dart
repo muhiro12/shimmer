@@ -6,10 +6,10 @@ import 'package:shimmer/interface/database/shimmer_category.dart';
 import 'package:shimmer/interface/database/shimmer_log.dart';
 import 'package:shimmer/interface/share.dart';
 import 'package:shimmer/model/list_extension.dart';
-import 'package:shimmer/widget/edit_floating_action_button.dart';
-import 'package:shimmer/widget/shimemr_card.dart';
-import 'package:shimmer/widget/shimmer_card_child.dart';
-import 'package:shimmer/widget/shimmer_card_summary.dart';
+import 'package:shimmer/widget/floating_action_button/edit_floating_action_button.dart';
+import 'package:shimmer/widget/shimmer_card/shimemr_card.dart';
+import 'package:shimmer/widget/shimmer_card/shimmer_card_child.dart';
+import 'package:shimmer/widget/shimmer_card/shimmer_card_summary.dart';
 import 'package:shimmer/widget/sized_spacer.dart';
 import 'package:shimmer/widget/star_rating.dart';
 

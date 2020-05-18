@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shimmer/widget/shimmer_card_child.dart';
+import 'package:shimmer/widget/shimmer_card/shimmer_card_child.dart';
 
 void main() {
   group(

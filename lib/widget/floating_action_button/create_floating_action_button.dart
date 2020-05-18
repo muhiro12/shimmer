@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/widget/shimmer_card_creator_launcher.dart';
+import 'package:shimmer/widget/shimmer_card_creator/shimmer_card_creator_launcher.dart';
 
 class CreateFloatingActionButton extends StatelessWidget {
   @override

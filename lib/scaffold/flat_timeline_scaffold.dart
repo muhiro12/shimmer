@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/model/shimmer_logs.dart';
 import 'package:shimmer/model/shimmer_logs_repository.dart';
-import 'package:shimmer/widget/create_floating_action_button.dart';
+import 'package:shimmer/widget/floating_action_button/create_floating_action_button.dart';
 import 'package:shimmer/widget/timeline/flat_timeline.dart';
 
 class FlatTimelineScaffold extends StatelessWidget {

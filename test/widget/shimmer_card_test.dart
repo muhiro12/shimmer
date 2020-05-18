@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shimmer/widget/shimemr_card.dart';
+import 'package:shimmer/widget/shimmer_card/shimemr_card.dart';
 
 void main() {
   group(

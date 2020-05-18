@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/configuration/app_parameter.dart';
 import 'package:shimmer/widget/date_picker.dart';
 import 'package:shimmer/widget/horizontal_list_image_picker.dart';
+import 'package:shimmer/widget/sized_spacer.dart';
 import 'package:shimmer/widget/star_rating.dart';
 
 class ShimmerCardCreatorItems extends StatelessWidget {
@@ -71,6 +72,9 @@ class ShimmerCardCreatorItems extends StatelessWidget {
               ),
               maxLines: 10,
             ),
+            SizedSpacer(
+              height: AppParameter.spaceM,
+            ),
             FormField(
               builder: (_) => Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -85,6 +89,9 @@ class ShimmerCardCreatorItems extends StatelessWidget {
                   starRating,
                 ],
               ),
+            ),
+            SizedSpacer(
+              height: AppParameter.spaceM,
             ),
             TextFormField(
               controller: tagController,

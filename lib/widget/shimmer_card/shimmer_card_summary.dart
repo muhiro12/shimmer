@@ -4,8 +4,8 @@ import 'package:shimmer/interface/database/shimmer_log.dart';
 import 'package:shimmer/model/date_parser.dart';
 import 'package:shimmer/model/list_extension.dart';
 import 'package:shimmer/scaffold/shimmer_card_detail_scaffold.dart';
-import 'package:shimmer/widget/shimemr_card.dart';
-import 'package:shimmer/widget/shimmer_card_child.dart';
+import 'package:shimmer/widget/shimmer_card/shimemr_card.dart';
+import 'package:shimmer/widget/shimmer_card/shimmer_card_child.dart';
 
 class ShimmerCardSummary extends StatelessWidget {
   ShimmerCardSummary(
