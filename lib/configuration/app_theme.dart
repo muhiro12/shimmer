@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shimmer/configuration/app_parameter.dart';
 
 class AppTheme {
   AppTheme(this.primaryColor, this.handwriting);
@@ -9,9 +10,7 @@ class AppTheme {
 
   ThemeData light() {
     final themeData = _themeData(Brightness.light);
-    return themeData.copyWith(
-      appBarTheme: _appBarTheme(themeData),
-    );
+    return themeData;
   }
 
   ThemeData dark() {
@@ -24,32 +23,34 @@ class AppTheme {
         foregroundColor: Colors.white,
         backgroundColor: primaryColor,
       ),
-      appBarTheme: _appBarTheme(themeData),
       cardColor: Colors.grey.shade900,
     );
   }
 
   ThemeData _themeData(Brightness brightness) {
-    return ThemeData(
+    final themeData = ThemeData(
       primarySwatch: primaryColor,
-      fontFamily: _fontFamily(),
+      fontFamily: handwriting ? GoogleFonts.sedgwickAve().fontFamily : '',
       brightness: brightness,
     );
-  }
-
-  String _fontFamily() {
-    return handwriting ? GoogleFonts.sedgwickAve().fontFamily : '';
-  }
-
-  AppBarTheme _appBarTheme(ThemeData themeData) {
-    return themeData.appBarTheme.copyWith(
-      color: themeData.canvasColor,
-      textTheme: themeData.primaryTextTheme.copyWith(
-        headline6: themeData.textTheme.headline6.copyWith(
-          fontSize: 20,
+    return themeData.copyWith(
+      appBarTheme: themeData.appBarTheme.copyWith(
+        color: themeData.canvasColor,
+        textTheme: themeData.primaryTextTheme.copyWith(
+          headline6: themeData.textTheme.headline6.copyWith(
+            fontSize: 20,
+          ),
         ),
+        iconTheme: themeData.iconTheme,
       ),
-      iconTheme: themeData.iconTheme,
+      cardTheme: themeData.cardTheme.copyWith(
+        elevation: AppParameter.elevation,
+      ),
+      dividerTheme: themeData.dividerTheme.copyWith(
+        indent: AppParameter.spaceM,
+        thickness: AppParameter.dividerThin,
+        space: AppParameter.zero,
+      ),
     );
   }
 }

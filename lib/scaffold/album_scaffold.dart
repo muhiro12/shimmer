@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/configuration/app_parameter.dart';
 import 'package:shimmer/interface/database/shimmer_log_state.dart';
 import 'package:shimmer/model/shimmer_logs_repository.dart';
 import 'package:shimmer/widget/empty_page.dart';
 import 'package:shimmer/widget/floating_action_button/create_floating_action_button.dart';
-import 'package:shimmer/widget/sized_spacer.dart';
 import 'package:shimmer/widget/timeline/card_timeline_launcher.dart';
 import 'package:shimmer/widget/timeline/flat_timeline_launcher.dart';
 
@@ -38,10 +36,9 @@ class AlbumScaffold extends StatelessWidget {
                       )
                       .toList(),
                 ),
-                SizedSpacer(
-                  height: AppParameter.spaceM,
+                ListTile(
+                  subtitle: Text('Other'),
                 ),
-                Text('Other'),
                 ListView(
                   shrinkWrap: true,
                   children: albumItems

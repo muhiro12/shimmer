@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/interface/database/shimmer_log.dart';
+import 'package:shimmer/widget/flat_list_item.dart';
 import 'package:shimmer/widget/timeline/timeline_item.dart';
 
 class FlatTimelineItem extends TimelineItem {
@@ -10,11 +11,13 @@ class FlatTimelineItem extends TimelineItem {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(_log.title),
-      subtitle: Text(
-        _log.summary,
-        maxLines: 1,
+    return FlatListItem(
+      ListTile(
+        title: Text(_log.title),
+        subtitle: Text(
+          _log.summary,
+          maxLines: 1,
+        ),
       ),
     );
   }

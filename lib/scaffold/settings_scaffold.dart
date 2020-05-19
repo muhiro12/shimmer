@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:shimmer/configuration/app_parameter.dart';
 import 'package:shimmer/main.dart';
 import 'package:shimmer/model/configurations_repository.dart';
+import 'package:shimmer/widget/flat_list_item.dart';
 
 class SettingsScaffold extends StatelessWidget {
   @override
@@ -22,55 +23,63 @@ class SettingsScaffold extends StatelessWidget {
       body: SafeArea(
         child: ListView(
           children: <Widget>[
-            ListTile(
-              title: Text('DarkMode'),
-              trailing: Switch(
-                value: isDarkMode,
-                onChanged: _saveIsDarkMode,
+            FlatListItem(
+              ListTile(
+                title: Text('DarkMode'),
+                trailing: CupertinoSwitch(
+                  activeColor: Theme.of(context).primaryColor,
+                  value: isDarkMode,
+                  onChanged: _saveIsDarkMode,
+                ),
               ),
             ),
-            ListTile(
-              title: Text('HandWriting'),
-              trailing: Switch(
-                value: isHandWriting,
-                onChanged: _saveIsHandWriting,
+            FlatListItem(
+              ListTile(
+                title: Text('HandWriting'),
+                trailing: CupertinoSwitch(
+                  activeColor: Theme.of(context).primaryColor,
+                  value: isHandWriting,
+                  onChanged: _saveIsHandWriting,
+                ),
               ),
             ),
-            ExpansionTile(
-              title: Text('PrimaryColor'),
-              children: <Widget>[
-                Container(
-                  height: AppParameter.componentL,
-                  margin: EdgeInsets.only(
-                    left: AppParameter.spaceS,
-                    right: AppParameter.spaceS,
-                  ),
-                  child: GridView.count(
-                    crossAxisCount: 2,
-                    scrollDirection: Axis.horizontal,
-                    children: Colors.primaries
-                        .map(
-                          (color) => GestureDetector(
-                            child: Card(
-                              color: color,
-                              child: Visibility(
-                                visible:
-                                    color == Theme.of(context).primaryColor,
-                                child: Center(
-                                  child: Icon(
-                                    Icons.check,
-                                    color: Colors.white,
+            FlatListItem(
+              ExpansionTile(
+                title: Text('PrimaryColor'),
+                children: <Widget>[
+                  Container(
+                    height: AppParameter.componentL,
+                    margin: EdgeInsets.only(
+                      left: AppParameter.spaceS,
+                      right: AppParameter.spaceS,
+                    ),
+                    child: GridView.count(
+                      crossAxisCount: 2,
+                      scrollDirection: Axis.horizontal,
+                      children: Colors.primaries
+                          .map(
+                            (color) => GestureDetector(
+                              child: Card(
+                                color: color,
+                                child: Visibility(
+                                  visible:
+                                      color == Theme.of(context).primaryColor,
+                                  child: Center(
+                                    child: Icon(
+                                      Icons.check,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
                               ),
+                              onTap: () => _savePrimaryColor(color),
                             ),
-                            onTap: () => _savePrimaryColor(color),
-                          ),
-                        )
-                        .toList(),
+                          )
+                          .toList(),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),

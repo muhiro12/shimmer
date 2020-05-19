@@ -57,9 +57,7 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
                     AppParameter.zero,
                 child: Column(
                   children: <Widget>[
-                    Divider(
-                      height: 0,
-                    ),
+                    Divider(),
                     // TODO: Only for debug
                     SizedBox(
                       width: double.infinity,
