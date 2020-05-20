@@ -5,6 +5,7 @@ import 'package:shimmer/configuration/app_parameter.dart';
 import 'package:shimmer/main.dart';
 import 'package:shimmer/model/configurations_repository.dart';
 import 'package:shimmer/widget/flat_list_item.dart';
+import 'package:shimmer/widget/platform/platform_switch.dart';
 
 class SettingsScaffold extends StatelessWidget {
   @override
@@ -26,8 +27,7 @@ class SettingsScaffold extends StatelessWidget {
             FlatListItem(
               ListTile(
                 title: Text('DarkMode'),
-                trailing: CupertinoSwitch(
-                  activeColor: Theme.of(context).primaryColor,
+                trailing: PlatformSwitch(
                   value: isDarkMode,
                   onChanged: _saveIsDarkMode,
                 ),
@@ -36,8 +36,7 @@ class SettingsScaffold extends StatelessWidget {
             FlatListItem(
               ListTile(
                 title: Text('HandWriting'),
-                trailing: CupertinoSwitch(
-                  activeColor: Theme.of(context).primaryColor,
+                trailing: PlatformSwitch(
                   value: isHandWriting,
                   onChanged: _saveIsHandWriting,
                 ),

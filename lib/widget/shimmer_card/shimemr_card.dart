@@ -21,7 +21,7 @@ class ShimmerCard extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: Card(
-          elevation: elevation,
+          elevation: elevation ?? AppParameter.elevation,
           child: Container(
             padding: EdgeInsets.all(AppParameter.spaceM),
             child: Row(

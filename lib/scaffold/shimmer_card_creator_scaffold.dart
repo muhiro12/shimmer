@@ -6,6 +6,8 @@ import 'package:shimmer/interface/database/shimmer_log.dart';
 import 'package:shimmer/main.dart';
 import 'package:shimmer/model/shimmer_card_creator_type.dart';
 import 'package:shimmer/model/shimmer_logs_repository.dart';
+import 'package:shimmer/widget/platform/platform_alert.dart';
+import 'package:shimmer/widget/platform/platform_text.dart';
 import 'package:shimmer/widget/shimmer_card_creator/shimmer_card_creator_expansion.dart';
 import 'package:shimmer/widget/shimmer_card_creator/shimmer_card_creator_items.dart';
 
@@ -133,18 +135,24 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
   void _onDeleteButtonPressed(BuildContext context) {
     showDialog(
       context: context,
-      child: AlertDialog(
+      child: PlatformAlert(
         title: Text('Caution'),
         content: Text('This action cannot be undone.'),
         actions: <Widget>[
           FlatButton(
-            child: Text('Cancel'),
+            child: PlatformText(
+              'Cancel',
+              color: Colors.blue,
+            ),
             onPressed: () {
               Navigator.pop(context);
             },
           ),
           FlatButton(
-            child: Text('Delete'),
+            child: PlatformText(
+              'Delete',
+              color: Colors.red,
+            ),
             onPressed: () {
               _archiveLog();
               Navigator.popUntil(

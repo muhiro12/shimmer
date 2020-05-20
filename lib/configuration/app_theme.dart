@@ -43,12 +43,8 @@ class AppTheme {
         ),
         iconTheme: themeData.iconTheme,
       ),
-      cardTheme: themeData.cardTheme.copyWith(
-        elevation: AppParameter.elevation,
-      ),
       dividerTheme: themeData.dividerTheme.copyWith(
         indent: AppParameter.spaceM,
-        thickness: AppParameter.dividerThin,
         space: AppParameter.zero,
       ),
     );

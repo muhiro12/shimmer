@@ -9,8 +9,7 @@ class AppParameter {
   static const double componentM = 100;
   static const double componentL = componentM * 2;
 
-  static const double dividerThin = 1;
-  static const double dividerThick = dividerThin * 2;
+  static const double dividerThick = 2;
 
   static const double radius = 20;
 
