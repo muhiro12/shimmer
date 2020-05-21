@@ -8,7 +8,7 @@ class FlatTimelineLauncher extends TimelineLauncher {
   FlatTimelineLauncher(ShimmerLogs _logs) : super(_logs);
 
   @override
-  void onTap(BuildContext context, ShimmerLogs logs) {
+  void launch(BuildContext context, ShimmerLogs logs) {
     FlatTimelineScaffold.push(context, logs);
   }
 }

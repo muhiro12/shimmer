@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/interface/database/shimmer_log_state.dart';
 import 'package:shimmer/model/shimmer_logs_repository.dart';
 import 'package:shimmer/widget/empty_page.dart';
+import 'package:shimmer/widget/flat_list/flat_list_section.dart';
+import 'package:shimmer/widget/flat_list/flat_list_view.dart';
 import 'package:shimmer/widget/floating_action_button/create_floating_action_button.dart';
 import 'package:shimmer/widget/timeline/card_timeline_launcher.dart';
 import 'package:shimmer/widget/timeline/flat_timeline_launcher.dart';
@@ -22,11 +24,10 @@ class AlbumScaffold extends StatelessWidget {
             if (albumItems.isEmpty) {
               return EmptyPage();
             }
-            return ListView(
-              children: <Widget>[
-                ListView(
-                  shrinkWrap: true,
-                  children: albumItems
+            return FlatListView(
+              sections: <FlatListSection>[
+                FlatListSection(
+                  tiles: albumItems
                       .where(
                         (albumItem) =>
                             albumItem.state == ShimmerLogState.published,
@@ -36,12 +37,9 @@ class AlbumScaffold extends StatelessWidget {
                       )
                       .toList(),
                 ),
-                ListTile(
-                  subtitle: Text('Other'),
-                ),
-                ListView(
-                  shrinkWrap: true,
-                  children: albumItems
+                FlatListSection(
+                  title: 'Other',
+                  tiles: albumItems
                       .where(
                         (albumItem) =>
                             albumItem.state != ShimmerLogState.published,

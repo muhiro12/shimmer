@@ -44,7 +44,6 @@ class AppTheme {
         iconTheme: themeData.iconTheme,
       ),
       dividerTheme: themeData.dividerTheme.copyWith(
-        indent: AppParameter.spaceM,
         space: AppParameter.zero,
       ),
     );

@@ -6,7 +6,6 @@ import 'package:shimmer/interface/database/shimmer_log.dart';
 import 'package:shimmer/main.dart';
 import 'package:shimmer/model/shimmer_card_creator_type.dart';
 import 'package:shimmer/scaffold/shimmer_card_creator_scaffold.dart';
-import 'package:shimmer/widget/flat_list_item.dart';
 import 'package:shimmer/widget/sized_spacer.dart';
 
 class ShimmerCardCreatorLauncher extends StatelessWidget {
@@ -33,11 +32,9 @@ class ShimmerCardCreatorLauncher extends StatelessWidget {
           child: ListView(
             children: ShimmerCategory.values
                 .map(
-                  (category) => FlatListItem(
-                    ListTile(
-                      title: Text(category.toUpperCamelCaseString()),
-                      onTap: () => _onTap(context, category),
-                    ),
+                  (category) => ListTile(
+                    title: Text(category.toUpperCamelCaseString()),
+                    onTap: () => _onTap(context, category),
                   ),
                 )
                 .toList(),

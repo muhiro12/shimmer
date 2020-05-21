@@ -8,7 +8,7 @@ class CardTimelineLauncher extends TimelineLauncher {
   CardTimelineLauncher(ShimmerLogs _logs) : super(_logs);
 
   @override
-  void onTap(BuildContext context, ShimmerLogs logs) {
+  void launch(BuildContext context, ShimmerLogs logs) {
     CategoryScaffold.push(context, logs);
   }
 }
