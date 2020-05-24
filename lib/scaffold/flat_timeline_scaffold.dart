@@ -20,8 +20,7 @@ class FlatTimelineScaffold extends StatelessWidget {
         child: ValueListenableBuilder(
           valueListenable: ShimmerLogsRepository.instance.listenable(),
           builder: (context, box, widget) {
-            final ShimmerLogs logs = ShimmerLogsRepository.instance.fetchAll();
-            return FlatTimeline(logs);
+            return FlatTimeline(_logs);
           },
         ),
       ),

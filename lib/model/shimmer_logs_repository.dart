@@ -85,6 +85,18 @@ class ShimmerLogsRepository {
     );
   }
 
+  void publishLog(ShimmerLog log) {
+    saveLog(
+      log..state = ShimmerLogState.published,
+    );
+  }
+
+  void draftLog(ShimmerLog log) {
+    saveLog(
+      log..state = ShimmerLogState.draft,
+    );
+  }
+
   void archiveLog(ShimmerLog log) {
     saveLog(
       log..state = ShimmerLogState.archived,
@@ -125,6 +137,6 @@ class ShimmerLogsRepository {
       theme: 'Theme',
       note: '恥の多い生涯を送って来ました。\n自分には、人間の生活というものが、見当つかないのです。自分は東北の田',
     );
-    saveLog(log);
+    publishLog(log);
   }
 }

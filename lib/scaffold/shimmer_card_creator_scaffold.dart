@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/configuration/app_parameter.dart';
 import 'package:shimmer/interface/database/shimmer_category.dart';
 import 'package:shimmer/interface/database/shimmer_log.dart';
+import 'package:shimmer/interface/database/shimmer_log_state.dart';
 import 'package:shimmer/main.dart';
 import 'package:shimmer/model/shimmer_card_creator_type.dart';
 import 'package:shimmer/model/shimmer_logs_repository.dart';
-import 'package:shimmer/widget/platform/platform_alert.dart';
-import 'package:shimmer/widget/platform/platform_text.dart';
 import 'package:shimmer/widget/shimmer_card_creator/shimmer_card_creator_expansion.dart';
 import 'package:shimmer/widget/shimmer_card_creator/shimmer_card_creator_items.dart';
 
@@ -133,41 +132,15 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
   }
 
   void _onDeleteButtonPressed(BuildContext context) {
-    showDialog(
-      context: context,
-      child: PlatformAlert(
-        title: Text('Caution'),
-        content: Text('This action cannot be undone.'),
-        actions: <Widget>[
-          FlatButton(
-            child: PlatformText(
-              'Cancel',
-              color: Colors.blue,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          FlatButton(
-            child: PlatformText(
-              'Delete',
-              color: Colors.red,
-            ),
-            onPressed: () {
-              _archiveLog();
-              Navigator.popUntil(
-                context,
-                (route) => route.isFirst,
-              );
-            },
-          ),
-        ],
-      ),
+    _archiveLog();
+    Navigator.popUntil(
+      context,
+      (route) => route.isFirst,
     );
   }
 
-  void _createLog() {
-    _log
+  ShimmerLog _pickUpLog() {
+    return _log
       ..category = _log.category
       ..date = _items.datePicker.key.currentState.date
       ..title = _items.titleController.text
@@ -181,12 +154,29 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
       ..genre = _expansion.genreController.text
       ..theme = _expansion.themeController.text
       ..note = _expansion.noteController.text;
-    ShimmerLogsRepository.instance.saveLog(_log);
+  }
+
+  void _createLog() {
+    final log = _pickUpLog();
+    if (log.title.isEmpty) {
+      return;
+    }
+    ShimmerLogsRepository.instance.publishLog(log);
+    _state = ShimmerLogState.published;
+  }
+
+  void _draftLog() {
+    final log = _pickUpLog();
+    if (log.title.isEmpty && log.summary.isEmpty) {
+      return;
+    }
+    ShimmerLogsRepository.instance.draftLog(log);
+    _state = ShimmerLogState.draft;
   }
 
   void _archiveLog() {
     ShimmerLogsRepository.instance.archiveLog(_log);
-    _isArchived = true;
+    _state = ShimmerLogState.archived;
   }
 
   static ShimmerCardCreatorScaffold init({
@@ -215,25 +205,36 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
     );
   }
 
-  static bool _isArchived = false;
+  static ShimmerLogState _state = ShimmerLogState.draft;
 
   static void showAsModal({
     ShimmerCardCreatorType type,
     ShimmerLog log,
     Function(bool isArchived) completion,
   }) {
+    final instance = ShimmerCardCreatorScaffold.init(
+      type: type,
+      log: log,
+    );
     showCupertinoModalPopup(
       context: MyHomePage.context,
-      builder: (context) => ShimmerCardCreatorScaffold.init(
-        type: type,
-        log: log,
-      ),
+      builder: (context) => instance,
     ).whenComplete(
       () {
-        if (completion != null) {
-          completion(_isArchived);
+        bool isArchive = false;
+        switch (_state) {
+          case ShimmerLogState.published:
+            break;
+          case ShimmerLogState.draft:
+            instance._draftLog();
+            break;
+          case ShimmerLogState.archived:
+            isArchive = true;
+            break;
         }
-        _isArchived = false;
+        if (completion != null) {
+          completion(isArchive);
+        }
       },
     );
   }

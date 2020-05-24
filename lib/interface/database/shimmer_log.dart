@@ -11,7 +11,7 @@ part 'shimmer_log.g.dart';
 class ShimmerLog {
   ShimmerLog({
     DateTime updatedAt,
-    this.state = ShimmerLogState.published,
+    this.state = ShimmerLogState.draft,
     this.category = ShimmerCategory.plain,
     DateTime date,
     this.title = '',

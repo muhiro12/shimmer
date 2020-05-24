@@ -21,29 +21,28 @@ class AlbumScaffold extends StatelessWidget {
           valueListenable: ShimmerLogsRepository.instance.listenable(),
           builder: (context, box, widget) {
             final albumItems = ShimmerLogsRepository.instance.fetchAlbumItems();
+            final published = albumItems.where(
+              (albumItem) => albumItem.state == ShimmerLogState.published,
+            );
+            final notPublished = albumItems.where(
+              (albumItem) => albumItem.state != ShimmerLogState.published,
+            );
             if (albumItems.isEmpty) {
               return EmptyPage();
             }
             return FlatListView(
               sections: <FlatListSection>[
                 FlatListSection(
-                  tiles: albumItems
-                      .where(
-                        (albumItem) =>
-                            albumItem.state == ShimmerLogState.published,
-                      )
+                  tiles: published
                       .map(
                         (albumItem) => CardTimelineLauncher(albumItem.logs),
                       )
                       .toList(),
                 ),
                 FlatListSection(
+                  visible: notPublished.isNotEmpty,
                   title: 'Other',
-                  tiles: albumItems
-                      .where(
-                        (albumItem) =>
-                            albumItem.state != ShimmerLogState.published,
-                      )
+                  tiles: notPublished
                       .map(
                         (albumItem) => FlatTimelineLauncher(albumItem.logs),
                       )

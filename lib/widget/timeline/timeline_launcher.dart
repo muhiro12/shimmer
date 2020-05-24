@@ -4,7 +4,7 @@ import 'package:shimmer/model/shimmer_logs.dart';
 import 'package:shimmer/widget/flat_list/flat_list_tile.dart';
 
 abstract class TimelineLauncher extends FlatListTile {
-  TimelineLauncher(this._logs) : super();
+  TimelineLauncher(this._logs);
 
   final ShimmerLogs _logs;
 

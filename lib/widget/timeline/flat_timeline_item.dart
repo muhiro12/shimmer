@@ -4,8 +4,8 @@ import 'package:shimmer/interface/database/shimmer_log.dart';
 import 'package:shimmer/widget/flat_list/flat_list_tile.dart';
 import 'package:shimmer/widget/timeline/timeline_item.dart';
 
-class FlatTimelineItem extends TimelineItem {
-  FlatTimelineItem(this._log) : super(_log);
+class FlatTimelineItem extends FlatListTile implements TimelineItem {
+  FlatTimelineItem(this._log);
 
   final ShimmerLog _log;
 

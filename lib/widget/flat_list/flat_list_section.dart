@@ -1,33 +1,42 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/widget/flat_list/flat_list_tile.dart';
 
 class FlatListSection extends StatelessWidget {
   FlatListSection({
     this.title,
     this.tiles,
+    this.visible = true,
   });
 
   final String title;
-  final List<FlatListTile> tiles;
+  final List<Widget> tiles;
+  final bool visible;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        ListTile(
-          subtitle: title != null ? Text(title) : null,
-          dense: true,
-        ),
-        Divider(),
-        Column(
-          children: ListTile.divideTiles(
-            context: context,
-            tiles: tiles,
-          ).toList(),
-        ),
-        Divider(),
-      ],
+    return Visibility(
+      visible: visible,
+      child: Column(
+        children: <Widget>[]
+          ..addAll(
+            [
+              ListTile(
+                subtitle: title != null ? Text(title) : null,
+                dense: true,
+              ),
+              Divider(),
+            ],
+          )
+          ..addAll(
+            ListTile.divideTiles(
+              context: context,
+              tiles: tiles,
+            ),
+          )
+          ..add(
+            Divider(),
+          ),
+      ),
     );
   }
 }
