@@ -6,30 +6,33 @@ import 'package:shimmer/model/shimmer_logs.dart';
 class TestData {
   static final List<ShimmerLog> logList = <ShimmerLog>[
     ShimmerLog(
+      state: ShimmerLogState.published,
+      category: ShimmerCategory.plain,
       date: DateTime(1),
-      category: ShimmerCategory.plain,
     ),
     ShimmerLog(
-      date: DateTime(200),
+      state: ShimmerLogState.published,
       category: ShimmerCategory.concert,
+      date: DateTime(200),
     ),
     ShimmerLog(
-      date: DateTime(30),
+      state: ShimmerLogState.published,
       category: ShimmerCategory.plain,
+      date: DateTime(30),
     ),
     ShimmerLog(
-      date: DateTime(4000),
+      state: ShimmerLogState.published,
       category: ShimmerCategory.book,
+      date: DateTime(4000),
     ),
     ShimmerLog(
       state: ShimmerLogState.archived,
-      date: DateTime(50),
       category: ShimmerCategory.plain,
+      date: DateTime(50),
     ),
     ShimmerLog(
-      state: ShimmerLogState.draft,
-      date: DateTime(6),
       category: ShimmerCategory.book,
+      date: DateTime(6),
     ),
   ];
 
