@@ -3,10 +3,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/configuration/app_parameter.dart';
 
 class AppTheme {
-  AppTheme(this.primaryColor, this.handwriting);
+  AppTheme(this._primaryColor, this._isHandWriting);
 
-  final MaterialColor primaryColor;
-  final bool handwriting;
+  final MaterialColor _primaryColor;
+  final bool _isHandWriting;
 
   ThemeData light() {
     final themeData = _themeData(Brightness.light);
@@ -16,12 +16,12 @@ class AppTheme {
   ThemeData dark() {
     final themeData = _themeData(Brightness.dark);
     return themeData.copyWith(
-      primaryColor: primaryColor,
-      accentColor: primaryColor,
-      toggleableActiveColor: primaryColor,
+      primaryColor: _primaryColor,
+      accentColor: _primaryColor,
+      toggleableActiveColor: _primaryColor,
       floatingActionButtonTheme: themeData.floatingActionButtonTheme.copyWith(
         foregroundColor: Colors.white,
-        backgroundColor: primaryColor,
+        backgroundColor: _primaryColor,
       ),
       cardColor: Colors.grey.shade900,
     );
@@ -29,8 +29,8 @@ class AppTheme {
 
   ThemeData _themeData(Brightness brightness) {
     final themeData = ThemeData(
-      primarySwatch: primaryColor,
-      fontFamily: handwriting ? GoogleFonts.sedgwickAve().fontFamily : '',
+      primarySwatch: _primaryColor,
+      fontFamily: _isHandWriting ? GoogleFonts.sedgwickAve().fontFamily : '',
       brightness: brightness,
     );
     return themeData.copyWith(

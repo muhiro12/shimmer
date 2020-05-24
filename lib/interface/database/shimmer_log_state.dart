@@ -3,7 +3,7 @@ import 'package:shimmer/model/enum_parser.dart';
 
 part 'shimmer_log_state.g.dart';
 
-@HiveType(typeId: 2)
+@HiveType(typeId: 3)
 enum ShimmerLogState {
   @HiveField(0)
   published,

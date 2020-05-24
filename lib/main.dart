@@ -18,16 +18,19 @@ class MyApp extends StatelessWidget {
     return ValueListenableBuilder(
       valueListenable: ConfigurationsRepository.instance.listenable(),
       builder: (context, box, widget) {
-        final isDarkMode = ConfigurationsRepository.instance.fetchIsDarkMode();
-        final isHandwriting =
-            ConfigurationsRepository.instance.fetchIsHandWriting();
+        final configurations = ConfigurationsRepository.instance.load();
         final primaryColor =
             ConfigurationsRepository.instance.fetchPrimaryColor();
+        final isHandWriting =
+            ConfigurationsRepository.instance.fetchIsHandWriting();
+        final themeData = configurations.isSystemTheme
+            ? ThemeMode.system
+            : (configurations.isDarkMode ? ThemeMode.dark : ThemeMode.light);
         return MaterialApp(
           title: 'Shimmer',
-          theme: AppTheme(primaryColor, isHandwriting).light(),
-          darkTheme: AppTheme(primaryColor, isHandwriting).dark(),
-          themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
+          theme: AppTheme(primaryColor, isHandWriting).light(),
+          darkTheme: AppTheme(primaryColor, isHandWriting).dark(),
+          themeMode: themeData,
           home: MyHomePage(title: 'Shimmer'),
         );
       },

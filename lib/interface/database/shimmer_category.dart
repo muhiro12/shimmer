@@ -3,7 +3,7 @@ import 'package:shimmer/model/enum_parser.dart';
 
 part 'shimmer_category.g.dart';
 
-@HiveType(typeId: 1)
+@HiveType(typeId: 2)
 enum ShimmerCategory {
   @HiveField(0)
   plain,

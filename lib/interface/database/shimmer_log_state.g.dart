@@ -8,7 +8,7 @@ part of 'shimmer_log_state.dart';
 
 class ShimmerLogStateAdapter extends TypeAdapter<ShimmerLogState> {
   @override
-  final typeId = 2;
+  final typeId = 3;
 
   @override
   ShimmerLogState read(BinaryReader reader) {

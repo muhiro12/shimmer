@@ -12,6 +12,7 @@ class FlatListTile extends StatelessWidget {
   final Widget title;
   final Widget subtitle;
   final Widget trailing;
+
   final GestureTapCallback onTap;
 
   @override

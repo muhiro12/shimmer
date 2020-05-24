@@ -1,11 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:shimmer/interface/database/configurations.dart';
 import 'package:shimmer/interface/database/hive_box.dart';
 
 abstract class ConfigurationsDataStoreInterface {
-  T load<T>(Configuration key);
-  void save<T>(Configuration key, T value);
+  Configurations load();
+  void save(Configurations configurations);
 }
 
 class ConfigurationsDataStore extends ConfigurationsDataStoreInterface {
@@ -26,18 +27,15 @@ class ConfigurationsDataStore extends ConfigurationsDataStoreInterface {
   }
 
   @override
-  T load<T>(Configuration key) {
-    return _box.get(key.toString());
+  Configurations load() {
+    return _box.get(
+      _key,
+      defaultValue: Configurations(),
+    );
   }
 
   @override
-  void save<T>(Configuration key, T value) {
-    _box.put(key.toString(), value);
+  void save(Configurations configurations) {
+    _box.put(_key, configurations);
   }
-}
-
-enum Configuration {
-  isDarkMode,
-  isHandWriting,
-  primaryColorValue,
 }

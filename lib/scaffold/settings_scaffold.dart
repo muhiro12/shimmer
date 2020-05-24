@@ -13,9 +13,7 @@ import 'package:shimmer/widget/platform/platform_switch.dart';
 class SettingsScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = ConfigurationsRepository.instance.fetchIsDarkMode();
-    final isHandWriting =
-        ConfigurationsRepository.instance.fetchIsHandWriting();
+    final configurations = ConfigurationsRepository.instance.load();
     return Scaffold(
       appBar: AppBar(
         title: Text('Create'),
@@ -30,16 +28,23 @@ class SettingsScaffold extends StatelessWidget {
             FlatListSection(
               tiles: <FlatListTile>[
                 FlatListTile(
+                  title: Text('Use System Theme'),
+                  trailing: PlatformSwitch(
+                    value: configurations.isSystemTheme,
+                    onChanged: _saveIsSystemTheme,
+                  ),
+                ),
+                FlatListTile(
                   title: Text('DarkMode'),
                   trailing: PlatformSwitch(
-                    value: isDarkMode,
+                    value: Theme.of(context).brightness == Brightness.dark,
                     onChanged: _saveIsDarkMode,
                   ),
                 ),
                 FlatListTile(
                   title: Text('HandWriting'),
                   trailing: PlatformSwitch(
-                    value: isHandWriting,
+                    value: configurations.isHandWriting,
                     onChanged: _saveIsHandWriting,
                   ),
                 ),
@@ -85,6 +90,10 @@ class SettingsScaffold extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _saveIsSystemTheme(bool value) {
+    ConfigurationsRepository.instance.saveIsSystemTheme(value);
   }
 
   void _saveIsDarkMode(bool value) {

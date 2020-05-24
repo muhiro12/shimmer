@@ -7,7 +7,7 @@ import 'package:shimmer/interface/database/shimmer_log_state.dart';
 
 part 'shimmer_log.g.dart';
 
-@HiveType(typeId: 0)
+@HiveType(typeId: 1)
 class ShimmerLog {
   ShimmerLog({
     DateTime updatedAt,
@@ -26,7 +26,6 @@ class ShimmerLog {
     this.theme = '',
     this.note = '',
   }) {
-    this.updatedAt = updatedAt ?? DateTime.now();
     this.date = date ?? DateTime.now();
   }
 
@@ -37,7 +36,7 @@ class ShimmerLog {
   final DateTime createdAt = DateTime.now();
 
   @HiveField(2)
-  DateTime updatedAt;
+  DateTime updatedAt = DateTime.now();
 
   @HiveField(3)
   ShimmerLogState state;
