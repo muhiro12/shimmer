@@ -16,12 +16,14 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
     this._log,
     this._items,
     this._expansion,
+    this._scrollController,
   );
 
   final ShimmerCardCreatorType _type;
   final ShimmerLog _log;
   final ShimmerCardCreatorItems _items;
   final ShimmerCardCreatorExpansion _expansion;
+  final ScrollController _scrollController;
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +42,7 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
             children: <Widget>[
               Expanded(
                 child: ListView(
+                  controller: _scrollController,
                   children: <Widget>[
                     Container(
                       margin: EdgeInsets.all(AppParameter.spaceM),
@@ -183,6 +186,7 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
     ShimmerCardCreatorType type,
     ShimmerLog log,
   }) {
+    final scrollController = ScrollController();
     return ShimmerCardCreatorScaffold._(
       type,
       log,
@@ -196,12 +200,13 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
         images: log.images,
       ),
       ShimmerCardCreatorExpansion.init(
-        location: log.location,
-        creator: log.creator,
-        genre: log.genre,
-        theme: log.theme,
-        note: log.note,
-      ),
+          location: log.location,
+          creator: log.creator,
+          genre: log.genre,
+          theme: log.theme,
+          note: log.note,
+          scrollController: scrollController),
+      scrollController,
     );
   }
 

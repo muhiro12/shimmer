@@ -18,7 +18,7 @@ abstract class TimelineLauncher extends FlatListTile {
           Text(
             '(${_logs.value.length})',
             style: Theme.of(context).textTheme.bodyText2.copyWith(
-                  color: Colors.grey,
+                  color: Theme.of(context).hintColor,
                 ),
           ),
           Icon(Icons.keyboard_arrow_right),

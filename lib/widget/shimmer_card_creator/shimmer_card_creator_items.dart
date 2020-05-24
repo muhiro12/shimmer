@@ -43,7 +43,7 @@ class ShimmerCardCreatorItems extends StatelessWidget {
                   Text(
                     'Date',
                     style: Theme.of(context).textTheme.subtitle1.copyWith(
-                          color: Colors.grey.shade600,
+                          color: Theme.of(context).hintColor,
                         ),
                   ),
                   Spacer(),
@@ -82,7 +82,7 @@ class ShimmerCardCreatorItems extends StatelessWidget {
                   Text(
                     'Star',
                     style: Theme.of(context).textTheme.subtitle1.copyWith(
-                          color: Colors.grey.shade600,
+                          color: Theme.of(context).hintColor,
                         ),
                   ),
                   Spacer(),
@@ -98,6 +98,9 @@ class ShimmerCardCreatorItems extends StatelessWidget {
               decoration: InputDecoration(
                 labelText: '#tag',
               ),
+            ),
+            SizedSpacer(
+              height: AppParameter.spaceM,
             ),
             FormField(
               builder: (_) => imagePicker,

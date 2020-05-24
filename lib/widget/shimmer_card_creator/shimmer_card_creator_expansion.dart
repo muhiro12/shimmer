@@ -9,6 +9,7 @@ class ShimmerCardCreatorExpansion extends StatelessWidget {
     this.genreController,
     this.themeController,
     this.noteController,
+    this.scrollController,
   });
 
   final TextEditingController locationController;
@@ -16,6 +17,7 @@ class ShimmerCardCreatorExpansion extends StatelessWidget {
   final TextEditingController genreController;
   final TextEditingController themeController;
   final TextEditingController noteController;
+  final ScrollController scrollController;
 
   @override
   Widget build(BuildContext context) {
@@ -64,9 +66,24 @@ class ShimmerCardCreatorExpansion extends StatelessWidget {
               maxLines: 5,
             ),
           ),
+          SizedBox(
+            height: AppParameter.spaceM,
+          ),
         ],
+        onExpansionChanged: onExpansionChanged,
       ),
     );
+  }
+
+  void onExpansionChanged(bool expand) async {
+    if (expand) {
+      await Future.delayed(Duration(milliseconds: 500));
+      scrollController.animateTo(
+        scrollController.position.maxScrollExtent,
+        duration: Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    }
   }
 
   Widget _item(Widget child) {
@@ -85,6 +102,7 @@ class ShimmerCardCreatorExpansion extends StatelessWidget {
     String genre,
     String theme,
     String note,
+    ScrollController scrollController,
   }) {
     return ShimmerCardCreatorExpansion._(
       locationController: TextEditingController(text: location),
@@ -92,6 +110,7 @@ class ShimmerCardCreatorExpansion extends StatelessWidget {
       genreController: TextEditingController(text: genre),
       themeController: TextEditingController(text: theme),
       noteController: TextEditingController(text: note),
+      scrollController: scrollController,
     );
   }
 }

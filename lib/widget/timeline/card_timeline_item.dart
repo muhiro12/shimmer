@@ -21,10 +21,9 @@ class CardTimelineItem extends TimelineItem {
             children: <Widget>[
               Text(
                 _log.tags.isNotEmpty ? _log.tags.first : '#None',
-                style: Theme.of(context)
-                    .textTheme
-                    .headline5
-                    .copyWith(color: Colors.grey),
+                style: Theme.of(context).textTheme.headline5.copyWith(
+                      color: Theme.of(context).hintColor,
+                    ),
               ),
               Spacer(),
               Text(

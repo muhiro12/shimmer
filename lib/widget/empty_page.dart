@@ -13,7 +13,7 @@ class EmptyPage extends StatelessWidget {
           Text(
             'Let\'s create\nnew Shimmer Card!!',
             style: Theme.of(context).textTheme.headline6.copyWith(
-                  color: Colors.grey,
+                  color: Theme.of(context).hintColor,
                 ),
           ),
           IconButton(
