@@ -22,11 +22,16 @@ class FlatTimeline extends Timeline {
               .map(
                 (log) => Dismissible(
                   key: Key(log.key),
-                  background: Center(
-                    child: ColoredBox(
-                      color: Colors.red,
+                  background: ColoredBox(
+                    color: Colors.red,
+                    child: Center(
                       child: ListTile(
-                        trailing: Text('Delete'),
+                        trailing: Text(
+                          'Delete',
+                          style: Theme.of(context).textTheme.bodyText1.copyWith(
+                                color: Colors.white,
+                              ),
+                        ),
                       ),
                     ),
                   ),

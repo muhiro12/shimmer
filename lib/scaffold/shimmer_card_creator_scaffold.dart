@@ -112,7 +112,7 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
                                   color: Colors.red,
                                 ),
                           ),
-                          onPressed: () => _onDeleteButtonPressed(context),
+                          onPressed: () => _onArchiveButtonPressed(context),
                         ),
                       ),
                     ),
@@ -134,7 +134,7 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
     Navigator.pop(context);
   }
 
-  void _onDeleteButtonPressed(BuildContext context) {
+  void _onArchiveButtonPressed(BuildContext context) {
     _archiveLog();
     Navigator.popUntil(
       context,
@@ -186,6 +186,7 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
     ShimmerCardCreatorType type,
     ShimmerLog log,
   }) {
+    _state = log.state;
     final scrollController = ScrollController();
     return ShimmerCardCreatorScaffold._(
       type,
@@ -210,7 +211,7 @@ class ShimmerCardCreatorScaffold extends StatelessWidget {
     );
   }
 
-  static ShimmerLogState _state = ShimmerLogState.draft;
+  static ShimmerLogState _state;
 
   static void showAsModal({
     ShimmerCardCreatorType type,
