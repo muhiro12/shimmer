@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/interface/database/shimmer_log.dart';
+import 'package:shimmer/interface/database/shimmer_log_state.dart';
 import 'package:shimmer/model/shimmer_card_creator_type.dart';
 import 'package:shimmer/model/shimmer_logs.dart';
 import 'package:shimmer/model/shimmer_logs_repository.dart';
@@ -73,12 +74,25 @@ class FlatTimeline extends Timeline {
     }
     switch (direction) {
       case DismissDirection.startToEnd:
-        _toCardCreator(log);
+        _restore(log);
         break;
       case DismissDirection.endToStart:
         _deleteLog(log);
         break;
       default:
+        break;
+    }
+  }
+
+  void _restore(ShimmerLog log) {
+    switch (log.state) {
+      case ShimmerLogState.published:
+        break;
+      case ShimmerLogState.draft:
+        _toCardCreator(log);
+        break;
+      case ShimmerLogState.archived:
+        ShimmerLogsRepository.instance.publishLog(log);
         break;
     }
   }

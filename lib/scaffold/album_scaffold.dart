@@ -33,6 +33,7 @@ class AlbumScaffold extends StatelessWidget {
             return FlatListView(
               sections: <FlatListSection>[
                 FlatListSection(
+                  visible: published.isNotEmpty,
                   tiles: published
                       .map(
                         (albumItem) => CardTimelineLauncher(albumItem.logs),
