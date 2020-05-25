@@ -70,12 +70,12 @@ class ShimmerCardCreatorExpansion extends StatelessWidget {
             height: AppParameter.spaceM,
           ),
         ],
-        onExpansionChanged: onExpansionChanged,
+        onExpansionChanged: _onExpansionChanged,
       ),
     );
   }
 
-  void onExpansionChanged(bool expand) async {
+  void _onExpansionChanged(bool expand) async {
     if (expand) {
       await Future.delayed(Duration(milliseconds: 500));
       scrollController.animateTo(

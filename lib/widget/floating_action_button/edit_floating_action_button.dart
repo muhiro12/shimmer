@@ -20,8 +20,8 @@ class EditFloatingActionButton extends StatelessWidget {
 
   void _onPressed(BuildContext context) {
     ShimmerCardCreatorScaffold.showAsModal(
-      type: ShimmerCardCreatorType.edit,
       log: _log,
+      type: ShimmerCardCreatorType.edit,
       completion: (isArchived) {
         if (isArchived) Navigator.pop(context);
       },
