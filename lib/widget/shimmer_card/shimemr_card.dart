@@ -7,35 +7,46 @@ class ShimmerCard extends StatelessWidget {
   ShimmerCard._({
     this.children,
     this.elevation,
+    this.flexible,
     this.onTap,
   });
 
   final List<Widget> children;
   final double elevation;
+  final bool flexible;
   final Function onTap;
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 16 / 9,
-      child: GestureDetector(
-        onTap: onTap,
-        child: Card(
-          elevation: elevation ?? AppParameter.elevation,
-          child: Container(
-            padding: EdgeInsets.all(AppParameter.spaceM),
-            child: Row(
-              children: children,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final height = constraints.maxWidth * 9 / 16;
+        return ConstrainedBox(
+          constraints: BoxConstraints(
+            minHeight: height,
+            maxHeight: flexible ? double.infinity : height,
+          ),
+          child: GestureDetector(
+            onTap: onTap,
+            child: Card(
+              elevation: elevation ?? AppParameter.elevation,
+              child: Container(
+                padding: EdgeInsets.all(AppParameter.spaceM),
+                child: Row(
+                  children: children,
+                ),
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
   static ShimmerCard init({
     List<Widget> children,
     double elevation,
+    bool flexible = false,
     Function onTap,
   }) {
     if (children == null) {
@@ -65,6 +76,7 @@ class ShimmerCard extends StatelessWidget {
     return ShimmerCard._(
       children: childrenWithSpace,
       elevation: elevation,
+      flexible: flexible,
       onTap: onTap,
     );
   }

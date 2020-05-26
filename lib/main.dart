@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/configuration/app_parameter.dart';
 import 'package:shimmer/configuration/app_theme.dart';
 import 'package:shimmer/interface/database/database.dart';
 import 'package:shimmer/model/configurations_repository.dart';
@@ -84,6 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
         children: _bottomNavigators,
       ),
       bottomNavigationBar: BottomNavigationBar(
+        elevation: AppParameter.zero,
         items: _bottomNavigators
             .map((bottomNavigator) => bottomNavigator.barItem)
             .toList(),

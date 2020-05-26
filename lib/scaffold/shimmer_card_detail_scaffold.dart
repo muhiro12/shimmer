@@ -37,10 +37,10 @@ class ShimmerCardDetailScaffold extends StatelessWidget {
         children: <Widget>[
           ShimmerCardSummary(_log),
           ShimmerCard.init(
+            flexible: true,
             children: [
               ShimmerCardChild.init(
                 items: [_log.summary],
-                scrollable: true,
               ),
             ],
           ),
@@ -59,10 +59,10 @@ class ShimmerCardDetailScaffold extends StatelessWidget {
             ],
           ),
           ShimmerCard.init(
+            flexible: true,
             children: [
               ShimmerCardChild.init(
                 items: [_log.detail],
-                scrollable: true,
               ),
             ],
           ),

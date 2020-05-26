@@ -15,7 +15,6 @@ class ShimmerCardChild extends StatelessWidget {
   static ShimmerCardChild init<T>({
     Widget body,
     List<T> items = const [],
-    bool scrollable = false,
   }) {
     if (body != null) {
       return ShimmerCardChild._(body);
@@ -24,21 +23,12 @@ class ShimmerCardChild extends StatelessWidget {
     if (children.isEmpty) {
       return null;
     }
-    if (scrollable) {
-      return ShimmerCardChild._(
-        ListView(
-          shrinkWrap: true,
-          children: children,
-        ),
-      );
-    } else {
-      return ShimmerCardChild._(
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: children,
-        ),
-      );
-    }
+    return ShimmerCardChild._(
+      Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: children,
+      ),
+    );
   }
 
   static List<Widget> createChildren<T>(List<T> items) {
