@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shimmer/interface/database/shimmer_category.dart';
 import 'package:shimmer/interface/database/shimmer_log.dart';
 import 'package:shimmer/interface/database/shimmer_log_state.dart';
 import 'package:shimmer/interface/database/shimmer_logs_data_store.dart';
@@ -23,9 +24,9 @@ void main() {
   final testData = TestData.logList;
   final instance = ShimmerLogsRepository(ShimmerLogsDataStoreTest());
   group(
-    'fetchAll() case test data',
+    'load() case test data',
     () {
-      final result = instance.fetchAll();
+      final result = instance.load();
       test(
         'return value should not be null',
         () {
@@ -135,20 +136,167 @@ void main() {
         },
       );
       test(
-        'return value first date should be test data [3]',
+        'return value first should be test data [3]',
         () {
           expect(
-            result.value.first.date,
-            testData[3].date,
+            result.value.first,
+            testData[3],
           );
         },
       );
       test(
-        'return value last should be test data first',
+        'return value last should be test data [0]',
         () {
           expect(
-            result.value.last.date,
-            testData.first.date,
+            result.value.last,
+            testData.first,
+          );
+        },
+      );
+    },
+  );
+  group(
+    'fetchDraft() case test data',
+    () {
+      final result = instance.fetchDraft();
+      test(
+        'return value should contain draft',
+        () {
+          expect(
+            result.value
+                .where((log) => log.state == ShimmerLogState.draft)
+                .isNotEmpty,
+            true,
+          );
+        },
+      );
+      test(
+        'return value should not contain published',
+        () {
+          expect(
+            result.value
+                .where((log) => log.state == ShimmerLogState.published)
+                .isEmpty,
+            true,
+          );
+        },
+      );
+      test(
+        'return value should not contain archived',
+        () {
+          expect(
+            result.value
+                .where((log) => log.state == ShimmerLogState.archived)
+                .isEmpty,
+            true,
+          );
+        },
+      );
+      test(
+        'return value first should be test data [6]',
+        () {
+          expect(
+            result.value.first,
+            testData[6],
+          );
+        },
+      );
+      test(
+        'return value last should be test data [5]',
+        () {
+          expect(
+            result.value.last,
+            testData[5],
+          );
+        },
+      );
+    },
+  );
+  group(
+    'fetchArchived() case test data',
+    () {
+      final result = instance.fetchArchived();
+      test(
+        'return value should contain archived',
+        () {
+          expect(
+            result.value
+                .where((log) => log.state == ShimmerLogState.archived)
+                .isNotEmpty,
+            true,
+          );
+        },
+      );
+      test(
+        'return value should not contain draft',
+        () {
+          expect(
+            result.value
+                .where((log) => log.state == ShimmerLogState.draft)
+                .isEmpty,
+            true,
+          );
+        },
+      );
+      test(
+        'return value should not contain published',
+        () {
+          expect(
+            result.value
+                .where((log) => log.state == ShimmerLogState.published)
+                .isEmpty,
+            true,
+          );
+        },
+      );
+      test(
+        'return value first should be test data [4]',
+        () {
+          expect(
+            result.value.first,
+            testData[4],
+          );
+        },
+      );
+      test(
+        'return value last should be test data [7]',
+        () {
+          expect(
+            result.value.last,
+            testData[7],
+          );
+        },
+      );
+    },
+  );
+  group(
+    'fetchCategorized() case test data',
+    () {
+      final result = instance.fetchCategorized(ShimmerCategory.concert);
+      test(
+        'result value is category',
+        () {
+          expect(
+            result.key,
+            'Concert',
+          );
+        },
+      );
+      test(
+        'return value first should be test data [1]',
+        () {
+          expect(
+            result.value.first,
+            testData[1],
+          );
+        },
+      );
+      test(
+        'return value last should be test data [1]',
+        () {
+          expect(
+            result.value.last,
+            testData[1],
           );
         },
       );

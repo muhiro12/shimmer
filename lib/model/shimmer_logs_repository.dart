@@ -22,44 +22,63 @@ class ShimmerLogsRepository {
     return ShimmerLogsDataStore.instance.listenable();
   }
 
-  ShimmerLogs fetchAll() {
-    return ShimmerLogs(
+  ShimmerLogs _cache;
+
+  ShimmerLogs load() {
+    _cache = ShimmerLogs(
       value: _dataStore.load(),
     );
+    return _cache;
   }
 
   ShimmerLogs fetchAllSortedByDate() {
-    final all = fetchAll();
-    ShimmerLogsParser parser = ShimmerLogsParser(all);
+    final ShimmerLogsParser parser = ShimmerLogsParser(_cache);
     return parser.sortedByDate();
   }
 
   ShimmerLogs fetchPublished() {
-    final all = fetchAllSortedByDate();
-    ShimmerLogsParser parser = ShimmerLogsParser(all);
+    final ShimmerLogs all = fetchAllSortedByDate();
+    final ShimmerLogsParser parser = ShimmerLogsParser(all);
     return parser.whereOfPublished();
   }
 
+  ShimmerLogs fetchDraft() {
+    final ShimmerLogs all = fetchAllSortedByDate();
+    final ShimmerLogsParser parser = ShimmerLogsParser(all);
+    return parser.whereOfDraft();
+  }
+
+  ShimmerLogs fetchArchived() {
+    final ShimmerLogs all = fetchAllSortedByDate();
+    final ShimmerLogsParser parser = ShimmerLogsParser(all);
+    return parser.whereOfArchived();
+  }
+
+  ShimmerLogs fetchCategorized(ShimmerCategory category) {
+    final ShimmerLogs all = fetchPublished();
+    final ShimmerLogsParser parser = ShimmerLogsParser(all);
+    return parser.whereOfCategory(category);
+  }
+
   List<AlbumItem> fetchAlbumItems() {
-    ShimmerLogs all = fetchAllSortedByDate();
-    ShimmerLogsParser parser = ShimmerLogsParser(all);
+    final ShimmerLogs published = fetchPublished();
+    final ShimmerLogsParser parser = ShimmerLogsParser(published);
     List<AlbumItem> albumItems = <AlbumItem>[
       AlbumItem(
         state: ShimmerLogState.draft,
         logs: ShimmerLogs(
           key: ShimmerLogState.draft.toUpperCamelCaseString(),
-          value: parser.whereOfDraft().value,
+          value: fetchDraft().value,
         ),
       ),
       AlbumItem(
         state: ShimmerLogState.archived,
         logs: ShimmerLogs(
           key: ShimmerLogState.archived.toUpperCamelCaseString(),
-          value: parser.whereOfArchived().value,
+          value: fetchArchived().value,
         ),
       ),
     ];
-    parser.logs = parser.whereOfPublished();
     albumItems.insertAll(
       0,
       parser

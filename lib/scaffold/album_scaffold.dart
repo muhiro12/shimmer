@@ -20,6 +20,7 @@ class AlbumScaffold extends StatelessWidget {
         child: ValueListenableBuilder(
           valueListenable: ShimmerLogsRepository.instance.listenable(),
           builder: (context, box, widget) {
+            ShimmerLogsRepository.instance.load();
             final albumItems = ShimmerLogsRepository.instance.fetchAlbumItems();
             final published = albumItems.where(
               (albumItem) => albumItem.state == ShimmerLogState.published,

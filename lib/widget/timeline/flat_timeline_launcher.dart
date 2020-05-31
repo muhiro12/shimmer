@@ -9,6 +9,6 @@ class FlatTimelineLauncher extends TimelineLauncher {
 
   @override
   void launch(BuildContext context, ShimmerLogs logs) {
-    FlatTimelineScaffold.push(context, logs);
+    FlatTimelineScaffold.push(context, logs.value.first.state);
   }
 }

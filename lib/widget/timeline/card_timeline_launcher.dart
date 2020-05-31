@@ -9,6 +9,6 @@ class CardTimelineLauncher extends TimelineLauncher {
 
   @override
   void launch(BuildContext context, ShimmerLogs logs) {
-    CategoryScaffold.push(context, logs);
+    CategoryScaffold.push(context, logs.value.first.category);
   }
 }

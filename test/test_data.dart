@@ -8,31 +8,41 @@ class TestData {
     ShimmerLog(
       state: ShimmerLogState.published,
       category: ShimmerCategory.plain,
-      date: DateTime(1),
+      date: DateTime(0),
     ),
     ShimmerLog(
       state: ShimmerLogState.published,
       category: ShimmerCategory.concert,
-      date: DateTime(200),
+      date: DateTime(100),
     ),
     ShimmerLog(
       state: ShimmerLogState.published,
       category: ShimmerCategory.plain,
-      date: DateTime(30),
+      date: DateTime(20),
     ),
     ShimmerLog(
       state: ShimmerLogState.published,
       category: ShimmerCategory.book,
-      date: DateTime(4000),
+      date: DateTime(3000),
     ),
     ShimmerLog(
       state: ShimmerLogState.archived,
       category: ShimmerCategory.plain,
-      date: DateTime(50),
+      date: DateTime(40),
     ),
     ShimmerLog(
       category: ShimmerCategory.book,
-      date: DateTime(6),
+      date: DateTime(5),
+    ),
+    ShimmerLog(
+      state: ShimmerLogState.draft,
+      category: ShimmerCategory.concert,
+      date: DateTime(60),
+    ),
+    ShimmerLog(
+      state: ShimmerLogState.archived,
+      category: ShimmerCategory.concert,
+      date: DateTime(7),
     ),
   ];
 

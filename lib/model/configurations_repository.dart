@@ -11,11 +11,11 @@ class ConfigurationsRepository {
   static final ConfigurationsRepository instance =
       ConfigurationsRepository(ConfigurationsDataStore.instance);
 
-  Configurations _cache;
-
   ValueListenable listenable() {
     return ConfigurationsDataStore.instance.listenable();
   }
+
+  Configurations _cache;
 
   Configurations load() {
     final value = _dataStore.load();

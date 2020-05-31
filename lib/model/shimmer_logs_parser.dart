@@ -43,6 +43,17 @@ class ShimmerLogsParser {
     );
   }
 
+  ShimmerLogs whereOfCategory(ShimmerCategory category) {
+    return ShimmerLogs(
+      key: category.toUpperCamelCaseString(),
+      value: logs
+          .where(
+            (log) => log.category == category,
+          )
+          .value,
+    );
+  }
+
   List<ShimmerLogs> toCategorizedLogsList() {
     final ShimmerLogs logs = _clone();
     List<ShimmerLogs> logsList = [];

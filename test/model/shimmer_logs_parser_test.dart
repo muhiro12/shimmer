@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shimmer/interface/database/shimmer_category.dart';
 import 'package:shimmer/interface/database/shimmer_log_state.dart';
 import 'package:shimmer/model/shimmer_logs_parser.dart';
 
@@ -188,6 +189,61 @@ void main() {
                 .where((log) => log.state == ShimmerLogState.draft)
                 .isEmpty,
             true,
+          );
+        },
+      );
+    },
+  );
+  group(
+    'whereOfCategory() case test data',
+    () {
+      final result = instance.whereOfCategory(ShimmerCategory.concert);
+      test(
+        'original value should not be changed',
+        () {
+          expect(
+            instance.logs,
+            testData,
+          );
+        },
+      );
+      test(
+        'return value key should be Concert',
+        () {
+          expect(
+            result.key,
+            'Concert',
+          );
+        },
+      );
+      test(
+        'return value should contain concert',
+        () {
+          expect(
+            result.value
+                .where((log) => log.category == ShimmerCategory.concert)
+                .isNotEmpty,
+            true,
+          );
+        },
+      );
+      test(
+        'return value should not contain that is not concert',
+        () {
+          expect(
+            result.value
+                .where((log) => log.category != ShimmerCategory.concert)
+                .isEmpty,
+            true,
+          );
+        },
+      );
+      test(
+        'return value length should be 3',
+        () {
+          expect(
+            result.value.length,
+            3,
           );
         },
       );
