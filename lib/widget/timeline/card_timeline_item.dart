@@ -4,6 +4,7 @@ import 'package:shimmer/configuration/app_parameter.dart';
 import 'package:shimmer/interface/database/shimmer_category.dart';
 import 'package:shimmer/interface/database/shimmer_log.dart';
 import 'package:shimmer/widget/shimmer_card/shimmer_card_summary.dart';
+import 'package:shimmer/widget/sized_spacer.dart';
 import 'package:shimmer/widget/timeline/timeline_item.dart';
 
 class CardTimelineItem extends TimelineItem {
@@ -13,11 +14,11 @@ class CardTimelineItem extends TimelineItem {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Container(
-          margin: EdgeInsets.all(AppParameter.spaceM),
-          child: Row(
+    return Container(
+      margin: EdgeInsets.all(AppParameter.spaceM),
+      child: Column(
+        children: <Widget>[
+          Row(
             children: <Widget>[
               Text(
                 _log.tags.isNotEmpty ? _log.tags.first : '#None',
@@ -34,15 +35,22 @@ class CardTimelineItem extends TimelineItem {
               ),
             ],
           ),
-        ),
-        Container(
-          transform: Matrix4.translationValues(AppParameter.spaceL, 0, 0),
-          child: ShimmerCardSummary(
-            _log,
-            toDetail: true,
+          SizedSpacer(
+            height: AppParameter.spaceS,
           ),
-        ),
-      ],
+          Container(
+            transform: Matrix4.translationValues(
+              AppParameter.spaceL,
+              0,
+              0,
+            ),
+            child: ShimmerCardSummary(
+              _log,
+              toDetail: true,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

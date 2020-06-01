@@ -20,7 +20,7 @@ class ShimmerCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final height = constraints.maxWidth * 9 / 16;
+        final height = constraints.maxWidth * 1 / 1.618;
         return ConstrainedBox(
           constraints: BoxConstraints(
             minHeight: height,
