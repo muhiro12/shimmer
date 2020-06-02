@@ -38,10 +38,7 @@ class ShimmerCardChild extends StatelessWidget {
         final notEmptyTexts = texts.where((text) => text.isNotEmpty).toList();
         return notEmptyTexts
             .map(
-              (text) => Text(
-                text,
-                textAlign: TextAlign.center,
-              ),
+              (text) => Text(text),
             )
             .toList();
       case Uint8List:
