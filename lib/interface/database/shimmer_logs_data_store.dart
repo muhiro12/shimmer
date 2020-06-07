@@ -34,11 +34,15 @@ class ShimmerLogsDataStore extends ShimmerLogsDataStoreInterface {
 
   @override
   void save(ShimmerLog log) {
-    _box.put(log.key, log);
+    if (log.isInBox) {
+      log.save();
+    } else {
+      _box.put(log.key, log);
+    }
   }
 
   @override
   void delete(ShimmerLog log) {
-    _box.delete(log.key);
+    log.delete();
   }
 }

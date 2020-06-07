@@ -8,7 +8,7 @@ import 'package:shimmer/interface/database/shimmer_log_state.dart';
 part 'shimmer_log.g.dart';
 
 @HiveType(typeId: 1)
-class ShimmerLog {
+class ShimmerLog extends HiveObject {
   ShimmerLog({
     DateTime updatedAt,
     this.state = ShimmerLogState.draft,
